@@ -1,3 +1,3 @@
-- [ ] Adapt homepage heading, photo, navigation and compact layouts to different screen sizes.
-- [ ] Remove the “Where the work lives” / “The Global Archives” homepage section.
-- [ ] Verify the homepage at phone, tablet and desktop widths.
+- [x] Adapt homepage heading, photo, navigation and compact layouts to different screen sizes.
+- [x] Remove the “Where the work lives” / “The Global Archives” homepage section.
+- [x] Verify the homepage at phone, tablet and desktop widths.
