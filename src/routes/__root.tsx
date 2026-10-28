@@ -8,7 +8,9 @@ import {
   Scripts,
   type ErrorComponentProps,
 } from "@tanstack/react-router";
-import { useEffect, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
+import { supabase } from "@/integrations/supabase/client";
+import type { Overrides } from "@/content/cms";
 
 import appCss from "../styles.css?url";
 import { applyOverrides, brandCss, fontHref, type Brand } from "@/content/cms";
@@ -146,13 +148,39 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const [draft, setDraft] = useState<Overrides>();
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("cmsPreview") !== "1" || window.parent === window) return;
+    let alive = true;
+    let listener: ((event: MessageEvent) => void) | undefined;
+    void (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user || !alive) return;
+      const { data, error } = await supabase.rpc("has_role", { _user_id: user.id, _role: "admin" });
+      if (!data || error || !alive) return;
+      listener = (event) => {
+        if (event.origin !== window.location.origin || event.source !== window.parent || event.data?.type !== "cms-draft") return;
+        const overrides = event.data.overrides as Overrides;
+        setDraft(overrides);
+        const brand = brandOf(overrides);
+        const style = document.getElementById("bl-brand");
+        if (style) style.textContent = brandCss(brand);
+        document.documentElement.dataset.motion = brand.motion === false ? "off" : "on";
+        const link = document.querySelector<HTMLLinkElement>('link[href*="fonts.googleapis.com/css2"]');
+        if (link) link.href = fontHref(brand);
+      };
+      window.addEventListener("message", listener);
+      window.parent.postMessage({ type: "cms-ready" }, window.location.origin);
+    })();
+    return () => { alive = false; if (listener) window.removeEventListener("message", listener); };
+  }, []);
   // Make saved CMS content visible to every page before they render.
-  applyOverrides(Route.useLoaderData()?.overrides);
+  applyOverrides(draft ?? Route.useLoaderData()?.overrides);
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <div key={draft ? JSON.stringify(draft) : "published"}><Outlet /></div>
     </QueryClientProvider>
   );
 }

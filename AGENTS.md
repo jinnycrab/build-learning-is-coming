@@ -10,3 +10,4 @@
 <!-- LOVABLE:END -->
 
 - Keep the pending CMS schema contract in `src/lib/cms-client.ts`, reusing the generated Supabase connection; this allows CMS code to compile before migration without editing generated types or changing database access.
+- Preview drafts travel through an ephemeral same-origin BroadcastChannel to an owner-gated preview page and authenticated iframe; never persist draft previews or apply them to the editor's shared content objects.
