@@ -148,6 +148,7 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const loaderData = Route.useLoaderData();
   const [draft, setDraft] = useState<Overrides>();
   useEffect(() => {
     if (new URLSearchParams(window.location.search).get("cmsPreview") !== "1" || window.parent === window) return;
@@ -175,7 +176,7 @@ function RootComponent() {
     return () => { alive = false; if (listener) window.removeEventListener("message", listener); };
   }, []);
   // Make saved CMS content visible to every page before they render.
-  applyOverrides(draft ?? Route.useLoaderData()?.overrides);
+  applyOverrides(draft ?? loaderData?.overrides);
 
   return (
     <QueryClientProvider client={queryClient}>
