@@ -9,7 +9,11 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Build Learning — Build what AI can’t" },
-      { name: "description", content: "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace." },
+      {
+        name: "description",
+        content:
+          "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
+      },
     ],
   }),
   component: Home,
@@ -45,17 +49,29 @@ function Hero() {
       <Container className="grid items-end gap-14 pb-14 pt-20 lg:grid-cols-2 lg:pt-24">
         <div className="flex flex-col gap-7">
           <Eyebrow muted>{home.eyebrow}</Eyebrow>
-          <h1 className="disp m-0 text-[clamp(3rem,7vw,6rem)] leading-[0.98]" aria-label={home.headline.join(" ")}>
+          <h1
+            className="disp m-0 text-[length:calc(clamp(3rem,7vw,6rem)*var(--bl-hscale))] leading-[0.98]"
+            aria-label={home.headline.join(" ")}
+          >
             {home.headline.map((w, i) => (
               <span key={w} aria-hidden="true">
-                <span className="w" style={{ animationDelay: `${0.05 + i * 0.17}s`, color: i === home.headline.length - 1 ? "var(--bl-accent)" : undefined }}>
+                <span
+                  className="w"
+                  style={{
+                    animationDelay: `${0.05 + i * 0.17}s`,
+                    color: i === home.headline.length - 1 ? "var(--bl-accent)" : undefined,
+                  }}
+                >
                   {w}
                 </span>
                 {i === 1 ? <br /> : " "}
               </span>
             ))}
           </h1>
-          <p className="fade-up m-0 max-w-[560px] text-[19px] leading-relaxed text-bl-ink-2" style={{ animationDelay: ".85s" }}>
+          <p
+            className="fade-up m-0 max-w-[560px] text-[length:calc(19px*var(--bl-scale))] leading-relaxed text-bl-ink-2"
+            style={{ animationDelay: ".85s" }}
+          >
             {home.intro}
           </p>
           <div className="flex flex-wrap gap-3">
@@ -66,11 +82,15 @@ function Hero() {
           </div>
         </div>
         <div className="relative min-h-[380px] lg:min-h-[460px]">
-          <img src={home.heroImage} alt="More than a hundred students at the Build for Impact 2026 hackathon" className="absolute inset-0 h-full w-full rounded-[20px] border border-white/15 object-cover" />
+          <img
+            src={home.heroImage}
+            alt="More than a hundred students at the Build for Impact 2026 hackathon"
+            className="absolute inset-0 h-full w-full rounded-[20px] border border-white/15 object-cover"
+          />
           <button
             type="button"
             onClick={() => setReel(true)}
-            className="eyebrow absolute right-4 top-4 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/25 bg-bl-bg/75 py-1.5 pl-1.5 pr-4 text-[11px] backdrop-blur hover:border-bl-yellow"
+            className="eyebrow absolute right-4 top-4 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/25 bg-bl-bg/75 py-1.5 pl-1.5 pr-4 text-[length:calc(11px*var(--bl-scale))] backdrop-blur hover:border-bl-yellow"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-bl-accent">
               <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12">
@@ -83,17 +103,29 @@ function Hero() {
             href={home.nextUp.href}
             className="absolute -bottom-6 left-4 flex w-[300px] flex-col gap-2.5 rounded-2xl border border-white/15 bg-bl-surface/95 p-5 backdrop-blur lg:-left-8 lg:bottom-7"
           >
-            <span className="eyebrow text-[11px] text-bl-accent">● {home.nextUp.tag}</span>
+            <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-accent">
+              ● {home.nextUp.tag}
+            </span>
             <span className="disp text-lg leading-tight">{home.nextUp.title}</span>
-            <span className="text-[13px] text-bl-ink-3">{home.nextUp.meta}</span>
+            <span className="text-[length:calc(13px*var(--bl-scale))] text-bl-ink-3">
+              {home.nextUp.meta}
+            </span>
             <span className="flex gap-5 border-t border-bl-line pt-2.5">
               <span>
-                <span className="disp block text-[28px] tabular-nums">{days}</span>
-                <span className="eyebrow text-[10px] text-bl-ink-3">days to register</span>
+                <span className="disp block text-[length:calc(28px*var(--bl-scale))] tabular-nums">
+                  {days}
+                </span>
+                <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
+                  days to register
+                </span>
               </span>
               <span>
-                <span className="disp block text-[28px]">{home.nextUp.award}</span>
-                <span className="eyebrow text-[10px] text-bl-ink-3">seed award</span>
+                <span className="disp block text-[length:calc(28px*var(--bl-scale))]">
+                  {home.nextUp.award}
+                </span>
+                <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
+                  seed award
+                </span>
               </span>
             </span>
           </SiteLink>
@@ -125,34 +157,71 @@ function Reel({ onClose }: { onClose: () => void }) {
   }, [onClose]);
   const cur = home.reel[i] ?? home.reel[0]!;
   return (
-    <div role="dialog" aria-modal="true" aria-label="Build Learning highlight reel" className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-[rgba(4,5,7,.95)] p-6">
+    <div
+      role="dialog"
+      aria-modal="true"
+      aria-label="Build Learning highlight reel"
+      className="fixed inset-0 z-50 flex flex-col items-center justify-center gap-4 bg-[rgba(4,5,7,.95)] p-6"
+    >
       <div className="flex w-full max-w-[1200px] items-center justify-between">
-        <span className="eyebrow text-[11px] text-bl-ink-3">
+        <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
           Highlight reel · {i + 1} / {n}
         </span>
-        <button type="button" onClick={onClose} aria-label="Close reel" className="h-11 w-11 rounded-full border border-white/30 text-xl">
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close reel"
+          className="h-11 w-11 rounded-full border border-white/30 text-xl"
+        >
           ×
         </button>
       </div>
       <div className="relative aspect-video max-h-[72vh] w-full max-w-[1200px] overflow-hidden rounded-[18px] bg-black">
         {home.reel.map((s, k) => (
-          <img key={s.src + k} src={s.src} alt={s.caption} className="reel-slide" style={{ opacity: k === i ? 1 : 0, transform: `scale(${k === i ? 1.08 : 1})` }} />
+          <img
+            key={s.src + k}
+            src={s.src}
+            alt={s.caption}
+            className="reel-slide"
+            style={{ opacity: k === i ? 1 : 0, transform: `scale(${k === i ? 1.08 : 1})` }}
+          />
         ))}
         <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/80 to-transparent px-7 pb-6 pt-16">
-          <div className="eyebrow text-[11px] text-bl-accent">{cur.tag}</div>
-          <div className="disp mt-1.5 text-[26px]">{cur.caption}</div>
+          <div className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-accent">
+            {cur.tag}
+          </div>
+          <div className="disp mt-1.5 text-[length:calc(26px*var(--bl-scale))]">{cur.caption}</div>
         </div>
-        <button type="button" aria-label="Previous" onClick={() => setI((i - 1 + n) % n)} className="absolute left-4 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-bl-bg/70 text-xl">
+        <button
+          type="button"
+          aria-label="Previous"
+          onClick={() => setI((i - 1 + n) % n)}
+          className="absolute left-4 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-bl-bg/70 text-xl"
+        >
           ‹
         </button>
-        <button type="button" aria-label="Next" onClick={() => setI((i + 1) % n)} className="absolute right-4 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-bl-bg/70 text-xl">
+        <button
+          type="button"
+          aria-label="Next"
+          onClick={() => setI((i + 1) % n)}
+          className="absolute right-4 top-1/2 h-12 w-12 -translate-y-1/2 rounded-full bg-bl-bg/70 text-xl"
+        >
           ›
         </button>
       </div>
       <div className="flex w-full max-w-[1200px] gap-1.5">
         {home.reel.map((_, k) => (
-          <button key={k} type="button" aria-label={`Go to slide ${k + 1}`} onClick={() => setI(k)} className="flex-1 py-2.5">
-            <span className="block h-[3px] rounded" style={{ background: k === i ? "var(--bl-accent)" : "rgba(255,255,255,.25)" }} />
+          <button
+            key={k}
+            type="button"
+            aria-label={`Go to slide ${k + 1}`}
+            onClick={() => setI(k)}
+            className="flex-1 py-2.5"
+          >
+            <span
+              className="block h-[3px] rounded"
+              style={{ background: k === i ? "var(--bl-accent)" : "rgba(255,255,255,.25)" }}
+            />
           </button>
         ))}
       </div>
@@ -165,11 +234,28 @@ function Filmstrip() {
   const { ref, p } = useScrollProgress<HTMLElement>();
   const rows = home.filmstrip;
   return (
-    <section ref={ref} aria-label="Moments from our programs" className="flex flex-col gap-2.5 overflow-hidden border-b border-bl-line py-2.5">
+    <section
+      ref={ref}
+      aria-label="Moments from our programs"
+      className="flex flex-col gap-2.5 overflow-hidden border-b border-bl-line py-2.5"
+    >
       {rows.map((row, r) => (
-        <div key={r} className="flex w-max gap-2.5 pl-2.5 will-change-transform" style={{ transform: `translateX(${(r === 0 ? -34 + 30 * p : -22 + 20 * p).toFixed(2)}%)` }}>
+        <div
+          key={r}
+          className="flex w-max gap-2.5 pl-2.5 will-change-transform"
+          style={{
+            transform: `translateX(${(r === 0 ? -34 + 30 * p : -22 + 20 * p).toFixed(2)}%)`,
+          }}
+        >
           {row.map((im, k) => (
-            <img key={k} src={im.src} alt={im.alt} loading="lazy" className="h-[200px] shrink-0 rounded-[14px] object-cover sm:h-[260px]" style={{ width: im.w }} />
+            <img
+              key={k}
+              src={im.src}
+              alt={im.alt}
+              loading="lazy"
+              className="h-[200px] shrink-0 rounded-[14px] object-cover sm:h-[260px]"
+              style={{ width: im.w }}
+            />
           ))}
         </div>
       ))}
@@ -185,7 +271,12 @@ function Pathways() {
         <SectionHead
           eyebrow="01 — What we do"
           title="More than passion projects. One ecosystem, four ways to build."
-          aside={<p className="m-0 max-w-[520px] text-[17px] leading-relaxed text-[#B4B9C1]">Every pathway runs on the same B.U.I.L.D method and mentor network — and every finished project can be published to The Global Archives.</p>}
+          aside={
+            <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+              Every pathway runs on the same B.U.I.L.D method and mentor network — and every
+              finished project can be published to The Global Archives.
+            </p>
+          }
         />
         <div className="flex flex-col gap-7">
           {home.pathways.map((c, i) => (
@@ -196,32 +287,64 @@ function Pathways() {
               style={{ top: 96 + i * 28 }}
             >
               <div className="pv min-h-[280px] rounded-2xl md:min-h-[380px]">
-                <img className="pv-a absolute inset-0 h-full w-full object-cover" src={c.img} alt="" loading="lazy" />
-                <img className="pv-b h-full w-full object-cover" src={c.img2} alt="" loading="lazy" />
-                <span className="eyebrow absolute bottom-3.5 left-3.5 rounded-full bg-bl-bg/80 px-3 py-2 text-[10px]">▶ Hover to preview</span>
+                <img
+                  className="pv-a absolute inset-0 h-full w-full object-cover"
+                  src={c.img}
+                  alt=""
+                  loading="lazy"
+                />
+                <img
+                  className="pv-b h-full w-full object-cover"
+                  src={c.img2}
+                  alt=""
+                  loading="lazy"
+                />
+                <span className="eyebrow absolute bottom-3.5 left-3.5 rounded-full bg-bl-bg/80 px-3 py-2 text-[length:calc(10px*var(--bl-scale))]">
+                  ▶ Hover to preview
+                </span>
               </div>
               <div className="flex flex-col justify-center gap-4 p-3 md:p-5 md:pl-1">
-                <div className="eyebrow flex justify-between text-[12px]">
+                <div className="eyebrow flex justify-between text-[length:calc(12px*var(--bl-scale))]">
                   <span className="text-bl-accent">0{i + 1} / 04</span>
-                  <span className="text-[11px] text-bl-ink-3">{c.tag}</span>
+                  <span className="text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+                    {c.tag}
+                  </span>
                 </div>
-                <span className="disp text-[clamp(1.75rem,3vw,2.4rem)] leading-[1.08]">{c.title}</span>
-                <span className="text-[17px] leading-relaxed text-[#B4B9C1]">{c.body}</span>
-                <span className="eyebrow border-t border-bl-line pt-3.5 text-[11px] text-bl-ink-2">{c.meta}</span>
-                <span className="text-[15px] font-semibold text-bl-accent">Explore →</span>
+                <span className="disp text-[length:calc(clamp(1.75rem,3vw,2.4rem)*var(--bl-hscale))] leading-[1.08]">
+                  {c.title}
+                </span>
+                <span className="text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+                  {c.body}
+                </span>
+                <span className="eyebrow border-t border-bl-line pt-3.5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
+                  {c.meta}
+                </span>
+                <span className="text-[length:calc(15px*var(--bl-scale))] font-semibold text-bl-accent">
+                  Explore →
+                </span>
               </div>
             </SiteLink>
           ))}
         </div>
-        <SiteLink href={ARCHIVES_URL} className="flex flex-wrap items-center justify-between gap-6 rounded-[20px] border border-white/15 px-8 py-7">
+        <SiteLink
+          href={ARCHIVES_URL}
+          className="flex flex-wrap items-center justify-between gap-6 rounded-[20px] border border-white/15 px-8 py-7"
+        >
           <div className="flex max-w-[760px] flex-col gap-2">
-            <Eyebrow className="text-[11px]">+ Where the work lives</Eyebrow>
-            <span className="disp text-[30px]">
+            <Eyebrow className="text-[length:calc(11px*var(--bl-scale))]">
+              + Where the work lives
+            </Eyebrow>
+            <span className="disp text-[length:calc(30px*var(--bl-scale))]">
               THE GLOBAL ARCHIVES<span className="text-bl-accent">.</span>
             </span>
-            <span className="text-[15px] leading-relaxed text-[#B4B9C1]">A public, curated archive of student work — written, spoken and built — from our competitions, workshops and programmes across the world.</span>
+            <span className="text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+              A public, curated archive of student work — written, spoken and built — from our
+              competitions, workshops and programmes across the world.
+            </span>
           </div>
-          <span className="rounded-full border border-white/30 px-5 py-3.5 text-[15px]">Visit globalarchives.org ↗</span>
+          <span className="rounded-full border border-white/30 px-5 py-3.5 text-[length:calc(15px*var(--bl-scale))]">
+            Visit globalarchives.org ↗
+          </span>
         </SiteLink>
       </Container>
     </section>
@@ -236,8 +359,15 @@ function HumanStack() {
         <div className="flex flex-col gap-5">
           <Eyebrow>02 — The Human Stack</Eyebrow>
           <h2 className="h2">AI is the toolkit. People are the edge.</h2>
-          <p className="m-0 text-[17px] leading-relaxed text-[#B4B9C1]">Tools change every quarter. The skills on top of them don’t. Students learn to build with AI — then we train the human layer that decides what’s worth building, and for whom.</p>
-          <SiteLink href="/about" className="text-[15px] !text-bl-accent">
+          <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+            Tools change every quarter. The skills on top of them don’t. Students learn to build
+            with AI — then we train the human layer that decides what’s worth building, and for
+            whom.
+          </p>
+          <SiteLink
+            href="/about"
+            className="text-[length:calc(15px*var(--bl-scale))] !text-bl-accent"
+          >
             Our principles →
           </SiteLink>
         </div>
@@ -245,10 +375,17 @@ function HumanStack() {
           {home.humanStack.map((l) => {
             const base = l.level === "L0";
             return (
-              <div key={l.level} className={`grid grid-cols-[48px_minmax(0,1fr)] items-center gap-4 rounded-[14px] border px-5 py-4 sm:grid-cols-[56px_minmax(0,1fr)_minmax(0,1.3fr)] ${base ? "border-bl-accent bg-white/[.03]" : "border-white/15"}`}>
-                <span className="eyebrow text-[11px] text-bl-ink-3">{l.level}</span>
+              <div
+                key={l.level}
+                className={`grid grid-cols-[48px_minmax(0,1fr)] items-center gap-4 rounded-[14px] border px-5 py-4 sm:grid-cols-[56px_minmax(0,1fr)_minmax(0,1.3fr)] ${base ? "border-bl-accent bg-white/[.03]" : "border-white/15"}`}
+              >
+                <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+                  {l.level}
+                </span>
                 <span className={`disp text-lg ${base ? "text-bl-accent" : ""}`}>{l.title}</span>
-                <span className="col-span-2 text-sm leading-snug text-[#B4B9C1] sm:col-span-1">{l.body}</span>
+                <span className="col-span-2 text-sm leading-snug text-[#B4B9C1] sm:col-span-1">
+                  {l.body}
+                </span>
               </div>
             );
           })}
@@ -263,17 +400,31 @@ function Upcoming() {
   return (
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
-        <SectionHead eyebrow="03 — Upcoming" title="What’s next on the calendar" aside={<Button href="/programs" variant="ghost">All programs, upcoming & past →</Button>} />
+        <SectionHead
+          eyebrow="03 — Upcoming"
+          title="What’s next on the calendar"
+          aside={
+            <Button href="/programs" variant="ghost">
+              All programs, upcoming & past →
+            </Button>
+          }
+        />
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {home.upcoming.map((u) => (
-            <SiteLink key={u.title} href={u.href} className="flex flex-col overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface">
+            <SiteLink
+              key={u.title}
+              href={u.href}
+              className="flex flex-col overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface"
+            >
               <img src={u.img} alt="" loading="lazy" className="h-[240px] w-full object-cover" />
               <div className="flex flex-1 flex-col gap-3.5 p-6">
-                <div className="eyebrow flex justify-between gap-3 text-[11px]">
+                <div className="eyebrow flex justify-between gap-3 text-[length:calc(11px*var(--bl-scale))]">
                   <span className="text-bl-accent">● {u.status}</span>
                   <span className="text-bl-ink-3">{u.type}</span>
                 </div>
-                <span className="disp text-[22px] leading-tight">{u.title}</span>
+                <span className="disp text-[length:calc(22px*var(--bl-scale))] leading-tight">
+                  {u.title}
+                </span>
                 <dl className="m-0 grid grid-cols-2 gap-x-4 gap-y-3 border-y border-bl-line py-3.5">
                   {[
                     ["When", u.when],
@@ -282,13 +433,17 @@ function Upcoming() {
                     ["Fee", u.fee],
                   ].map(([k, v]) => (
                     <div key={k}>
-                      <dt className="eyebrow text-[10px] text-[#8C929C]">{k}</dt>
+                      <dt className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-[#8C929C]">
+                        {k}
+                      </dt>
                       <dd className="m-0 mt-1 text-sm">{v}</dd>
                     </div>
                   ))}
                 </dl>
                 <div className="mt-auto flex items-center justify-between">
-                  <span className="text-[13px] text-bl-ink-3">{u.note}</span>
+                  <span className="text-[length:calc(13px*var(--bl-scale))] text-bl-ink-3">
+                    {u.note}
+                  </span>
                   <span className="text-sm font-semibold text-bl-accent">{u.cta} →</span>
                 </div>
               </div>
@@ -308,15 +463,28 @@ function Method() {
         <SectionHead
           eyebrow="04 — The method"
           title="B.U.I.L.D. — from a question to a pitch."
-          aside={<p className="m-0 max-w-[520px] text-[17px] leading-relaxed text-[#B4B9C1]">Rooted in Stanford design thinking. Students prototype with real AI tools from Google, OpenAI and Lovable — and learn when not to lean on them.</p>}
+          aside={
+            <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+              Rooted in Stanford design thinking. Students prototype with real AI tools from Google,
+              OpenAI and Lovable — and learn when not to lean on them.
+            </p>
+          }
         />
         <div className="grid border-t border-white/15 sm:grid-cols-2 lg:grid-cols-5">
           {home.build.map((b) => (
-            <div key={b.letter} className="flex flex-col gap-3.5 border-r border-white/[.08] px-5 pb-2 pt-7">
-              <span className="disp text-[64px] leading-none" style={{ color: b.color }}>
+            <div
+              key={b.letter}
+              className="flex flex-col gap-3.5 border-r border-white/[.08] px-5 pb-2 pt-7"
+            >
+              <span
+                className="disp text-[length:calc(64px*var(--bl-scale))] leading-none"
+                style={{ color: b.color }}
+              >
                 {b.letter}
               </span>
-              <span className="text-[17px] font-semibold">{b.title}</span>
+              <span className="text-[length:calc(17px*var(--bl-scale))] font-semibold">
+                {b.title}
+              </span>
               <span className="text-sm leading-relaxed text-[#B4B9C1]">{b.body}</span>
             </div>
           ))}
@@ -332,19 +500,50 @@ function StudentWork() {
   return (
     <section className="gridbg border-b border-bl-line">
       <Container className="flex flex-col gap-10 pb-10 pt-24 lg:pt-28">
-        <SectionHead eyebrow="05 — Student work" title="Real projects. Real places. Real people." aside={<Button href={ARCHIVES_URL} variant="ghost">Browse The Global Archives ↗</Button>} />
+        <SectionHead
+          eyebrow="05 — Student work"
+          title="Real projects. Real places. Real people."
+          aside={
+            <Button href={ARCHIVES_URL} variant="ghost">
+              Browse The Global Archives ↗
+            </Button>
+          }
+        />
       </Container>
       <div className="overflow-x-auto pb-24 [scrollbar-width:none] lg:overflow-hidden lg:pb-28">
-        <div ref={ref} className="flex w-max gap-4 pl-5 pr-5 will-change-transform sm:pl-10 lg:pl-[max(40px,calc((100vw-1320px)/2+40px))]" style={{ transform: `translateX(${(-(1 - p) * 30).toFixed(2)}%)` }}>
+        <div
+          ref={ref}
+          className="flex w-max gap-4 pl-5 pr-5 will-change-transform sm:pl-10 lg:pl-[max(40px,calc((100vw-1320px)/2+40px))]"
+          style={{ transform: `translateX(${(-(1 - p) * 30).toFixed(2)}%)` }}
+        >
           {studentWork.map((w) => (
-            <SiteLink key={w.title} href={ARCHIVES_URL} className="flex w-[320px] shrink-0 flex-col gap-3 sm:w-[400px]">
+            <SiteLink
+              key={w.title}
+              href={ARCHIVES_URL}
+              className="flex w-[320px] shrink-0 flex-col gap-3 sm:w-[400px]"
+            >
               <span className="relative block">
-                <img src={w.cover} alt={`Cover of ${w.title}`} loading="lazy" className="block h-[208px] w-full rounded-2xl border border-white/10 object-cover sm:h-[260px]" />
-                {w.award && <span className="eyebrow absolute left-3 top-3 rounded-full bg-bl-accent px-2.5 py-1.5 text-[10px] text-bl-bg">{w.award}</span>}
+                <img
+                  src={w.cover}
+                  alt={`Cover of ${w.title}`}
+                  loading="lazy"
+                  className="block h-[208px] w-full rounded-2xl border border-white/10 object-cover sm:h-[260px]"
+                />
+                {w.award && (
+                  <span className="eyebrow absolute left-3 top-3 rounded-full bg-bl-accent px-2.5 py-1.5 text-[length:calc(10px*var(--bl-scale))] text-bl-bg">
+                    {w.award}
+                  </span>
+                )}
               </span>
-              <span className="eyebrow text-[10px] text-bl-accent">{w.category}</span>
-              <span className="disp text-[17px] leading-tight">{w.title}</span>
-              <span className="eyebrow text-[10px] text-bl-ink-3">{w.by}</span>
+              <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
+                {w.category}
+              </span>
+              <span className="disp text-[length:calc(17px*var(--bl-scale))] leading-tight">
+                {w.title}
+              </span>
+              <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
+                {w.by}
+              </span>
             </SiteLink>
           ))}
         </div>
@@ -363,11 +562,16 @@ function WorldMap() {
         <div className="grid items-end gap-8 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
             <Eyebrow>06 — Our builders</Eyebrow>
-            <h2 className="h2">From Singapore to Seoul to San Francisco — and everywhere in between.</h2>
+            <h2 className="h2">
+              From Singapore to Seoul to San Francisco — and everywhere in between.
+            </h2>
           </div>
           <div className="flex flex-col gap-3.5">
-            <p className="m-0 text-[17px] leading-relaxed text-[#B4B9C1]">Programs run from our hubs; students join from {count} countries and territories across five continents.</p>
-            <div className="eyebrow flex gap-5 text-[11px] text-bl-ink-2">
+            <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+              Programs run from our hubs; students join from {count} countries and territories
+              across five continents.
+            </p>
+            <div className="eyebrow flex gap-5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
               <span className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full border-2 border-bl-accent" />
                 Program hubs
@@ -385,15 +589,36 @@ function WorldMap() {
             const size = p.hub ? 30 : 22;
             const c = p.hub ? "var(--bl-accent)" : "var(--bl-green)";
             return (
-              <span key={p.name} className={`pin absolute h-0 w-0 ${p.hub ? "hub" : ""}`} title={p.name} style={{ left: `${((p.lon + 180) / 360) * 100}%`, top: `${((82 - p.lat) / 140) * 100}%` }}>
+              <span
+                key={p.name}
+                className={`pin absolute h-0 w-0 ${p.hub ? "hub" : ""}`}
+                title={p.name}
+                style={{
+                  left: `${((p.lon + 180) / 360) * 100}%`,
+                  top: `${((82 - p.lat) / 140) * 100}%`,
+                }}
+              >
                 <span className="ring" style={{ background: c }} />
-                <img src={p.flag} alt="" className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full object-cover" style={{ width: size, height: size, boxShadow: `0 0 0 2px ${c}, 0 0 0 5px var(--bl-bg)` }} />
-                <span className="lbl eyebrow absolute left-5 top-[-26px] hidden whitespace-nowrap rounded-md border border-white/15 bg-bl-bg/85 px-2 py-1 text-[10px] sm:block">{p.name}</span>
+                <img
+                  src={p.flag}
+                  alt=""
+                  className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full object-cover"
+                  style={{
+                    width: size,
+                    height: size,
+                    boxShadow: `0 0 0 2px ${c}, 0 0 0 5px var(--bl-bg)`,
+                  }}
+                />
+                <span className="lbl eyebrow absolute left-5 top-[-26px] hidden whitespace-nowrap rounded-md border border-white/15 bg-bl-bg/85 px-2 py-1 text-[length:calc(10px*var(--bl-scale))] sm:block">
+                  {p.name}
+                </span>
               </span>
             );
           })}
         </div>
-        <p className="eyebrow m-0 text-[11px] leading-loose text-bl-ink-3">{home.pins.map((p) => p.name).join(" · ")}</p>
+        <p className="eyebrow m-0 text-[length:calc(11px*var(--bl-scale))] leading-loose text-bl-ink-3">
+          {home.pins.map((p) => p.name).join(" · ")}
+        </p>
       </Container>
     </section>
   );
@@ -407,12 +632,24 @@ function Testimonials() {
         <Eyebrow>07 — In their words</Eyebrow>
         <div className="grid gap-4 md:grid-cols-3">
           {home.testimonials.map((q) => (
-            <figure key={q.name} className="m-0 flex flex-col gap-5 rounded-[20px] border border-white/15 bg-bl-surface p-3.5">
-              <img src={q.img} alt="" loading="lazy" className="h-[220px] w-full rounded-xl object-cover" />
-              <blockquote className="m-0 px-2.5 text-[17px] leading-relaxed text-[#E6E8EB]">“{q.quote}”</blockquote>
+            <figure
+              key={q.name}
+              className="m-0 flex flex-col gap-5 rounded-[20px] border border-white/15 bg-bl-surface p-3.5"
+            >
+              <img
+                src={q.img}
+                alt=""
+                loading="lazy"
+                className="h-[220px] w-full rounded-xl object-cover"
+              />
+              <blockquote className="m-0 px-2.5 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#E6E8EB]">
+                “{q.quote}”
+              </blockquote>
               <figcaption className="flex flex-col gap-1 px-2.5 pb-3">
                 <span className="text-sm font-semibold">{q.name}</span>
-                <span className="eyebrow text-[11px] text-bl-ink-3">{q.school}</span>
+                <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+                  {q.school}
+                </span>
               </figcaption>
             </figure>
           ))}
@@ -430,12 +667,22 @@ function Audiences() {
         <SectionHead eyebrow="08 — Work with us" title="For schools, partners and organisations." />
         <div className="grid gap-4 md:grid-cols-2">
           {home.audiences.map((a) => (
-            <div key={a.kicker} className="flex flex-col gap-5 rounded-[20px] border border-white/15 p-9">
-              <span className="eyebrow text-[11px] text-bl-ink-3">{a.kicker}</span>
-              <span className="disp text-[28px] leading-tight">{a.title}</span>
+            <div
+              key={a.kicker}
+              className="flex flex-col gap-5 rounded-[20px] border border-white/15 p-9"
+            >
+              <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+                {a.kicker}
+              </span>
+              <span className="disp text-[length:calc(28px*var(--bl-scale))] leading-tight">
+                {a.title}
+              </span>
               <ul className="m-0 list-none p-0">
                 {a.items.map((it) => (
-                  <li key={it} className="flex gap-3.5 border-t border-bl-line py-3.5 text-[15px] text-[#D4D7DC]">
+                  <li
+                    key={it}
+                    className="flex gap-3.5 border-t border-bl-line py-3.5 text-[length:calc(15px*var(--bl-scale))] text-[#D4D7DC]"
+                  >
                     <span className="text-bl-accent">→</span>
                     {it}
                   </li>
@@ -461,7 +708,10 @@ function Team() {
           eyebrow="09 — People"
           title="Founders, mentors & speakers"
           aside={
-            <SiteLink href="/about" className="text-[15px] !text-bl-accent">
+            <SiteLink
+              href="/about"
+              className="text-[length:calc(15px*var(--bl-scale))] !text-bl-accent"
+            >
               Meet all our mentors →
             </SiteLink>
           }
@@ -480,7 +730,7 @@ function ClosingCta() {
   return (
     <section className="gridbg">
       <Container className="flex flex-wrap items-end justify-between gap-8 py-28">
-        <h2 className="disp m-0 text-[clamp(3rem,7vw,6.5rem)] leading-[0.98]">
+        <h2 className="disp m-0 text-[length:calc(clamp(3rem,7vw,6.5rem)*var(--bl-hscale))] leading-[0.98]">
           What will
           <br />
           you build<span className="text-bl-accent">?</span>

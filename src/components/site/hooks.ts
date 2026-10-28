@@ -31,7 +31,7 @@ export function useCountProgress(start: boolean, duration = 1800) {
   const [p, setP] = useState(0);
   useEffect(() => {
     if (!start) return;
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    if (reducedMotion()) {
       setP(1);
       return;
     }
@@ -56,7 +56,7 @@ export function useScrollProgress<T extends Element>(mode: "through" | "enter" =
   const ref = useRef<T | null>(null);
   const [p, setP] = useState(0);
   useEffect(() => {
-    if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) {
+    if (reducedMotion()) {
       setP(mode === "enter" ? 1 : 0.5);
       return;
     }
@@ -67,10 +67,7 @@ export function useScrollProgress<T extends Element>(mode: "through" | "enter" =
       if (!el) return;
       const r = el.getBoundingClientRect();
       const vh = window.innerHeight || 800;
-      const v =
-        mode === "through"
-          ? (vh - r.top) / (vh + r.height)
-          : (vh - r.top) / (vh * 0.9);
+      const v = mode === "through" ? (vh - r.top) / (vh + r.height) : (vh - r.top) / (vh * 0.9);
       setP(Math.max(0, Math.min(1, v)));
     };
     const onScroll = () => {
@@ -106,4 +103,13 @@ export function useCountdown(iso: string) {
   const s = t - m * 60;
   const pad = (n: number) => String(n).padStart(2, "0");
   return { ready: now !== null, days: pad(d), hours: pad(h), mins: pad(m), secs: pad(s) };
+}
+
+/** True when the visitor asked for less motion, or motion is switched off in the CMS. */
+export function reducedMotion() {
+  if (typeof window === "undefined") return false;
+  return (
+    document.documentElement.dataset["motion"] === "off" ||
+    !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  );
 }

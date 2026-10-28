@@ -162,6 +162,7 @@
   --bl-font-display: "Montserrat", system-ui, sans-serif;
   --bl-font-body: "Inter", system-ui, sans-serif;
   --bl-scale: 1;
+  --bl-hscale: 1;
 }
 
 @theme inline {
@@ -178,6 +179,15 @@
   --color-bl-cream: var(--bl-cream);
   --font-display: var(--bl-font-display);
   --font-body: var(--bl-font-body);
+  --text-xs: calc(0.75rem * var(--bl-scale));
+  --text-sm: calc(0.875rem * var(--bl-scale));
+  --text-base: calc(1rem * var(--bl-scale));
+  --text-lg: calc(1.125rem * var(--bl-scale));
+  --text-xl: calc(1.25rem * var(--bl-scale));
+  --text-2xl: calc(1.5rem * var(--bl-scale));
+  --text-3xl: calc(1.875rem * var(--bl-scale));
+  --text-4xl: calc(2.25rem * var(--bl-hscale));
+  --text-5xl: calc(3rem * var(--bl-hscale));
 }
 
 html { scroll-behavior: smooth; }
@@ -185,9 +195,9 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
 .bl a { color: inherit; text-decoration: none; }
 .bl a:hover { color: var(--bl-yellow); }
 .disp { font-family: var(--bl-font-display); letter-spacing: -0.025em; font-weight: 700; }
-.eyebrow { font-family: var(--bl-font-body); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: 0.75rem; }
+.eyebrow { font-family: var(--bl-font-body); font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; font-size: calc(0.75rem * var(--bl-scale)); }
 .gridbg { background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px; }
-.h2 { font-family: var(--bl-font-display); font-weight: 700; letter-spacing: -0.025em; font-size: clamp(2rem, 4vw, 3.25rem); line-height: 1.05; margin: 0; }
+.h2 { font-family: var(--bl-font-display); font-weight: 700; letter-spacing: -0.025em; font-size: calc(clamp(2rem, 4vw, 3.25rem) * var(--bl-hscale)); line-height: 1.05; margin: 0; }
 
 /* hero word reveal */
 .w { display: inline-block; opacity: 0; transform: translateY(45%); filter: blur(10px); animation: blWordIn .9s cubic-bezier(.2,.7,.2,1) forwards; }

@@ -1,18 +1,31 @@
 import { partners, people, stats as defaultStats, type Partner } from "@/content/site";
 import { useCountProgress, useCountdown, useInViewOnce } from "./hooks";
 
-export function CountUpStats({ items = defaultStats, size = "md" }: { items?: typeof defaultStats; size?: "md" | "lg" }) {
+export function CountUpStats({
+  items = defaultStats,
+  size = "md",
+}: {
+  items?: typeof defaultStats;
+  size?: "md" | "lg";
+}) {
   const { ref, seen } = useInViewOnce<HTMLDivElement>();
   const p = useCountProgress(seen);
   return (
-    <div ref={ref} className="grid grid-cols-2 overflow-hidden rounded-2xl border border-bl-line sm:grid-cols-3 lg:grid-cols-5">
+    <div
+      ref={ref}
+      className="grid grid-cols-2 overflow-hidden rounded-2xl border border-bl-line sm:grid-cols-3 lg:grid-cols-5"
+    >
       {items.map((s) => (
         <div key={s.label} className="border-b border-r border-bl-line px-6 py-5 lg:border-b-0">
-          <div className={`disp tabular-nums ${size === "lg" ? "text-5xl" : "text-[30px]"}`}>
+          <div
+            className={`disp tabular-nums ${size === "lg" ? "text-5xl" : "text-[length:calc(30px*var(--bl-scale))]"}`}
+          >
             {Math.round(s.value * p)}
             {s.suffix}
           </div>
-          <div className="eyebrow mt-1.5 text-[11px] text-bl-ink-3">{s.label}</div>
+          <div className="eyebrow mt-1.5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+            {s.label}
+          </div>
         </div>
       ))}
     </div>
@@ -22,7 +35,10 @@ export function CountUpStats({ items = defaultStats, size = "md" }: { items?: ty
 export function LogoMarquee({ list = partners, label }: { list?: Partner[]; label?: string }) {
   const loop = [...list, ...list];
   return (
-    <section className="border-b border-bl-line" aria-label={label ?? "Partners, sponsors and judges"}>
+    <section
+      className="border-b border-bl-line"
+      aria-label={label ?? "Partners, sponsors and judges"}
+    >
       <div
         className="overflow-hidden py-7"
         style={{
@@ -48,7 +64,15 @@ export function LogoMarquee({ list = partners, label }: { list?: Partner[]; labe
   );
 }
 
-export function PersonCard({ personKey, role, square = false }: { personKey: string; role?: string; square?: boolean }) {
+export function PersonCard({
+  personKey,
+  role,
+  square = false,
+}: {
+  personKey: string;
+  role?: string;
+  square?: boolean;
+}) {
   const p = people[personKey];
   if (!p) return null;
   return (
@@ -61,8 +85,12 @@ export function PersonCard({ personKey, role, square = false }: { personKey: str
         style={{ objectPosition: "center 22%" }}
       />
       <span className="text-base font-semibold">{p.name}</span>
-      <span className="eyebrow text-[10px] text-bl-accent">{role ?? p.role}</span>
-      <span className="text-[13px] leading-relaxed text-bl-ink-3">{p.bio}</span>
+      <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
+        {role ?? p.role}
+      </span>
+      <span className="text-[length:calc(13px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
+        {p.bio}
+      </span>
     </div>
   );
 }
@@ -76,11 +104,22 @@ export function CountdownChips({ iso, compact = false }: { iso: string; compact?
     [c.secs, compact ? "s" : "Secs"],
   ];
   return (
-    <div role="timer" aria-label="Time left to register" className="flex flex-wrap items-center gap-1.5">
+    <div
+      role="timer"
+      aria-label="Time left to register"
+      className="flex flex-wrap items-center gap-1.5"
+    >
       {parts.map(([v, l]) => (
-        <span key={l} className="inline-flex items-baseline gap-1 rounded-[10px] border border-white/15 bg-bl-bg px-3 py-2">
-          <span className="disp text-[22px] tabular-nums">{c.ready ? v : "--"}</span>
-          <span className="eyebrow text-[10px] text-bl-ink-3">{l}</span>
+        <span
+          key={l}
+          className="inline-flex items-baseline gap-1 rounded-[10px] border border-white/15 bg-bl-bg px-3 py-2"
+        >
+          <span className="disp text-[length:calc(22px*var(--bl-scale))] tabular-nums">
+            {c.ready ? v : "--"}
+          </span>
+          <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
+            {l}
+          </span>
         </span>
       ))}
     </div>
@@ -89,5 +128,7 @@ export function CountdownChips({ iso, compact = false }: { iso: string; compact?
 
 export function useDaysLeft(iso: string) {
   const c = useCountdown(iso);
-  return c.ready ? String(parseInt(c.days, 10) + (c.hours !== "00" || c.mins !== "00" ? 1 : 0)) : "--";
+  return c.ready
+    ? String(parseInt(c.days, 10) + (c.hours !== "00" || c.mins !== "00" ? 1 : 0))
+    : "--";
 }

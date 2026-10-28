@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CompetitionsRouteImport } from './routes/competitions'
 import { Route as ImmersionRouteImport } from './routes/immersion'
 import { Route as PartnersRouteImport } from './routes/partners'
@@ -24,6 +25,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompetitionsRoute = CompetitionsRouteImport.update({
@@ -50,6 +56,7 @@ const ProgramsRoute = ProgramsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -58,6 +65,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -67,6 +75,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/admin': typeof AdminRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -75,14 +84,27 @@ export interface FileRoutesById {
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/competitions' | '/immersion' | '/partners' | '/programs'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/competitions'
+    | '/immersion'
+    | '/partners'
+    | '/programs'
   fileRoutesByTo: FileRoutesByTo
   to:
-    '/' | '/about' | '/competitions' | '/immersion' | '/partners' | '/programs'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/competitions'
+    | '/immersion'
+    | '/partners'
+    | '/programs'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/admin'
     | '/competitions'
     | '/immersion'
     | '/partners'
@@ -92,6 +114,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AdminRoute: typeof AdminRoute
   CompetitionsRoute: typeof CompetitionsRoute
   ImmersionRoute: typeof ImmersionRoute
   PartnersRoute: typeof PartnersRoute
@@ -112,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/competitions': {
@@ -148,6 +178,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AdminRoute: AdminRoute,
   CompetitionsRoute: CompetitionsRoute,
   ImmersionRoute: ImmersionRoute,
   PartnersRoute: PartnersRoute,

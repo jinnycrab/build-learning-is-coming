@@ -11,6 +11,9 @@ import {
 import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
+import { applyOverrides, brandCss, fontHref, type Brand } from "@/content/cms";
+import { settings } from "@/content/site";
+import { fetchOverrides } from "@/lib/site-content";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -74,25 +77,38 @@ function ErrorComponent({ error, reset }: ErrorComponentProps) {
 }
 
 export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
-  head: () => ({
+  // Saved CMS content. Refreshed at most once a minute while browsing; the
+  // admin refreshes it straight away after every save.
+  loader: async () => {
+    const overrides = await fetchOverrides();
+    applyOverrides(overrides);
+    return { overrides };
+  },
+  staleTime: 60_000,
+  head: ({ loaderData }) => ({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Build Learning — Build what AI can’t" },
-      { name: "description", content: "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace." },
+      {
+        name: "description",
+        content:
+          "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
+      },
       { name: "author", content: "Build Learning" },
       { property: "og:title", content: "Build Learning — Build what AI can’t" },
-      { property: "og:description", content: "Programs, competitions and learning immersions for students. Singapore · Seoul · San Francisco." },
+      {
+        property: "og:description",
+        content:
+          "Programs, competitions and learning immersions for students. Singapore · Seoul · San Francisco.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-          ],
+    ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
-      {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap",
-      },
+      { rel: "stylesheet", href: fontHref(brandOf(loaderData?.overrides)) },
       {
         rel: "stylesheet",
         href: appCss,
@@ -106,11 +122,19 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   errorComponent: ErrorComponent,
 });
 
+function brandOf(overrides: Record<string, unknown> | undefined): Brand {
+  const saved = (overrides?.["settings"] as { brand?: Partial<Brand> } | undefined)?.brand;
+  return { ...settings.brand, ...(saved ?? {}) };
+}
+
 function RootShell({ children }: { children: ReactNode }) {
+  const data = Route.useLoaderData();
+  const brand = brandOf(data?.overrides);
   return (
-    <html lang="en">
+    <html lang="en" data-motion={brand.motion === false ? "off" : "on"}>
       <head>
         <HeadContent />
+        <style id="bl-brand" dangerouslySetInnerHTML={{ __html: brandCss(brand) }} />
       </head>
       <body className="bl">
         {children}
@@ -122,6 +146,8 @@ function RootShell({ children }: { children: ReactNode }) {
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  // Make saved CMS content visible to every page before they render.
+  applyOverrides(Route.useLoaderData()?.overrides);
 
   return (
     <QueryClientProvider client={queryClient}>
