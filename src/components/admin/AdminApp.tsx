@@ -32,9 +32,17 @@ function errMsg(e: unknown) {
 export function AdminApp() {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   useEffect(() => {
-    supabase.auth.getSession().then(({ data }) => setSession(data.session));
+    supabase.auth
+      .getSession()
+      .then(({ data }) => setSession(data.session))
+      .catch(() => setSession(null));
+    // If the sign-in check stalls, show the sign-in form rather than a blank page.
+    const t = setTimeout(() => setSession((s) => (s === undefined ? null : s)), 5000);
     const { data } = supabase.auth.onAuthStateChange((_e, s) => setSession(s));
-    return () => data.subscription.unsubscribe();
+    return () => {
+      clearTimeout(t);
+      data.subscription.unsubscribe();
+    };
   }, []);
   return (
     <div className="min-h-screen bg-zinc-100 font-[Inter,system-ui,sans-serif] text-zinc-900">

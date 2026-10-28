@@ -2,6 +2,8 @@
 -- Site text, lists and brand settings are stored as one JSON document per
 -- section in site_content. Anything not saved here falls back to the defaults
 -- in src/content/site.ts, so the site works before anything is edited.
+-- Media storage (the "site-media" bucket) is set up separately; see
+-- 20261028090100_cms_storage_policies.sql.
 
 -- ── Roles ────────────────────────────────────────────────────────────────
 create type public.app_role as enum ('admin');
@@ -13,8 +15,35 @@ create table public.user_roles (
   created_at timestamptz not null default now(),
   unique (user_id, role)
 );
+grant select on public.user_roles to authenticated;
+grant all on public.user_roles to service_role;
 alter table public.user_roles enable row level security;
 
+-- ── Content ──────────────────────────────────────────────────────────────
+create table public.site_content (
+  key text primary key,
+  data jsonb not null,
+  updated_at timestamptz not null default now(),
+  updated_by uuid references auth.users (id) on delete set null
+);
+grant select on public.site_content to anon, authenticated;
+grant insert, update, delete on public.site_content to authenticated;
+grant all on public.site_content to service_role;
+alter table public.site_content enable row level security;
+
+-- Every save keeps the previous version, so changes can be undone.
+create table public.site_content_history (
+  id bigint generated always as identity primary key,
+  key text not null,
+  data jsonb,
+  saved_at timestamptz not null default now(),
+  saved_by uuid
+);
+grant select on public.site_content_history to authenticated;
+grant all on public.site_content_history to service_role;
+alter table public.site_content_history enable row level security;
+
+-- ── Role helpers ─────────────────────────────────────────────────────────
 create or replace function public.has_role(_user_id uuid, _role public.app_role)
 returns boolean
 language sql
@@ -24,10 +53,7 @@ set search_path = public
 as $$
   select exists (select 1 from public.user_roles where user_id = _user_id and role = _role)
 $$;
-
-create policy "Users can read their own roles"
-  on public.user_roles for select to authenticated
-  using (user_id = auth.uid() or public.has_role(auth.uid(), 'admin'));
+grant execute on function public.has_role(uuid, public.app_role) to anon, authenticated, service_role;
 
 -- The very first signed-in user can make themselves admin. After that,
 -- only existing admins can add more (see grant_admin_by_email).
@@ -97,14 +123,10 @@ grant execute on function public.grant_admin_by_email(text) to authenticated;
 grant execute on function public.list_admins() to authenticated;
 grant execute on function public.revoke_admin(uuid) to authenticated;
 
--- ── Content ──────────────────────────────────────────────────────────────
-create table public.site_content (
-  key text primary key,
-  data jsonb not null,
-  updated_at timestamptz not null default now(),
-  updated_by uuid references auth.users (id) on delete set null
-);
-alter table public.site_content enable row level security;
+-- ── Access policies ──────────────────────────────────────────────────────
+create policy "Users can read their own roles"
+  on public.user_roles for select to authenticated
+  using (user_id = auth.uid() or public.has_role(auth.uid(), 'admin'));
 
 create policy "Anyone can read site content"
   on public.site_content for select to anon, authenticated using (true);
@@ -116,18 +138,10 @@ create policy "Admins can update site content"
 create policy "Admins can delete site content"
   on public.site_content for delete to authenticated using (public.has_role(auth.uid(), 'admin'));
 
--- Every save keeps the previous version, so changes can be undone.
-create table public.site_content_history (
-  id bigint generated always as identity primary key,
-  key text not null,
-  data jsonb,
-  saved_at timestamptz not null default now(),
-  saved_by uuid
-);
-alter table public.site_content_history enable row level security;
 create policy "Admins can read history"
   on public.site_content_history for select to authenticated using (public.has_role(auth.uid(), 'admin'));
 
+-- ── Version history ──────────────────────────────────────────────────────
 create or replace function public.site_content_keep_history()
 returns trigger
 language plpgsql
@@ -151,18 +165,3 @@ $$;
 create trigger site_content_history_trg
   before insert or update or delete on public.site_content
   for each row execute function public.site_content_keep_history();
-
--- ── Access grants ────────────────────────────────────────────────────────
--- Row-level security above decides which rows each role may touch; these
--- grants let the roles reach the tables at all.
-grant usage on schema public to anon, authenticated, service_role;
-grant select on public.site_content to anon, authenticated;
-grant insert, update, delete on public.site_content to authenticated;
-grant select on public.site_content_history to authenticated;
-grant select on public.user_roles to authenticated;
-grant all on public.site_content, public.site_content_history, public.user_roles to service_role;
-grant usage, select on all sequences in schema public to service_role;
-grant execute on function public.has_role(uuid, public.app_role) to anon, authenticated, service_role;
-
--- Media storage (the "site-media" bucket) is set up separately; see
--- 20261028090100_cms_storage_policies.sql.

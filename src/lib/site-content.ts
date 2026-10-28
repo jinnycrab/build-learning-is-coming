@@ -9,7 +9,14 @@ const KEYS = new Set<string>(SECTIONS.map((s) => s.key));
  */
 export async function fetchOverrides(): Promise<Overrides> {
   try {
-    const { data, error } = await supabase.from("site_content").select("key,data");
+    // Never let a slow or unreachable database hold up the page.
+    const timeout = new Promise<{ data: null; error: Error }>((resolve) =>
+      setTimeout(() => resolve({ data: null, error: new Error("timeout") }), 4000),
+    );
+    const { data, error } = await Promise.race([
+      supabase.from("site_content").select("key,data"),
+      timeout,
+    ]);
     if (error || !data) return {};
     const out: Overrides = {};
     for (const row of data) if (KEYS.has(row.key)) out[row.key as SectionKey] = row.data;

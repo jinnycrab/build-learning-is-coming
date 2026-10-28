@@ -2,15 +2,19 @@ import { createFileRoute } from "@tanstack/react-router";
 import { AdminApp } from "@/components/admin/AdminApp";
 
 export const Route = createFileRoute("/admin")({
-  // Sign-in lives in the browser, so the editor renders there only.
-  ssr: false,
   head: () => ({
     meta: [
       { title: "Site editor — Build Learning" },
       { name: "robots", content: "noindex, nofollow" },
-      { name: "description", content: "Sign in to manage Build Learning site content, media and editor access." },
+      {
+        name: "description",
+        content: "Sign in to manage Build Learning site content, media and editor access.",
+      },
       { property: "og:title", content: "Site editor — Build Learning" },
-      { property: "og:description", content: "Sign in to manage Build Learning site content, media and editor access." },
+      {
+        property: "og:description",
+        content: "Sign in to manage Build Learning site content, media and editor access.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
