@@ -200,6 +200,7 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
 .h2 { font-family: var(--bl-font-display); font-weight: 700; letter-spacing: -0.025em; font-size: calc(clamp(2rem, 4vw, 3.25rem) * var(--bl-hscale)); line-height: 1.05; margin: 0; }
 
 /* hero word reveal */
+.home-headline { letter-spacing: 0; overflow-wrap: anywhere; text-wrap: balance; }
 .w { display: inline-block; opacity: 0; transform: translateY(45%); filter: blur(10px); animation: blWordIn .9s cubic-bezier(.2,.7,.2,1) forwards; }
 .fade-up { opacity: 0; transform: translateY(16px); animation: blWordIn .8s ease-out forwards; }
 @keyframes blWordIn { to { opacity: 1; transform: none; filter: none; } }

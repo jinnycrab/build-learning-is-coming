@@ -50,51 +50,51 @@ function Hero() {
   const days = useDaysLeft(home.nextUp.deadline);
   return (
     <section className="gridbg border-b border-bl-line">
-      <Container className="grid items-end gap-14 pb-14 pt-20 lg:grid-cols-2 lg:pt-24">
-        <div className="flex flex-col gap-7">
+      <Container className="grid items-center gap-8 pb-8 pt-10 sm:gap-10 sm:pt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:pb-10 lg:pt-14">
+        <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
           <Eyebrow muted>{home.eyebrow}</Eyebrow>
           <h1
-            className="disp m-0 text-[length:calc(clamp(3rem,7vw,6rem)*var(--bl-hscale))] leading-[0.98]"
+            className="disp home-headline m-0 text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-[length:calc(3rem*var(--bl-hscale))] lg:text-[length:calc(3.5rem*var(--bl-hscale))] xl:text-[length:calc(4rem*var(--bl-hscale))]"
             aria-label={home.headline.join(" ")}
           >
             {home.headline.map((w, i) => (
               <span key={w} aria-hidden="true">
                 <span
-                  className="w"
+                  className={`w max-w-full ${i === home.headline.length - 1 ? "text-bl-accent" : ""}`}
                   style={{
                     animationDelay: `${0.05 + i * 0.17}s`,
-                    color: i === home.headline.length - 1 ? "var(--bl-accent)" : undefined,
                   }}
                 >
                   {w}
                 </span>
-                {i === 1 ? <br /> : " "}
+                {" "}
               </span>
             ))}
           </h1>
           <p
-            className="fade-up m-0 max-w-[560px] text-[length:calc(19px*var(--bl-scale))] leading-relaxed text-bl-ink-2"
+            className="fade-up m-0 max-w-[560px] text-base leading-relaxed text-bl-ink-2 sm:text-lg"
             style={{ animationDelay: ".85s" }}
           >
             {home.intro}
           </p>
-          <div className="flex flex-wrap gap-3">
+          <div className="grid gap-3 min-[400px]:grid-cols-2 sm:flex sm:flex-wrap">
             <Button href="/programs">Explore programs →</Button>
             <Button href={ARCHIVES_URL} variant="ghost">
               See student work ↗
             </Button>
           </div>
         </div>
-        <div className="relative min-h-[380px] lg:min-h-[460px]">
+        <div className="relative min-w-0 lg:pb-24">
+          <div className="relative aspect-[4/3] w-full">
           <img
             src={home.heroImage}
             alt="More than a hundred students at the Build for Impact 2026 hackathon"
-            className="absolute inset-0 h-full w-full rounded-[20px] border border-white/15 object-cover"
+            className="absolute inset-0 h-full w-full rounded-lg border border-bl-line object-cover"
           />
           <button
             type="button"
             onClick={() => setReel(true)}
-            className="eyebrow absolute right-4 top-4 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-white/25 bg-bl-bg/75 py-1.5 pl-1.5 pr-4 text-[length:calc(11px*var(--bl-scale))] backdrop-blur hover:border-bl-yellow"
+            className="eyebrow absolute right-3 top-3 inline-flex min-h-11 items-center gap-2.5 rounded-full border border-bl-line bg-bl-bg/75 py-1.5 pl-1.5 pr-4 text-[length:calc(11px*var(--bl-scale))] backdrop-blur hover:border-bl-yellow"
           >
             <span className="inline-flex h-8 w-8 items-center justify-center rounded-full bg-bl-accent">
               <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12">
@@ -103,9 +103,10 @@ function Hero() {
             </span>
             Play reel
           </button>
+          </div>
           <SiteLink
             href={home.nextUp.href}
-            className="absolute -bottom-6 left-4 flex w-[300px] flex-col gap-2.5 rounded-2xl border border-white/15 bg-bl-surface/95 p-5 backdrop-blur lg:-left-8 lg:bottom-7"
+            className="relative mt-3 flex w-full min-w-0 flex-col gap-2.5 rounded-lg border border-bl-line bg-bl-surface/95 p-5 backdrop-blur lg:absolute lg:bottom-0 lg:left-4 lg:mt-0 lg:w-[min(300px,calc(100%-32px))]"
           >
             <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-accent">
               ● {home.nextUp.tag}
@@ -330,26 +331,6 @@ function Pathways() {
             </SiteLink>
           ))}
         </div>
-        <SiteLink
-          href={ARCHIVES_URL}
-          className="flex flex-wrap items-center justify-between gap-6 rounded-[20px] border border-white/15 px-8 py-7"
-        >
-          <div className="flex max-w-[760px] flex-col gap-2">
-            <Eyebrow className="text-[length:calc(11px*var(--bl-scale))]">
-              + Where the work lives
-            </Eyebrow>
-            <span className="disp text-[length:calc(30px*var(--bl-scale))]">
-              THE GLOBAL ARCHIVES<span className="text-bl-accent">.</span>
-            </span>
-            <span className="text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              A public, curated archive of student work — written, spoken and built — from our
-              competitions, workshops and programmes across the world.
-            </span>
-          </div>
-          <span className="rounded-full border border-white/30 px-5 py-3.5 text-[length:calc(15px*var(--bl-scale))]">
-            Visit globalarchives.org ↗
-          </span>
-        </SiteLink>
       </Container>
     </section>
   );
@@ -575,7 +556,7 @@ function WorldMap() {
               Programs run from our hubs; students join from {count} countries and territories
               across five continents.
             </p>
-            <div className="eyebrow flex gap-5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
+            <div className="eyebrow grid gap-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2 sm:flex sm:gap-5">
               <span className="flex items-center gap-2">
                 <span className="h-3 w-3 rounded-full border-2 border-bl-accent" />
                 Program hubs
@@ -734,7 +715,7 @@ function ClosingCta() {
   return (
     <section className="gridbg">
       <Container className="flex flex-wrap items-end justify-between gap-8 py-28">
-        <h2 className="disp m-0 text-[length:calc(clamp(3rem,7vw,6.5rem)*var(--bl-hscale))] leading-[0.98]">
+        <h2 className="disp m-0 min-w-0 break-words text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-5xl lg:text-[length:calc(4rem*var(--bl-hscale))]">
           What will
           <br />
           you build<span className="text-bl-accent">?</span>
