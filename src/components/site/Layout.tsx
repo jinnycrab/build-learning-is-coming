@@ -130,7 +130,6 @@ export function SectionHead({
 function Header() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
-  const crumb = nav.find((n) => n.href !== "/" && !n.external && pathname.startsWith(n.href));
   return (
     <header className="sticky top-0 z-40 border-b border-bl-line bg-bl-bg/85 backdrop-blur-md">
       <Container className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-4 xl:flex xl:gap-5">
@@ -198,23 +197,6 @@ function Header() {
                 {n.label}
               </SiteLink>
             ))}
-          </Container>
-        </nav>
-      )}
-      {crumb && (
-        <nav aria-label="Breadcrumb" className="hidden lg:block">
-          <Container className="pb-3">
-            <ol className="eyebrow flex gap-2.5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-              <li>
-                <Link to="/" className="text-bl-ink-2">
-                  ← Home
-                </Link>
-              </li>
-              <li aria-hidden="true">/</li>
-              <li aria-current="page" className="text-bl-ink">
-                {crumb.label}
-              </li>
-            </ol>
           </Container>
         </nav>
       )}
