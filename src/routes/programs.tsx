@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
-import { programs, season, type ProgramType } from "@/content/site";
+import { programs, programsPage as PG, season, type ProgramType } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
@@ -44,16 +44,11 @@ function Programs() {
     <Page>
       <section className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-5 pb-14 pt-20">
-          <Eyebrow muted>// Programs · {programs.length} listed</Eyebrow>
-          <h1 className="disp m-0 text-[length:calc(clamp(2.75rem,6vw,5rem)*var(--bl-hscale))] leading-none">
-            Every program,
-            <br />
-            past and upcoming.
+          <Eyebrow muted>{PG.eyebrow.replaceAll("{count}", String(programs.length))}</Eyebrow>
+          <h1 className="disp m-0 whitespace-pre-line text-[length:calc(clamp(2.75rem,6vw,5rem)*var(--bl-hscale))] leading-none">
+            {PG.title}
           </h1>
-          <p className="m-0 max-w-[640px] text-lg leading-relaxed text-bl-ink-2">
-            Competitions, immersions, studios and school partnerships — filter by what you’re
-            looking for.
-          </p>
+          <p className="m-0 max-w-[640px] text-lg leading-relaxed text-bl-ink-2">{PG.text}</p>
         </Container>
       </section>
 
@@ -62,7 +57,7 @@ function Programs() {
           <div className="flex flex-wrap justify-between gap-3">
             <Eyebrow>{season.label}</Eyebrow>
             <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-              ◆ = deadline / session
+              {PG.calendarKey}
             </span>
           </div>
           <div className="overflow-x-auto rounded-2xl border border-white/15">
@@ -191,7 +186,7 @@ function Programs() {
           </div>
           {shown.length === 0 && (
             <div className="rounded-2xl border border-dashed border-white/20 p-12 text-center text-bl-ink-3">
-              No programs match these filters
+              {PG.emptyText}
             </div>
           )}
         </Container>
@@ -200,10 +195,10 @@ function Programs() {
       <section className="border-t border-bl-line">
         <Container className="flex flex-wrap items-center justify-between gap-6 py-10">
           <span className="disp text-[length:calc(22px*var(--bl-scale))]">
-            Want a program for your school?
+            {PG.closing.title}
           </span>
-          <Button href="/partners" variant="light">
-            Talk to us →
+          <Button href={PG.closing.button.href} variant="light">
+            {PG.closing.button.label}
           </Button>
         </Container>
       </section>

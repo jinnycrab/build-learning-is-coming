@@ -340,6 +340,11 @@ export const home = {
       { src: P("pca25-group"), alt: "PCA Seoul students with mentors", w: 340 },
     ],
   ],
+  pathwaysHead: {
+    eyebrow: "01 — What we do",
+    title: "More than passion projects. One ecosystem, four ways to build.",
+    text: "Every pathway runs on the same B.U.I.L.D method and mentor network — and every finished project can be published to The Global Archives.",
+  },
   pathways: [
     {
       tag: "1:1 · Rolling intake",
@@ -378,6 +383,12 @@ export const home = {
       href: "/partners",
     },
   ],
+  humanStackHead: {
+    eyebrow: "02 — The Human Stack",
+    title: "AI is the toolkit. People are the edge.",
+    text: "Tools change every quarter. The skills on top of them don’t. Students learn to build with AI — then we train the human layer that decides what’s worth building, and for whom.",
+    link: { label: "Our principles →", href: "/about" },
+  },
   humanStack: [
     {
       level: "L5",
@@ -410,6 +421,11 @@ export const home = {
       body: "The base layer: Google, OpenAI & Lovable tools to prototype fast.",
     },
   ],
+  upcomingHead: {
+    eyebrow: "03 — Upcoming",
+    title: "What’s next on the calendar",
+    button: { label: "All programs, upcoming & past →", href: "/programs" },
+  },
   upcoming: [
     {
       status: "Registration open",
@@ -451,6 +467,16 @@ export const home = {
       href: "/immersion",
     },
   ],
+  buildHead: {
+    eyebrow: "04 — The method",
+    title: "B.U.I.L.D. — from a question to a pitch.",
+    text: "Rooted in Stanford design thinking. Students prototype with real AI tools from Google, OpenAI and Lovable — and learn when not to lean on them.",
+  },
+  studentWorkHead: {
+    eyebrow: "05 — Student work",
+    title: "Real projects. Real places. Real people.",
+    button: { label: "Browse The Global Archives ↗", href: ARCHIVES_URL },
+  },
   build: [
     {
       letter: "B",
@@ -483,6 +509,11 @@ export const home = {
       color: "var(--bl-cream)",
     },
   ],
+  pinsHead: {
+    eyebrow: "06 — Our builders",
+    title: "From Singapore to Seoul to San Francisco — and everywhere in between.",
+    text: "Programs run from our hubs; students join from {count} countries and territories across five continents.",
+  },
   pins: [
     { name: "Singapore", flag: FLAG("sg"), lat: 1.35, lon: 103.82, hub: true },
     { name: "Seoul", flag: FLAG("kr"), lat: 37.57, lon: 126.98, hub: true },
@@ -500,6 +531,9 @@ export const home = {
     { name: "Kenya", flag: FLAG("ke"), lat: -1.29, lon: 36.8 },
     { name: "Philippines", flag: FLAG("ph"), lat: 14.6, lon: 121.0 },
   ],
+  testimonialsHead: {
+    eyebrow: "07 — In their words",
+  },
   testimonials: [
     {
       quote:
@@ -521,6 +555,10 @@ export const home = {
       img: P("bfi-team-laugh"),
     },
   ],
+  audiencesHead: {
+    eyebrow: "08 — Work with us",
+    title: "For schools, partners and organisations.",
+  },
   audiences: [
     {
       kicker: "For schools & educators",
@@ -545,6 +583,11 @@ export const home = {
       cta: "Become a partner",
     },
   ],
+  teamHead: {
+    eyebrow: "09 — People",
+    title: "Founders, mentors & speakers",
+    link: { label: "Meet all our mentors →", href: "/about" },
+  },
   team: [
     "jinyi",
     "ash",
@@ -587,6 +630,11 @@ export const home = {
     { src: P("pca-laptop"), tag: "AI Tinkery Camp", caption: "Vibe-coding their own games" },
     { src: P("ntu-group"), tag: "NTU Singapore", caption: "AI & design thinking workshop" },
   ],
+  closing: {
+    title: "What will\nyou build?",
+    primary: { label: "Explore programs →", href: "/programs" },
+    secondary: { label: "Partner with us", href: "/partners" },
+  },
 };
 
 /* ───────────── Programs ───────────── */
@@ -703,6 +751,18 @@ export const programs: Program[] = [
     href: "/partners",
   },
 ];
+export const programsPage = {
+  eyebrow: "// Programs · {count} listed",
+  title: "Every program,\npast and upcoming.",
+  text: "Competitions, immersions, studios and school partnerships — filter by what you’re looking for.",
+  calendarKey: "◆ = deadline / session",
+  emptyText: "No programs match these filters",
+  closing: {
+    title: "Want a program for your school?",
+    button: { label: "Talk to us →", href: "/partners" },
+  },
+};
+
 export const season = {
   label: "Season calendar · Nov 2026 – Jan 2027",
   days: 92,
@@ -735,6 +795,11 @@ export const season = {
 
 /* ───────────── Competitions ───────────── */
 export const competitions = {
+  hero: {
+    eyebrow: "// Competitions & hackathons",
+    title: "Where students compete to build what matters.",
+    text: "In-person hackathons in Singapore and Seoul, and virtual competitions with students from every continent — judged by founders, researchers and industry experts.",
+  },
   heroImages: [P("bfi-champions"), P("seoul-group"), P("bfi-huddle")],
   stats: [
     { value: "4", label: "Competitions in 2026" },
@@ -743,11 +808,20 @@ export const competitions = {
     { value: "2", label: "Countries hosted" },
   ],
   open: {
+    label: "● Now open · Next competition",
     title: "Global Innovation Challenge 2026",
     body: "Develop, validate and pitch a business or social-enterprise idea. One winning team receives a US$1,500 seed award from the Global Builders’ Seed Fund.",
     facts: ["11 Dec – 16 Jan", "Virtual", "Grade 9+", "Teams of 2–3", "US$250"],
     img: P("gic-visual"),
     deadline: "2026-12-01T04:59:00Z",
+    countdownLabel: "Closes in",
+    primary: { label: "Register on Luma →", href: LUMA_URL },
+    secondary: { label: "How it works", href: "#how" },
+  },
+  pastHead: {
+    eyebrow: "01 — Past competitions",
+    title: "2026 so far",
+    button: { label: "See every entry on The Global Archives ↗", href: ARCHIVES_URL },
   },
   past: [
     {
@@ -809,9 +883,14 @@ export const competitions = {
       logos: ["Kakao", "Coupang", "Stanford University"],
     },
   ],
+  alsoLabel: "Also run by Build Learning",
   also: [
     { when: "9 Nov – 14 Dec 2025 · with CaseCatalyst", title: "Winter Case Competition 2025" },
   ],
+  ideasHead: {
+    eyebrow: "02 — The brief",
+    title: "If you could solve one problem in society, what would it be?",
+  },
   ideas: [
     { icon: "rocket", title: "A business or startup idea" },
     { icon: "heart", title: "A social enterprise or impact initiative" },
@@ -825,6 +904,11 @@ export const competitions = {
     { title: "Submit", body: "Pitch deck, demo video and validation data." },
     { title: "Finals", body: "Top teams pitch live to the judging panel." },
   ],
+  afterHead: {
+    eyebrow: "03 — It doesn’t end at the pitch",
+    title: "Pathways after the finals.",
+    text: "Winners don’t just get a certificate. We connect them with real organisations so their ideas keep growing.",
+  },
   after: [
     {
       title: "Internships with real organisations",
@@ -839,6 +923,10 @@ export const competitions = {
       body: "GIC 2026’s winning team receives US$1,500 from the Global Builders’ Seed Fund.",
     },
   ],
+  judgesHead: {
+    eyebrow: "04 — Mentors & judges",
+    title: "Learn from people who build for a living",
+  },
   judges: [
     { key: "karin", role: "Speaker · Build for Impact Seoul" },
     { key: "queenstar", role: "Judge · Global Impact" },
@@ -851,8 +939,14 @@ export const competitions = {
     { key: "emma", role: "Mentor · Global Cultures" },
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
+  pastJudgesLabel: "Past judges include",
   pastJudges:
     "Dr Angus Whitehead (NIE / NTU) · Edwin Lai (ex-Microsoft, Google) · Deborah Oludimu (A Pad for Her) · Ryan Chua (Samsung) · Dr Gift Iyioku (Stanford Hoover Institution) · Chavvi Sharma (Uniphore) · Minho Ryu (Kakao) · Sangah Lee (Coupang) · Joshua Choy & Stephanie How (Liminal) · Sreejith Mohan (StartX)",
+  closing: {
+    title: "Ready to compete?",
+    primary: { label: "Register for GIC 2026 →", href: LUMA_URL },
+    secondary: { label: "Bring a competition to your school", href: "/partners" },
+  },
 };
 
 /* ───────────── Immersion ───────────── */
@@ -869,6 +963,12 @@ export const immersion = {
     ["Group", "20 students max"],
     ["From", "S$2,700 early bird"],
   ],
+  reserveLabel: "Reserve a place →",
+  outcomesHead: {
+    eyebrow: "01 — You leave with",
+    title: "A portfolio, not a certificate.",
+    text: "Everything students make is evidence of the human skills universities and employers look for — communication, empathy, teamwork and critical thinking.",
+  },
   outcomes: [
     "A working AI prototype, co-created with local Singaporean students",
     "A pitch deck and video demo presented to judges from leading firms",
@@ -876,6 +976,11 @@ export const immersion = {
     "Interviews and co-creation work with local students and mentors",
     "A certificate and a personalised statement of impact",
   ],
+  daysHead: {
+    eyebrow: "02 — The 8 days",
+    title: "Learn · Apply · Collaborate · Build",
+    note: "Plan subject to change",
+  },
   days: [
     {
       n: 1,
@@ -943,6 +1048,7 @@ export const immersion = {
       img: P("hackrift"),
     },
   ],
+  bentoHead: { eyebrow: "03 — Where you’ll go & stay", title: "Multicultural. Innovative. Fun." },
   bento: [
     { src: P("present-room"), label: "Mentor sessions", big: true },
     { src: P("gardens"), label: "Gardens by the Bay" },
@@ -977,12 +1083,19 @@ export const immersion = {
       ],
     },
   ],
+  mentorsHead: { eyebrow: "04 — Your mentors", title: "Stanford mentors & industry experts" },
   mentors: [
     { key: "ash", role: "Technology & innovation" },
     { key: "jinyi", role: "Innovation & new ventures" },
     { key: "khongorzul", role: "Admissions" },
   ],
+  industryCard: {
+    title: "Industry experts",
+    tag: "To be revealed",
+    text: "Judges and speakers from brand, consulting, technology and venture capital.",
+  },
   industryLogos: ["Google", "Oliver Wyman", "Samsung"],
+  datesLabel: "05 — Key dates",
   dates: [
     ["1 Nov 2026", "Registration opens"],
     ["13 Nov 2026", "Info session 1 (online, recorded)"],
@@ -992,12 +1105,18 @@ export const immersion = {
     ["9 – 16 Jan 2027", "Program in Singapore"],
   ],
   fees: {
+    label: "06 — Program fee",
+    earlyLabel: "Early bird · before 4 Dec",
+    regularLabel: "Regular",
     early: "S$2,700",
     regular: "S$2,999",
     includes:
       "Activities, health insurance, local transport, accommodation, selected meals, attraction fees, software and program administration.",
     excludes: "Airfare, visa fees, personal spending (we suggest ~S$150) and some self-paid meals.",
+    registerLabel: "Register — 20 places, first come first served",
+    infoSessionLabel: "Join a free info session (13 Nov or 4 Dec) →",
   },
+  faqHead: { eyebrow: "07 — Questions", title: "For parents" },
   faq: [
     {
       q: "Is it safe? Who supervises students?",
@@ -1016,11 +1135,20 @@ export const immersion = {
       a: "No. All training and resources are provided.",
     },
   ],
+  presentedByLabel: "Presented by",
 };
 
 /* ───────────── Partners ───────────── */
 export const partnersPage = {
+  intro: {
+    eyebrow: "// Schools & partners",
+    title: "Bring real-world innovation to your students.",
+    text: "We design and deliver programs with schools, governments and companies — from one-day workshops to hackathons and learning immersions.",
+    primary: { label: "Start a conversation →", href: "#contact" },
+    secondary: { label: "See formats", href: "#schools" },
+  },
   hero: P("openai-talk"),
+  schoolsHead: { eyebrow: "01 — For schools", title: "Formats we bring to your campus" },
   schools: [
     {
       title: "Design Thinking Workshops",
@@ -1052,10 +1180,16 @@ export const partnersPage = {
     },
   ],
   pca: {
+    eyebrow: "Featured school partner · Korea",
     title: "Providence Christian Academy Seoul",
     intro:
       "Two programs, one summer: a hands-on AI Tinkery camp for younger students, and the first Build for Impact hackathon outside Singapore.",
     imgs: [P("pca-robot"), P("pca-laptop"), P("pca25-group"), P("seoul-group"), P("seoul-panel")],
+  },
+  orgsHead: {
+    eyebrow: "02 — For organisations",
+    title: "Put your brand behind young innovators.",
+    text: "Companies, governments and nonprofits partner with us to reach motivated students and see fresh thinking on real problems.",
   },
   orgs: [
     { title: "Sponsor a challenge", body: "Co-brand a competition or fund a seed award." },
@@ -1076,6 +1210,7 @@ export const partnersPage = {
       body: "Like our AI sponsors OpenAI, Lovable and Cloudflare.",
     },
   ],
+  stepsHead: { eyebrow: "04 — How it works", title: "From first call to showcase" },
   steps: [
     { title: "Discovery call", body: "We learn your goals, students or team, and constraints." },
     { title: "Co-design", body: "We shape the format, brief and outcomes together." },
@@ -1085,6 +1220,7 @@ export const partnersPage = {
       body: "Best work is published on The Global Archives, with an impact report for you.",
     },
   ],
+  casesHead: { eyebrow: "03 — Case studies", title: "What we’ve built together" },
   cases: [
     {
       kicker: "Government & ecosystem partners",
@@ -1135,6 +1271,12 @@ export const partnersPage = {
       href: "/competitions",
     },
   ],
+  contact: {
+    eyebrow: "05 — Get in touch",
+    title: "Let’s design something together.",
+    text: "Tell us a little about your school or organisation and we’ll be in touch within two working days.",
+    submitLabel: "Send enquiry →",
+  },
   interests: [
     "Workshops",
     "Camps",
@@ -1147,6 +1289,7 @@ export const partnersPage = {
 
 /* ───────────── About ───────────── */
 export const about = {
+  eyebrow: "// About Build Learning",
   headline: "In a world shaped by AI, we help students stay deeply human.",
   intro:
     "Build Learning was born at Stanford and built in Singapore. We teach innovation, storytelling and empathy through real projects, industry collaboration and a focus on social impact.",
@@ -1155,6 +1298,7 @@ export const about = {
     { src: P("seoul-group"), alt: "Build for Impact Seoul participants" },
     { src: P("bfi-team-laugh"), alt: "Students building a project" },
   ],
+  foundersHead: { eyebrow: "01 — Founders", title: "Born at Stanford. Built in Singapore." },
   founders: [
     {
       key: "jinyi",
@@ -1167,6 +1311,7 @@ export const about = {
       bio: "MS in Learning Design & Technology, Stanford GSE, and Stanford GSB Ignite. Founding mentor at the Stanford Accelerator for Learning & AI Tinkery. Former Singapore educator and government scholar; Innovation Associate at Kinaya Ventures.",
     },
   ],
+  mentorsHead: { eyebrow: "02 — Mentors, speakers & judges", title: "Our network" },
   mentors: [
     "karin",
     "pratyusha",
@@ -1191,6 +1336,7 @@ export const about = {
     "joshua",
     "stephanie",
   ],
+  valuesHead: { eyebrow: "03 — What we believe", title: "Our values" },
   values: [
     {
       title: "Human first, AI-fluent",
@@ -1206,4 +1352,12 @@ export const about = {
       body: "Projects lead to internships, publication and real partners — not just certificates.",
     },
   ],
+  closing: {
+    title: "Join a program, bring us to your school, or explore student work.",
+    buttons: [
+      { label: "See programs →", href: "/programs" },
+      { label: "Partner with us", href: "/partners#contact" },
+      { label: "The Global Archives ↗", href: ARCHIVES_URL },
+    ],
+  },
 };

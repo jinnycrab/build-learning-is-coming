@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
-import { CountdownChips, PersonCard } from "@/components/site/Shared";
-import { ARCHIVES_URL, LUMA_URL, competitions as C, logo } from "@/content/site";
+import { AccentEnd, CountdownChips, PersonCard } from "@/components/site/Shared";
+import { competitions as C, logo } from "@/content/site";
 
 export const Route = createFileRoute("/competitions")({
   head: () => ({
@@ -55,13 +55,12 @@ function Competitions() {
       <section className="gridbg border-b border-bl-line">
         <Container className="grid items-end gap-12 pb-14 pt-20 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
-            <Eyebrow>// Competitions & hackathons</Eyebrow>
+            <Eyebrow>{C.hero.eyebrow}</Eyebrow>
             <h1 className="disp m-0 text-[length:calc(clamp(2.75rem,6vw,5.25rem)*var(--bl-hscale))] leading-none">
-              Where students compete to build what matters.
+              {C.hero.title}
             </h1>
             <p className="m-0 max-w-[560px] text-lg leading-relaxed text-bl-ink-2">
-              In-person hackathons in Singapore and Seoul, and virtual competitions with students
-              from every continent — judged by founders, researchers and industry experts.
+              {C.hero.text}
             </p>
           </div>
           <div className="grid grid-cols-[1.4fr_1fr] grid-rows-[200px_200px] gap-2.5">
@@ -106,7 +105,7 @@ function Competitions() {
               className="h-full min-h-[320px] w-full object-cover"
             />
             <div className="flex flex-col justify-center gap-5 p-8 lg:p-10">
-              <Eyebrow>● Now open · Next competition</Eyebrow>
+              <Eyebrow>{C.open.label}</Eyebrow>
               <span className="disp text-[length:calc(clamp(1.75rem,3vw,2.25rem)*var(--bl-hscale))] leading-tight">
                 {C.open.title}
               </span>
@@ -118,14 +117,14 @@ function Competitions() {
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className="eyebrow mr-2 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-                  Closes in
+                  {C.open.countdownLabel}
                 </span>
                 <CountdownChips iso={C.open.deadline} compact />
               </div>
               <div className="flex flex-wrap gap-3 pt-1">
-                <Button href={LUMA_URL}>Register on Luma →</Button>
-                <Button href="#how" variant="ghost">
-                  How it works
+                <Button href={C.open.primary.href}>{C.open.primary.label}</Button>
+                <Button href={C.open.secondary.href} variant="ghost">
+                  {C.open.secondary.label}
                 </Button>
               </div>
             </div>
@@ -137,11 +136,11 @@ function Competitions() {
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-14 py-24 lg:py-28">
           <SectionHead
-            eyebrow="01 — Past competitions"
-            title="2026 so far"
+            eyebrow={C.pastHead.eyebrow}
+            title={C.pastHead.title}
             aside={
-              <Button href={ARCHIVES_URL} variant="ghost">
-                See every entry on The Global Archives ↗
+              <Button href={C.pastHead.button.href} variant="ghost">
+                {C.pastHead.button.label}
               </Button>
             }
           />
@@ -226,7 +225,7 @@ function Competitions() {
 
       <section className="border-b border-bl-line">
         <Container className="grid gap-3 py-12 md:grid-cols-[auto_1fr] md:items-center md:gap-8">
-          <span className="eyebrow text-xs text-bl-ink-3">Also run by Build Learning</span>
+          <span className="eyebrow text-xs text-bl-ink-3">{C.alsoLabel}</span>
           <div className="flex flex-wrap gap-3">
             {C.also.map((a) => (
               <div key={a.title} className="rounded-2xl border border-white/15 px-6 py-5">
@@ -244,8 +243,8 @@ function Competitions() {
       <section id="how" className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
-            eyebrow="02 — The brief"
-            title="If you could solve one problem in society, what would it be?"
+            eyebrow={C.ideasHead.eyebrow}
+            title={C.ideasHead.title}
           />
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {C.ideas.map((it, i) => (
@@ -298,11 +297,10 @@ function Competitions() {
       <section className="border-b border-bl-line">
         <Container className="grid items-center gap-12 py-24 lg:grid-cols-2 lg:py-28">
           <div className="flex flex-col gap-4">
-            <Eyebrow>03 — It doesn’t end at the pitch</Eyebrow>
-            <h2 className="h2">Pathways after the finals.</h2>
+            <Eyebrow>{C.afterHead.eyebrow}</Eyebrow>
+            <h2 className="h2">{C.afterHead.title}</h2>
             <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              Winners don’t just get a certificate. We connect them with real organisations so their
-              ideas keep growing.
+              {C.afterHead.text}
             </p>
           </div>
           <div className="flex flex-col gap-2.5">
@@ -326,8 +324,8 @@ function Competitions() {
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
-            eyebrow="04 — Mentors & judges"
-            title="Learn from people who build for a living"
+            eyebrow={C.judgesHead.eyebrow}
+            title={C.judgesHead.title}
           />
           <div className="grid grid-cols-2 gap-5 sm:grid-cols-3 lg:grid-cols-5">
             {C.judges.map((j) => (
@@ -336,7 +334,7 @@ function Competitions() {
           </div>
           <p className="m-0 border-t border-bl-line pt-5 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
             <span className="eyebrow mr-3 text-[length:calc(10px*var(--bl-scale))] text-[#8C929C]">
-              Past judges include
+              {C.pastJudgesLabel}
             </span>
             {C.pastJudges}
           </p>
@@ -346,12 +344,12 @@ function Competitions() {
       <section className="gridbg">
         <Container className="flex flex-wrap items-end justify-between gap-8 py-24">
           <h2 className="disp m-0 max-w-[760px] text-[length:calc(clamp(2.5rem,5vw,4.5rem)*var(--bl-hscale))] leading-none">
-            Ready to compete<span className="text-bl-accent">?</span>
+            <AccentEnd text={C.closing.title} />
           </h2>
           <div className="flex flex-wrap gap-3">
-            <Button href={LUMA_URL}>Register for GIC 2026 →</Button>
-            <Button href="/partners" variant="ghost">
-              Bring a competition to your school
+            <Button href={C.closing.primary.href}>{C.closing.primary.label}</Button>
+            <Button href={C.closing.secondary.href} variant="ghost">
+              {C.closing.secondary.label}
             </Button>
           </div>
         </Container>
