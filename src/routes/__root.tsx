@@ -78,16 +78,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Build Learning" },
-      { name: "description", content: "Build Learning is coming soon." },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Build Learning" },
-      { property: "og:description", content: "Build Learning is coming soon." },
+      { title: "Build Learning — Build what AI can’t" },
+      { name: "description", content: "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace." },
+      { name: "author", content: "Build Learning" },
+      { property: "og:title", content: "Build Learning — Build what AI can’t" },
+      { property: "og:description", content: "Programs, competitions and learning immersions for students. Singapore · Seoul · San Francisco." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
-    ],
+          ],
     links: [
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Montserrat:wght@500;600;700;800&display=swap",
+      },
       {
         rel: "stylesheet",
         href: appCss,
@@ -107,7 +112,7 @@ function RootShell({ children }: { children: ReactNode }) {
       <head>
         <HeadContent />
       </head>
-      <body>
+      <body className="bl">
         {children}
         <Scripts />
       </body>
