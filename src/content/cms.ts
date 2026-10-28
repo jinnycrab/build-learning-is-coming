@@ -17,7 +17,6 @@ export type SectionKey =
   | "home"
   | "programsPage"
   | "programs"
-  | "season"
   | "competitions"
   | "immersion"
   | "partnersPage"
@@ -83,7 +82,7 @@ export const SECTIONS: SectionDef[] = [
     key: "programsPage",
     label: "Programs page text",
     group: "Pages",
-    description: "Headline, intro, calendar key and the closing banner on Programs.",
+    description: "Headline, intro and the closing banner on Programs.",
     page: "/programs",
   },
   {
@@ -91,13 +90,6 @@ export const SECTIONS: SectionDef[] = [
     label: "Programs list",
     group: "Pages",
     description: "Cards on the Programs page.",
-    page: "/programs",
-  },
-  {
-    key: "season",
-    label: "Season calendar",
-    group: "Pages",
-    description: "The timeline at the top of Programs.",
     page: "/programs",
   },
   {
@@ -143,7 +135,6 @@ const live: Record<SectionKey, Json> = {
   home: site.home,
   programsPage: site.programsPage,
   programs: site.programs,
-  season: site.season,
   competitions: site.competitions,
   immersion: site.immersion,
   partnersPage: site.partnersPage,
