@@ -14,6 +14,10 @@ export const Route = createFileRoute("/")({
         content:
           "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
       },
+      { property: "og:title", content: "Build Learning — Build what AI can’t" },
+      { property: "og:description", content: "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Home,

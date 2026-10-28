@@ -12,6 +12,10 @@ export const Route = createFileRoute("/immersion")({
         content:
           "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges. Ages 14–18, 9–16 Jan 2027.",
       },
+      { property: "og:title", content: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning" },
+      { property: "og:description", content: "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges. Ages 14–18, 9–16 Jan 2027." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Immersion,

@@ -5,7 +5,14 @@ import { about as A, people, ARCHIVES_URL } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
-    meta: [{ title: "About — Build Learning" }, { name: "description", content: A.intro }],
+    meta: [
+      { title: "About — Build Learning" },
+      { name: "description", content: A.intro },
+      { property: "og:title", content: "About — Build Learning" },
+      { property: "og:description", content: A.intro },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
   }),
   component: About,
 });
