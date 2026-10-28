@@ -165,7 +165,7 @@ function RootComponent() {
         const brand = brandOf(overrides);
         const style = document.getElementById("bl-brand");
         if (style) style.textContent = brandCss(brand);
-        document.documentElement.dataset.motion = brand.motion === false ? "off" : "on";
+        document.documentElement.dataset["motion"] = brand.motion === false ? "off" : "on";
         const link = document.querySelector<HTMLLinkElement>('link[href*="fonts.googleapis.com/css2"]');
         if (link) link.href = fontHref(brand);
       };
