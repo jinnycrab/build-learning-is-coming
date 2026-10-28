@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Keep the pending CMS schema contract in `src/lib/cms-client.ts`, reusing the generated Supabase connection; this allows CMS code to compile before migration without editing generated types or changing database access.
