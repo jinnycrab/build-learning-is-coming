@@ -176,7 +176,11 @@ function merge(base: unknown, over: unknown): unknown {
 export function resolved(key: SectionKey, over: unknown): Json {
   const sec = SECTIONS.find((s) => s.key === key);
   if (sec?.record) return isObj(over) ? over : getDefault(key);
-  return merge(getDefault(key), over);
+  const def = getDefault(key);
+  // Drop saved fields the page no longer uses, so removed sections don't linger in the editor.
+  if (isObj(def) && isObj(over))
+    over = Object.fromEntries(Object.entries(over).filter(([k]) => k in def));
+  return merge(def, over);
 }
 
 function writeInto(target: unknown, value: unknown) {

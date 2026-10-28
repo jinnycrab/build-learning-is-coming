@@ -343,7 +343,7 @@ export const home = {
   pathwaysHead: {
     eyebrow: "01 — What we do",
     title: "More than passion projects. One ecosystem, four ways to build.",
-    text: "Every pathway runs on the same B.U.I.L.D method and mentor network — and every finished project can be published to The Global Archives.",
+    text: "Every pathway draws on methods from Stanford and the same mentor network — and every finished project can be published to The Global Archives.",
   },
   pathways: [
     {
@@ -467,48 +467,18 @@ export const home = {
       href: "/immersion",
     },
   ],
-  buildHead: {
+  method: {
     eyebrow: "04 — The method",
-    title: "B.U.I.L.D. — from a question to a pitch.",
-    text: "Rooted in Stanford design thinking. Students prototype with real AI tools from Google, OpenAI and Lovable — and learn when not to lean on them.",
+    title: "Learn to innovate the Stanford way.",
+    text: "Every student learns how to innovate using methods from Stanford.",
+    img: P("founders-stanford"),
+    alt: "Build Learning’s co-founders at Stanford",
   },
   studentWorkHead: {
     eyebrow: "05 — Student work",
     title: "Real projects. Real places. Real people.",
     button: { label: "Browse The Global Archives ↗", href: ARCHIVES_URL },
   },
-  build: [
-    {
-      letter: "B",
-      title: "Brief",
-      body: "Pick a problem in society you care about — and frame it.",
-      color: "var(--bl-accent)",
-    },
-    {
-      letter: "U",
-      title: "Understand",
-      body: "Research users and context; learn how AI can amplify you.",
-      color: "var(--bl-green)",
-    },
-    {
-      letter: "I",
-      title: "Ideate",
-      body: "Generate solutions; mentors incubate and sharpen them.",
-      color: "var(--bl-yellow)",
-    },
-    {
-      letter: "L",
-      title: "Lead",
-      body: "Size the market, prototype, run pilots and validation surveys.",
-      color: "var(--bl-blue)",
-    },
-    {
-      letter: "D",
-      title: "Demo",
-      body: "Pitch with a working demo and evidence to expert judges.",
-      color: "var(--bl-cream)",
-    },
-  ],
   pinsHead: {
     eyebrow: "06 — Our builders",
     title: "From Singapore to Seoul to San Francisco — and everywhere in between.",
@@ -1214,7 +1184,7 @@ export const partnersPage = {
   steps: [
     { title: "Discovery call", body: "We learn your goals, students or team, and constraints." },
     { title: "Co-design", body: "We shape the format, brief and outcomes together." },
-    { title: "Deliver", body: "Our mentors run the program using the B.U.I.L.D method." },
+    { title: "Deliver", body: "Our mentors run the program using methods from Stanford." },
     {
       title: "Showcase",
       body: "Best work is published on The Global Archives, with an impact report for you.",

@@ -631,7 +631,7 @@ const SECTION_LABELS: Record<string, string> = {
   pathways: "Pathways (stacking cards)",
   humanStack: "Human skills",
   upcoming: "Upcoming programs",
-  build: "B.U.I.L.D method",
+  method: "Stanford method",
   pins: "Map pins",
   heroImages: "Hero photos",
   open: "Open competition",
