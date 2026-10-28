@@ -501,60 +501,8 @@ export const home = {
     { name: "Kenya", flag: FLAG("ke"), lat: -1.29, lon: 36.8 },
     { name: "Philippines", flag: FLAG("ph"), lat: 14.6, lon: 121.0 },
   ],
-  testimonialsHead: {
-    eyebrow: "07 — In their words",
-  },
-  testimonials: [
-    {
-      quote:
-        "My team and I walked through the full cycle of user research, ideation and prototyping (all in one day!).",
-      name: "J. Jian",
-      school: "Nanyang Technological University",
-      img: P("bfi-huddle"),
-    },
-    {
-      quote: "Seriously one of the most enjoyable and interesting activities I’ve done in a while.",
-      name: "D. Kim",
-      school: "Seoul International School",
-      img: P("openai-talk"),
-    },
-    {
-      quote: "Taking the initiative over a problem, and seeing a vision people may not see.",
-      name: "A. Negrete",
-      school: "Carlmont High School, California",
-      img: P("bfi-team-laugh"),
-    },
-  ],
-  audiencesHead: {
-    eyebrow: "08 — Work with us",
-    title: "For schools, partners and organisations.",
-  },
-  audiences: [
-    {
-      kicker: "For schools & educators",
-      title: "Bring future-ready learning to your students.",
-      items: [
-        "Design-thinking & AI prototyping workshops",
-        "Camps and hackathons on your campus",
-        "Co-hosted immersions and learning journeys",
-        "Teacher PD on AI-era pedagogy",
-      ],
-      cta: "Book a school call",
-    },
-    {
-      kicker: "For partners & organisations",
-      title: "Innovate with the next generation.",
-      items: [
-        "Sponsor or co-brand a challenge",
-        "Judge, mentor or give a keynote",
-        "Host a learning journey at your office",
-        "Set a real brief for student teams",
-      ],
-      cta: "Become a partner",
-    },
-  ],
   teamHead: {
-    eyebrow: "09 — People",
+    eyebrow: "07 — People",
     title: "Founders, mentors & speakers",
     link: { label: "Meet all our mentors →", href: "/about" },
   },

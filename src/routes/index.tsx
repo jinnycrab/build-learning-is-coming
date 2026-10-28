@@ -35,8 +35,6 @@ function Home() {
       <Method />
       <StudentWork />
       <WorldMap />
-      <Testimonials />
-      <Audiences />
       <Team />
       <ClosingCta />
     </Page>
@@ -583,81 +581,6 @@ function WorldMap() {
         <p className="eyebrow m-0 text-[length:calc(11px*var(--bl-scale))] leading-loose text-bl-ink-3">
           {home.pins.map((p) => p.name).join(" · ")}
         </p>
-      </Container>
-    </section>
-  );
-}
-
-/* ───────── Testimonials ───────── */
-function Testimonials() {
-  return (
-    <section className="border-b border-bl-line">
-      <Container className="flex flex-col gap-10 py-24 lg:py-28">
-        <Eyebrow>{home.testimonialsHead.eyebrow}</Eyebrow>
-        <div className="grid gap-4 md:grid-cols-3">
-          {home.testimonials.map((q) => (
-            <figure
-              key={q.name}
-              className="m-0 flex flex-col gap-5 rounded-[20px] border border-white/15 bg-bl-surface p-3.5"
-            >
-              <img
-                src={q.img}
-                alt=""
-                loading="lazy"
-                className="h-[220px] w-full rounded-xl object-cover"
-              />
-              <blockquote className="m-0 px-2.5 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#E6E8EB]">
-                “{q.quote}”
-              </blockquote>
-              <figcaption className="flex flex-col gap-1 px-2.5 pb-3">
-                <span className="text-sm font-semibold">{q.name}</span>
-                <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-                  {q.school}
-                </span>
-              </figcaption>
-            </figure>
-          ))}
-        </div>
-      </Container>
-    </section>
-  );
-}
-
-/* ───────── Audiences ───────── */
-function Audiences() {
-  return (
-    <section className="border-b border-bl-line">
-      <Container className="flex flex-col gap-10 py-24 lg:py-28">
-        <SectionHead eyebrow={home.audiencesHead.eyebrow} title={home.audiencesHead.title} />
-        <div className="grid gap-4 md:grid-cols-2">
-          {home.audiences.map((a) => (
-            <div
-              key={a.kicker}
-              className="flex flex-col gap-5 rounded-[20px] border border-white/15 p-9"
-            >
-              <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-                {a.kicker}
-              </span>
-              <span className="disp text-[length:calc(28px*var(--bl-scale))] leading-tight">
-                {a.title}
-              </span>
-              <ul className="m-0 list-none p-0">
-                {a.items.map((it) => (
-                  <li
-                    key={it}
-                    className="flex gap-3.5 border-t border-bl-line py-3.5 text-[length:calc(15px*var(--bl-scale))] text-[#D4D7DC]"
-                  >
-                    <span className="text-bl-accent">→</span>
-                    {it}
-                  </li>
-                ))}
-              </ul>
-              <Button href="/partners" variant="light" className="self-start">
-                {a.cta}
-              </Button>
-            </div>
-          ))}
-        </div>
       </Container>
     </section>
   );
