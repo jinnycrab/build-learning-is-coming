@@ -1,3 +1,5 @@
 - [x] Adapt homepage heading, photo, navigation and compact layouts to different screen sizes.
 - [x] Remove the “Where the work lives” / “The Global Archives” homepage section.
 - [x] Verify the homepage at phone, tablet and desktop widths.
+- [ ] Show the full homepage photo centred beside the headline, without the competition panel overlapping it.
+- [ ] Verify photo alignment at Mac-sized and smaller browser widths.
