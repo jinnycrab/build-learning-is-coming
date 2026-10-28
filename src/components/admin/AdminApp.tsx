@@ -1,5 +1,9 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "@tanstack/react-router";
+import { LivePreview } from "./LivePreview";
+import { Button } from "@/components/ui/button";
+import { PREVIEW_CHANNEL, previewOverrides } from "@/lib/cms-preview";
+import { Eye } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { cmsSupabase as supabase } from "@/lib/cms-client";
 import type { Json } from "@/integrations/supabase/types";
@@ -15,7 +19,7 @@ import { BrandEditor } from "./BrandEditor";
 import { EditorCtx, MediaPickerHost, RecordEditor, ValueEditor, inputCls } from "./fields";
 import { deleteUpload, listUploads, uploadImage, type MediaItem } from "./media";
 
-type View = SectionKey | "media" | "team";
+type View = SectionKey | "media";
 type Row = { data: unknown; updated_at: string };
 
 const btn =
@@ -29,7 +33,7 @@ function errMsg(e: unknown) {
   return "Something went wrong";
 }
 
-export function AdminApp() {
+export function AdminApp({ previewOnly = false }: { previewOnly?: boolean }) {
   const [session, setSession] = useState<Session | null | undefined>(undefined);
   useEffect(() => {
     supabase.auth
@@ -49,7 +53,7 @@ export function AdminApp() {
       {session === undefined ? (
         <Centered>Loading…</Centered>
       ) : session ? (
-        <AdminGate session={session} />
+        <AdminGate session={session} previewOnly={previewOnly} />
       ) : (
         <Login />
       )}
@@ -68,7 +72,7 @@ function Centered({ children }: { children: React.ReactNode }) {
 /* ───────── Login ───────── */
 
 function Login() {
-  const [mode, setMode] = useState<"in" | "up" | "reset">("in");
+  const [mode, setMode] = useState<"in" | "reset">("in");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [msg, setMsg] = useState<{ ok: boolean; text: string } | null>(null);
@@ -82,18 +86,6 @@ function Login() {
       if (mode === "in") {
         const { error } = await supabase.auth.signInWithPassword({ email, password });
         if (error) throw error;
-      } else if (mode === "up") {
-        const { data, error } = await supabase.auth.signUp({
-          email,
-          password,
-          options: { emailRedirectTo: `${window.location.origin}/admin` },
-        });
-        if (error) throw error;
-        if (!data.session)
-          setMsg({
-            ok: true,
-            text: "Account created. Check your inbox to confirm your email, then sign in.",
-          });
       } else {
         const { error } = await supabase.auth.resetPasswordForEmail(email, {
           redirectTo: `${window.location.origin}/admin`,
@@ -118,9 +110,7 @@ function Login() {
         <h1 className="m-0 text-xl font-bold">
           {mode === "in"
             ? "Sign in to edit the site"
-            : mode === "up"
-              ? "Create an editor account"
-              : "Reset your password"}
+            : "Reset your password"}
         </h1>
         <label className="flex flex-col gap-1.5 text-[13px] font-medium text-zinc-600">
           Email
@@ -140,7 +130,7 @@ function Login() {
               type="password"
               required
               minLength={8}
-              autoComplete={mode === "up" ? "new-password" : "current-password"}
+              autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className={inputCls}
@@ -157,18 +147,9 @@ function Login() {
             ? "Please wait…"
             : mode === "in"
               ? "Sign in"
-              : mode === "up"
-                ? "Create account"
-                : "Send reset link"}
+              : "Send reset link"}
         </button>
         <div className="flex justify-between text-[13px]">
-          <button
-            type="button"
-            className="text-zinc-600 underline-offset-2 hover:underline"
-            onClick={() => setMode(mode === "up" ? "in" : "up")}
-          >
-            {mode === "up" ? "I have an account" : "Create an account"}
-          </button>
           {mode === "in" && (
             <button
               type="button"
@@ -195,7 +176,7 @@ function Login() {
 
 /* ───────── Admin check ───────── */
 
-function AdminGate({ session }: { session: Session }) {
+function AdminGate({ session, previewOnly }: { session: Session; previewOnly: boolean }) {
   const [state, setState] = useState<"checking" | "admin" | "no" | "setup">("checking");
   const [err, setErr] = useState("");
   const [recovery, setRecovery] = useState(false);
@@ -223,7 +204,7 @@ function AdminGate({ session }: { session: Session }) {
 
   if (recovery) return <NewPassword onDone={() => setRecovery(false)} />;
   if (state === "checking") return <Centered>Checking access…</Centered>;
-  if (state === "admin") return <Editor session={session} />;
+  if (state === "admin") return previewOnly ? <LivePreview /> : <Editor session={session} />;
 
   return (
     <div className="flex min-h-screen items-center justify-center p-6">
@@ -243,21 +224,8 @@ function AdminGate({ session }: { session: Session }) {
         ) : (
           <>
             <p className="m-0 text-[14px] leading-relaxed text-zinc-600">
-              Signed in as <b>{session.user.email}</b>. If you’re setting up the site for the first
-              time, claim the admin role. Otherwise, ask an existing admin to add you under Team.
+              Editing access is restricted to the site owner.
             </p>
-            <button
-              type="button"
-              className={btnDark}
-              onClick={async () => {
-                const { data, error } = await supabase.rpc("claim_first_admin");
-                if (error) setErr(error.message);
-                else if (!data) setErr("An admin already exists. Ask them to add you under Team.");
-                else check();
-              }}
-            >
-              I’m the first admin — give me access
-            </button>
             {err && <p className="m-0 text-[13px] text-red-600">{err}</p>}
           </>
         )}
@@ -342,6 +310,13 @@ function Editor({ session }: { session: Session }) {
     [drafts, saved],
   );
   const anyDirty = SECTIONS.some((s) => isDirty(s.key));
+  useEffect(() => {
+    const channel = new BroadcastChannel(PREVIEW_CHANNEL);
+    const send = () => channel.postMessage({ type: "snapshot", overrides: previewOverrides(saved, drafts), path: SECTIONS.find((s) => s.key === view)?.page ?? "/" });
+    channel.onmessage = ({ data }) => { if (data?.type === "request") send(); };
+    send();
+    return () => channel.close();
+  }, [saved, drafts, view]);
 
   useEffect(() => {
     if (!anyDirty) return;
@@ -448,9 +423,7 @@ function Editor({ session }: { session: Session }) {
             <NavBtn active={view === "media"} onClick={() => setView("media")}>
               Media library
             </NavBtn>
-            <NavBtn active={view === "team"} onClick={() => setView("team")}>
-              Team access
-            </NavBtn>
+
           </nav>
           <div className="mt-auto flex flex-col gap-2 border-t border-zinc-200 pt-4 text-[12px] text-zinc-500">
             <a
@@ -481,10 +454,11 @@ function Editor({ session }: { session: Session }) {
                   <span className="text-[13px] text-zinc-500">
                     {sec.description}
                     {saved[sec.key]
-                      ? ` · Last saved ${new Date(saved[sec.key]!.updated_at).toLocaleString()}`
+                      ? ` · Last saved ${new Date(saved[sec.key]?.updated_at ?? "").toLocaleString()}`
                       : " · Using original content"}
                   </span>
                 </div>
+                <Button asChild variant="outline"><a href="/cms-preview" target="_blank" rel="noreferrer"><Eye />Live preview</a></Button>
                 {sec.page && (
                   <a href={sec.page} target="_blank" rel="noreferrer" className={btnLight}>
                     View page ↗
@@ -551,7 +525,7 @@ function Editor({ session }: { session: Session }) {
           ) : view === "media" ? (
             <MediaLibrary onToast={setToast} />
           ) : (
-            <Team me={session.user.id} onToast={setToast} />
+            null
           )}
         </main>
       </div>
@@ -818,90 +792,3 @@ function MediaLibrary({ onToast }: { onToast: (t: { ok: boolean; text: string })
   );
 }
 
-/* ───────── Team ───────── */
-
-function Team({
-  me,
-  onToast,
-}: {
-  me: string;
-  onToast: (t: { ok: boolean; text: string }) => void;
-}) {
-  const [admins, setAdmins] = useState<{ user_id: string; email: string; created_at: string }[]>(
-    [],
-  );
-  const [email, setEmail] = useState("");
-  const refresh = useCallback(async () => {
-    const { data, error } = await supabase.rpc("list_admins");
-    if (error) onToast({ ok: false, text: error.message });
-    setAdmins(data ?? []);
-  }, [onToast]);
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
-  return (
-    <div className="mx-auto flex max-w-[760px] flex-col gap-5 px-8 py-8">
-      <div>
-        <h1 className="m-0 text-[20px] font-bold">Team access</h1>
-        <p className="m-0 text-[13px] text-zinc-500">
-          Admins can edit everything. To add someone, ask them to create an account at /admin first,
-          then add their email here.
-        </p>
-      </div>
-      <form
-        className="flex gap-2"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const { data, error } = await supabase.rpc("grant_admin_by_email", { _email: email });
-          if (error) return onToast({ ok: false, text: error.message });
-          if (data === "not_found")
-            return onToast({
-              ok: false,
-              text: "No account with that email yet. Ask them to sign up at /admin first.",
-            });
-          setEmail("");
-          onToast({ ok: true, text: "Access granted." });
-          refresh();
-        }}
-      >
-        <input
-          type="email"
-          required
-          placeholder="colleague@buildlearning.co"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className={inputCls}
-        />
-        <button type="submit" className={btnDark}>
-          Add admin
-        </button>
-      </form>
-      <div className="flex flex-col divide-y divide-zinc-200 rounded-2xl bg-white ring-1 ring-zinc-200">
-        {admins.map((a) => (
-          <div key={a.user_id} className="flex items-center gap-3 px-4 py-3 text-[14px]">
-            <span className="flex-1">
-              {a.email} {a.user_id === me && <span className="text-zinc-400">(you)</span>}
-            </span>
-            <span className="text-[12px] text-zinc-400">
-              since {new Date(a.created_at).toLocaleDateString()}
-            </span>
-            {a.user_id !== me && (
-              <button
-                type="button"
-                className="text-[12px] text-red-600 hover:underline"
-                onClick={async () => {
-                  if (!confirm(`Remove ${a.email}'s access?`)) return;
-                  const { error } = await supabase.rpc("revoke_admin", { _user_id: a.user_id });
-                  if (error) onToast({ ok: false, text: error.message });
-                  refresh();
-                }}
-              >
-                Remove
-              </button>
-            )}
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
