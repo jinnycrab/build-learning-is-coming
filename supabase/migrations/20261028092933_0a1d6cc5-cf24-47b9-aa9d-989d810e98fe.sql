@@ -1,0 +1,15 @@
+delete from public.user_roles where role = 'admin' and user_id <> '91abf32a-04a3-451e-b82e-0949148bbdfa'::uuid;
+create or replace function public.has_role(_user_id uuid, _role public.app_role) returns boolean language sql stable security definer set search_path = public as $$ select _user_id = '91abf32a-04a3-451e-b82e-0949148bbdfa'::uuid and exists (select 1 from public.user_roles where user_id = _user_id and role = _role) $$;
+create or replace function public.enforce_cms_owner() returns trigger language plpgsql set search_path = public as $$ begin if new.user_id <> '91abf32a-04a3-451e-b82e-0949148bbdfa'::uuid then raise exception 'CMS access is restricted to the owner'; end if; return new; end; $$;
+create trigger enforce_cms_owner before insert or update on public.user_roles for each row execute function public.enforce_cms_owner();
+create or replace function public.claim_first_admin() returns boolean language plpgsql security invoker set search_path = public as $$ begin return false; end; $$;
+create or replace function public.grant_admin_by_email(_email text) returns text language plpgsql security invoker set search_path = public as $$ begin raise exception 'Additional admins are disabled'; end; $$;
+create or replace function public.revoke_admin(_user_id uuid) returns void language plpgsql security invoker set search_path = public as $$ begin raise exception 'The sole owner cannot be removed'; end; $$;
+revoke execute on function public.claim_first_admin() from public, anon, authenticated;
+revoke execute on function public.grant_admin_by_email(text) from public, anon, authenticated;
+revoke execute on function public.revoke_admin(uuid) from public, anon, authenticated;
+create or replace function public.block_cms_signup() returns trigger language plpgsql set search_path = public as $$ begin raise exception 'New account registration is disabled'; end; $$;
+create trigger block_cms_signup before insert on auth.users for each row execute function public.block_cms_signup();
+revoke execute on function public.block_cms_signup() from public, anon, authenticated;
+revoke execute on function public.enforce_cms_owner() from public, anon, authenticated;
+revoke execute on function public.site_content_keep_history() from public, anon, authenticated;

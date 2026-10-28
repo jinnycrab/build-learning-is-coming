@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as AdminRouteImport } from './routes/admin'
+import { Route as CmsPreviewRouteImport } from './routes/cms-preview'
 import { Route as CompetitionsRouteImport } from './routes/competitions'
 import { Route as ImmersionRouteImport } from './routes/immersion'
 import { Route as PartnersRouteImport } from './routes/partners'
@@ -30,6 +31,11 @@ const AboutRoute = AboutRouteImport.update({
 const AdminRoute = AdminRouteImport.update({
   id: '/admin',
   path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CmsPreviewRoute = CmsPreviewRouteImport.update({
+  id: '/cms-preview',
+  path: '/cms-preview',
   getParentRoute: () => rootRouteImport,
 } as any)
 const CompetitionsRoute = CompetitionsRouteImport.update({
@@ -57,6 +63,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -66,6 +73,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -76,6 +84,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/admin': typeof AdminRoute
+  '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
   '/partners': typeof PartnersRoute
@@ -87,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/cms-preview'
     | '/competitions'
     | '/immersion'
     | '/partners'
@@ -96,6 +106,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/cms-preview'
     | '/competitions'
     | '/immersion'
     | '/partners'
@@ -105,6 +116,7 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/admin'
+    | '/cms-preview'
     | '/competitions'
     | '/immersion'
     | '/partners'
@@ -115,6 +127,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   AdminRoute: typeof AdminRoute
+  CmsPreviewRoute: typeof CmsPreviewRoute
   CompetitionsRoute: typeof CompetitionsRoute
   ImmersionRoute: typeof ImmersionRoute
   PartnersRoute: typeof PartnersRoute
@@ -142,6 +155,13 @@ declare module '@tanstack/react-router' {
       path: '/admin'
       fullPath: '/admin'
       preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/cms-preview': {
+      id: '/cms-preview'
+      path: '/cms-preview'
+      fullPath: '/cms-preview'
+      preLoaderRoute: typeof CmsPreviewRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/competitions': {
@@ -179,6 +199,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AdminRoute: AdminRoute,
+  CmsPreviewRoute: CmsPreviewRoute,
   CompetitionsRoute: CompetitionsRoute,
   ImmersionRoute: ImmersionRoute,
   PartnersRoute: PartnersRoute,
