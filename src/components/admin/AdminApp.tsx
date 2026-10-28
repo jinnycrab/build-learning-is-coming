@@ -526,7 +526,7 @@ function Editor({ session }: { session: Session }) {
           )}
         </main>
         <aside aria-label="Live website preview" className="h-screen w-[43%] min-w-[260px] shrink-0 border-l border-border">
-          <LivePreview overrides={previewOverrides(saved, drafts)} page={sec?.page} />
+          <LivePreview overrides={previewOverrides(saved, drafts)} page={sec?.page ?? "/"} />
         </aside>
       </div>
       {toast && (
