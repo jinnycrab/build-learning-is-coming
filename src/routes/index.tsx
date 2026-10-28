@@ -51,8 +51,8 @@ function Hero() {
   return (
     <section className="gridbg border-b border-bl-line">
       <Container className="grid items-center gap-8 pb-8 pt-10 sm:gap-10 sm:pt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:pb-10 lg:pt-14">
-        <div className="flex min-w-0 flex-col gap-5 sm:gap-6">
-          <Eyebrow muted>{home.eyebrow}</Eyebrow>
+        <div className="relative flex min-w-0 flex-col gap-5 sm:gap-6 lg:col-start-1 lg:row-start-1">
+          {home.eyebrow && <Eyebrow muted className="lg:absolute lg:bottom-full lg:mb-6">{home.eyebrow}</Eyebrow>}
           <h1
             className="disp home-headline m-0 text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-[length:calc(3rem*var(--bl-hscale))] lg:text-[length:calc(3.5rem*var(--bl-hscale))] xl:text-[length:calc(4rem*var(--bl-hscale))]"
             aria-label={home.headline.join(" ")}
@@ -71,6 +71,8 @@ function Hero() {
               </span>
             ))}
           </h1>
+        </div>
+        <div className="flex min-w-0 flex-col gap-5 sm:gap-6 lg:col-start-1 lg:row-start-2 lg:self-start">
           <p
             className="fade-up m-0 max-w-[560px] text-base leading-relaxed text-bl-ink-2 sm:text-lg"
             style={{ animationDelay: ".85s" }}
@@ -84,12 +86,11 @@ function Hero() {
             </Button>
           </div>
         </div>
-        <div className="relative min-w-0 lg:pb-24">
-          <div className="relative aspect-[4/3] w-full">
+          <div className="relative min-w-0 w-full lg:col-start-2 lg:row-start-1">
           <img
             src={home.heroImage}
             alt="More than a hundred students at the Build for Impact 2026 hackathon"
-            className="absolute inset-0 h-full w-full rounded-lg border border-bl-line object-cover"
+            className="block h-auto w-full rounded-lg border border-bl-line"
           />
           <button
             type="button"
@@ -106,7 +107,7 @@ function Hero() {
           </div>
           <SiteLink
             href={home.nextUp.href}
-            className="relative mt-3 flex w-full min-w-0 flex-col gap-2.5 rounded-lg border border-bl-line bg-bl-surface/95 p-5 backdrop-blur lg:absolute lg:bottom-0 lg:left-4 lg:mt-0 lg:w-[min(300px,calc(100%-32px))]"
+            className="flex w-full min-w-0 flex-col gap-2.5 rounded-lg border border-bl-line bg-bl-surface/95 p-5 lg:col-start-2 lg:row-start-2 lg:self-start"
           >
             <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-accent">
               ● {home.nextUp.tag}
@@ -134,7 +135,6 @@ function Hero() {
               </span>
             </span>
           </SiteLink>
-        </div>
       </Container>
       <Container className="pb-10 pt-6 lg:pt-0">
         <CountUpStats />

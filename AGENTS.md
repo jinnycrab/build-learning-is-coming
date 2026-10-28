@@ -11,4 +11,4 @@
 
 - Keep the pending CMS schema contract in `src/lib/cms-client.ts`, reusing the generated Supabase connection; this allows CMS code to compile before migration without editing generated types or changing database access.
 - Preview drafts pass directly from editor state to an inline, authenticated iframe, with ephemeral same-origin BroadcastChannel support for the standalone preview route; never persist drafts or apply them to the editor's shared content objects. Scale the iframe from the actual browser viewport using ResizeObserver so its layout does not collapse to the column width.
-- Homepage hero typography uses discrete breakpoint sizes and natural wrapping, and its media stacks below text on smaller screens; this accommodates editable CMS headlines without desktop-sized text collapsing into narrow columns.
+- Homepage hero uses discrete breakpoint typography and a two-row desktop grid: headline beside the uncropped natural-ratio photo, introduction beside competition details; smaller screens stack these elements to keep editable CMS content readable without image overlays.
