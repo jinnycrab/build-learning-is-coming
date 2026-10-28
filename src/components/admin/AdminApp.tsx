@@ -654,9 +654,12 @@ const SECTION_LABELS: Record<string, string> = {
   reel: "Play reel slides",
   team: "Team (people IDs)",
   rows: "Rows",
+  closing: "Closing call to action",
 };
-function labelOf(k: string) {
+function labelOf(k: string): string {
   if (SECTION_LABELS[k]) return SECTION_LABELS[k];
+  // "pathwaysHead" holds the heading shown above the "pathways" section.
+  if (k.length > 4 && k.endsWith("Head")) return `${labelOf(k.slice(0, -4))}: section heading`;
   const s = k.replace(/([a-z])([A-Z])/g, "$1 $2");
   return s.charAt(0).toUpperCase() + s.slice(1);
 }

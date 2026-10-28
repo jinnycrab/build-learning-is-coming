@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useState } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
-import { CountUpStats, LogoMarquee, PersonCard, useDaysLeft } from "@/components/site/Shared";
+import { AccentEnd, CountUpStats, LogoMarquee, PersonCard, useDaysLeft } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
 import { ARCHIVES_URL, home, studentWork } from "@/content/site";
 
@@ -274,12 +274,11 @@ function Pathways() {
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-12 py-24 lg:py-28">
         <SectionHead
-          eyebrow="01 — What we do"
-          title="More than passion projects. One ecosystem, four ways to build."
+          eyebrow={home.pathwaysHead.eyebrow}
+          title={home.pathwaysHead.title}
           aside={
             <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              Every pathway runs on the same B.U.I.L.D method and mentor network — and every
-              finished project can be published to The Global Archives.
+              {home.pathwaysHead.text}
             </p>
           }
         />
@@ -342,18 +341,16 @@ function HumanStack() {
     <section className="gridbg border-b border-bl-line">
       <Container className="grid items-start gap-16 py-24 lg:grid-cols-2 lg:py-28">
         <div className="flex flex-col gap-5">
-          <Eyebrow>02 — The Human Stack</Eyebrow>
-          <h2 className="h2">AI is the toolkit. People are the edge.</h2>
+          <Eyebrow>{home.humanStackHead.eyebrow}</Eyebrow>
+          <h2 className="h2">{home.humanStackHead.title}</h2>
           <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-            Tools change every quarter. The skills on top of them don’t. Students learn to build
-            with AI — then we train the human layer that decides what’s worth building, and for
-            whom.
+            {home.humanStackHead.text}
           </p>
           <SiteLink
-            href="/about"
+            href={home.humanStackHead.link.href}
             className="text-[length:calc(15px*var(--bl-scale))] !text-bl-accent"
           >
-            Our principles →
+            {home.humanStackHead.link.label}
           </SiteLink>
         </div>
         <div className="flex flex-col gap-2">
@@ -386,11 +383,11 @@ function Upcoming() {
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
         <SectionHead
-          eyebrow="03 — Upcoming"
-          title="What’s next on the calendar"
+          eyebrow={home.upcomingHead.eyebrow}
+          title={home.upcomingHead.title}
           aside={
-            <Button href="/programs" variant="ghost">
-              All programs, upcoming & past →
+            <Button href={home.upcomingHead.button.href} variant="ghost">
+              {home.upcomingHead.button.label}
             </Button>
           }
         />
@@ -446,12 +443,11 @@ function Method() {
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-12 py-24 lg:py-28">
         <SectionHead
-          eyebrow="04 — The method"
-          title="B.U.I.L.D. — from a question to a pitch."
+          eyebrow={home.buildHead.eyebrow}
+          title={home.buildHead.title}
           aside={
             <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              Rooted in Stanford design thinking. Students prototype with real AI tools from Google,
-              OpenAI and Lovable — and learn when not to lean on them.
+              {home.buildHead.text}
             </p>
           }
         />
@@ -486,11 +482,11 @@ function StudentWork() {
     <section className="gridbg border-b border-bl-line">
       <Container className="flex flex-col gap-10 pb-10 pt-24 lg:pt-28">
         <SectionHead
-          eyebrow="05 — Student work"
-          title="Real projects. Real places. Real people."
+          eyebrow={home.studentWorkHead.eyebrow}
+          title={home.studentWorkHead.title}
           aside={
-            <Button href={ARCHIVES_URL} variant="ghost">
-              Browse The Global Archives ↗
+            <Button href={home.studentWorkHead.button.href} variant="ghost">
+              {home.studentWorkHead.button.label}
             </Button>
           }
         />
@@ -546,15 +542,12 @@ function WorldMap() {
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
         <div className="grid items-end gap-8 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
-            <Eyebrow>06 — Our builders</Eyebrow>
-            <h2 className="h2">
-              From Singapore to Seoul to San Francisco — and everywhere in between.
-            </h2>
+            <Eyebrow>{home.pinsHead.eyebrow}</Eyebrow>
+            <h2 className="h2">{home.pinsHead.title}</h2>
           </div>
           <div className="flex flex-col gap-3.5">
             <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              Programs run from our hubs; students join from {count} countries and territories
-              across five continents.
+              {home.pinsHead.text.replaceAll("{count}", String(count))}
             </p>
             <div className="eyebrow grid gap-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2 sm:flex sm:gap-5">
               <span className="flex items-center gap-2">
@@ -614,7 +607,7 @@ function Testimonials() {
   return (
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
-        <Eyebrow>07 — In their words</Eyebrow>
+        <Eyebrow>{home.testimonialsHead.eyebrow}</Eyebrow>
         <div className="grid gap-4 md:grid-cols-3">
           {home.testimonials.map((q) => (
             <figure
@@ -649,7 +642,7 @@ function Audiences() {
   return (
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
-        <SectionHead eyebrow="08 — Work with us" title="For schools, partners and organisations." />
+        <SectionHead eyebrow={home.audiencesHead.eyebrow} title={home.audiencesHead.title} />
         <div className="grid gap-4 md:grid-cols-2">
           {home.audiences.map((a) => (
             <div
@@ -690,14 +683,14 @@ function Team() {
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-24 lg:py-28">
         <SectionHead
-          eyebrow="09 — People"
-          title="Founders, mentors & speakers"
+          eyebrow={home.teamHead.eyebrow}
+          title={home.teamHead.title}
           aside={
             <SiteLink
-              href="/about"
+              href={home.teamHead.link.href}
               className="text-[length:calc(15px*var(--bl-scale))] !text-bl-accent"
             >
-              Meet all our mentors →
+              {home.teamHead.link.label}
             </SiteLink>
           }
         />
@@ -712,18 +705,17 @@ function Team() {
 }
 
 function ClosingCta() {
+  const { title, primary, secondary } = home.closing;
   return (
     <section className="gridbg">
       <Container className="flex flex-wrap items-end justify-between gap-8 py-28">
-        <h2 className="disp m-0 min-w-0 break-words text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-5xl lg:text-[length:calc(4rem*var(--bl-hscale))]">
-          What will
-          <br />
-          you build<span className="text-bl-accent">?</span>
+        <h2 className="disp m-0 min-w-0 whitespace-pre-line break-words text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-5xl lg:text-[length:calc(4rem*var(--bl-hscale))]">
+          <AccentEnd text={title} />
         </h2>
         <div className="flex flex-wrap gap-3">
-          <Button href="/programs">Explore programs →</Button>
-          <Button href="/partners" variant="ghost">
-            Partner with us
+          <Button href={primary.href}>{primary.label}</Button>
+          <Button href={secondary.href} variant="ghost">
+            {secondary.label}
           </Button>
         </div>
       </Container>

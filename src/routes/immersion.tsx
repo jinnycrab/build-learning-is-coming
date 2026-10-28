@@ -53,7 +53,7 @@ function Immersion() {
             </div>
           ))}
           <div className="py-5 lg:justify-self-end">
-            <Button href="#register">Reserve a place →</Button>
+            <Button href="#register">{I.reserveLabel}</Button>
           </div>
         </Container>
       </section>
@@ -61,11 +61,10 @@ function Immersion() {
       <section className="gridbg border-b border-bl-line">
         <Container className="grid gap-14 py-24 lg:grid-cols-2 lg:py-28">
           <div className="flex flex-col gap-4">
-            <Eyebrow>01 — You leave with</Eyebrow>
-            <h2 className="h2">A portfolio, not a certificate.</h2>
+            <Eyebrow>{I.outcomesHead.eyebrow}</Eyebrow>
+            <h2 className="h2">{I.outcomesHead.title}</h2>
             <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              Everything students make is evidence of the human skills universities and employers
-              look for — communication, empathy, teamwork and critical thinking.
+              {I.outcomesHead.text}
             </p>
           </div>
           <ol className="m-0 list-none p-0">
@@ -85,11 +84,11 @@ function Immersion() {
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
-            eyebrow="02 — The 8 days"
-            title="Learn · Apply · Collaborate · Build"
+            eyebrow={I.daysHead.eyebrow}
+            title={I.daysHead.title}
             aside={
               <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-                Plan subject to change
+                {I.daysHead.note}
               </span>
             }
           />
@@ -132,8 +131,8 @@ function Immersion() {
       <section className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
-            eyebrow="03 — Where you’ll go & stay"
-            title="Multicultural. Innovative. Fun."
+            eyebrow={I.bentoHead.eyebrow}
+            title={I.bentoHead.title}
           />
           <div className="grid auto-rows-[200px] grid-cols-2 gap-3 lg:grid-cols-4">
             {I.bento.map((b) => (
@@ -181,7 +180,7 @@ function Immersion() {
 
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="04 — Your mentors" title="Stanford mentors & industry experts" />
+          <SectionHead eyebrow={I.mentorsHead.eyebrow} title={I.mentorsHead.title} />
           <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
             {I.mentors.map((m) => (
               <PersonCard key={m.key} personKey={m.key} role={m.role} square />
@@ -201,12 +200,12 @@ function Immersion() {
                   );
                 })}
               </div>
-              <span className="text-base font-semibold">Industry experts</span>
+              <span className="text-base font-semibold">{I.industryCard.title}</span>
               <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
-                To be revealed
+                {I.industryCard.tag}
               </span>
               <span className="text-[length:calc(13px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-                Judges and speakers from brand, consulting, technology and venture capital.
+                {I.industryCard.text}
               </span>
             </div>
           </div>
@@ -216,7 +215,7 @@ function Immersion() {
       <section id="register" className="gridbg border-b border-bl-line">
         <Container className="grid items-start gap-8 py-24 lg:grid-cols-2 lg:py-28">
           <div className="flex flex-col gap-6">
-            <Eyebrow>05 — Key dates</Eyebrow>
+            <Eyebrow>{I.datesLabel}</Eyebrow>
             <ol className="m-0 list-none p-0">
               {I.dates.map(([d, t], i) => (
                 <li
@@ -236,11 +235,11 @@ function Immersion() {
             </ol>
           </div>
           <div className="flex flex-col gap-6 rounded-[22px] border border-white/15 bg-bl-surface p-8">
-            <Eyebrow>06 — Program fee</Eyebrow>
+            <Eyebrow>{I.fees.label}</Eyebrow>
             <div className="grid grid-cols-2 gap-3">
               <div className="flex flex-col gap-1.5 rounded-2xl border border-bl-accent p-5">
                 <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
-                  Early bird · before 4 Dec
+                  {I.fees.earlyLabel}
                 </span>
                 <span className="disp text-[length:calc(clamp(1.75rem,3vw,2.25rem)*var(--bl-hscale))]">
                   {I.fees.early}
@@ -248,7 +247,7 @@ function Immersion() {
               </div>
               <div className="flex flex-col gap-1.5 rounded-2xl border border-white/15 p-5">
                 <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
-                  Regular
+                  {I.fees.regularLabel}
                 </span>
                 <span className="disp text-[length:calc(clamp(1.75rem,3vw,2.25rem)*var(--bl-hscale))] text-bl-ink-2">
                   {I.fees.regular}
@@ -270,13 +269,13 @@ function Immersion() {
               </div>
             </div>
             <Button href={`mailto:${settings.email}?subject=Singapore%20Immersion%20registration`}>
-              Register — 20 places, first come first served
+              {I.fees.registerLabel}
             </Button>
             <a
               href={`mailto:${settings.email}?subject=Singapore%20Immersion%20info%20session`}
               className="text-center text-sm text-bl-ink-2"
             >
-              Join a free info session (13 Nov or 4 Dec) →
+              {I.fees.infoSessionLabel}
             </a>
           </div>
         </Container>
@@ -285,8 +284,8 @@ function Immersion() {
       <section className="border-b border-bl-line">
         <Container className="grid gap-12 py-24 lg:grid-cols-2 lg:py-28">
           <div className="flex flex-col gap-4">
-            <Eyebrow>07 — Questions</Eyebrow>
-            <h2 className="h2">For parents</h2>
+            <Eyebrow>{I.faqHead.eyebrow}</Eyebrow>
+            <h2 className="h2">{I.faqHead.title}</h2>
           </div>
           <div>
             {I.faq.map((f) => (
@@ -306,7 +305,7 @@ function Immersion() {
       <section>
         <Container className="flex flex-wrap items-center gap-4 py-10">
           <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-            Presented by
+            {I.presentedByLabel}
           </span>
           <img
             src={settings.logo}

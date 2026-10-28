@@ -132,3 +132,14 @@ export function useDaysLeft(iso: string) {
     ? String(parseInt(c.days, 10) + (c.hours !== "00" || c.mins !== "00" ? 1 : 0))
     : "--";
 }
+
+/** Heading text with a closing "?", "." or "!" in the accent colour. */
+export function AccentEnd({ text }: { text: string }) {
+  const end = /[?.!]$/.test(text) ? text.slice(-1) : "";
+  return (
+    <>
+      {end ? text.slice(0, -1) : text}
+      {end && <span className="text-bl-accent">{end}</span>}
+    </>
+  );
+}

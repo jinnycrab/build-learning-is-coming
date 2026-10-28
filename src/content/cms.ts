@@ -15,6 +15,7 @@ export type SectionKey =
   | "people"
   | "studentWork"
   | "home"
+  | "programsPage"
   | "programs"
   | "season"
   | "competitions"
@@ -79,6 +80,13 @@ export const SECTIONS: SectionDef[] = [
     page: "/",
   },
   {
+    key: "programsPage",
+    label: "Programs page text",
+    group: "Pages",
+    description: "Headline, intro, calendar key and the closing banner on Programs.",
+    page: "/programs",
+  },
+  {
     key: "programs",
     label: "Programs list",
     group: "Pages",
@@ -133,6 +141,7 @@ const live: Record<SectionKey, Json> = {
   people: site.people,
   studentWork: site.studentWork,
   home: site.home,
+  programsPage: site.programsPage,
   programs: site.programs,
   season: site.season,
   competitions: site.competitions,

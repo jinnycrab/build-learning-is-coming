@@ -52,6 +52,10 @@ const LABELS: Record<string, string> = {
   deadline: "Deadline (ISO date-time, UTC)",
   upcoming: "Upcoming (unticked = past)",
   big: "Large tile",
+  eyebrow: "Small label above the heading",
+  text: "Text",
+  primary: "Main button",
+  secondary: "Second button",
 };
 
 export function labelFor(k: string | number) {
@@ -388,7 +392,9 @@ export function ValueEditor({ k, value, onChange, template, parentKey }: Props) 
         </Field>
       );
     const long =
-      v.length > 70 || ["body", "intro", "bio", "quote", "a", "note", "pastJudges"].includes(key);
+      v.length > 70 ||
+      v.includes("\n") ||
+      ["body", "intro", "bio", "quote", "a", "note", "pastJudges"].includes(key);
     return (
       <Field label={label}>
         {long ? (

@@ -28,18 +28,17 @@ function Partners() {
       <section className="gridbg border-b border-bl-line">
         <Container className="grid items-center gap-12 py-20 lg:grid-cols-[1.1fr_1fr] lg:py-24">
           <div className="flex flex-col gap-6">
-            <Eyebrow>// Schools & partners</Eyebrow>
+            <Eyebrow>{PP.intro.eyebrow}</Eyebrow>
             <h1 className="disp m-0 text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
-              Bring real-world innovation to your students.
+              {PP.intro.title}
             </h1>
             <p className="m-0 max-w-[560px] text-lg leading-relaxed text-bl-ink-2">
-              We design and deliver programs with schools, governments and companies — from one-day
-              workshops to hackathons and learning immersions.
+              {PP.intro.text}
             </p>
             <div className="flex flex-wrap gap-3">
-              <Button href="#contact">Start a conversation →</Button>
-              <Button href="#schools" variant="ghost">
-                See formats
+              <Button href={PP.intro.primary.href}>{PP.intro.primary.label}</Button>
+              <Button href={PP.intro.secondary.href} variant="ghost">
+                {PP.intro.secondary.label}
               </Button>
             </div>
           </div>
@@ -55,7 +54,7 @@ function Partners() {
 
       <section id="schools" className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="01 — For schools" title="Formats we bring to your campus" />
+          <SectionHead eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PP.schools.map((s) => (
               <div
@@ -84,7 +83,7 @@ function Partners() {
 
       <section id="pca" className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="Featured school partner · Korea" title={PP.pca.title}>
+          <SectionHead eyebrow={PP.pca.eyebrow} title={PP.pca.title}>
             <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
               {PP.pca.intro}
             </p>
@@ -110,11 +109,10 @@ function Partners() {
       <section className="border-b border-bl-line">
         <Container className="grid gap-12 py-24 lg:grid-cols-[1fr_1.4fr] lg:py-28">
           <div className="flex flex-col gap-4">
-            <Eyebrow>02 — For organisations</Eyebrow>
-            <h2 className="h2">Put your brand behind young innovators.</h2>
+            <Eyebrow>{PP.orgsHead.eyebrow}</Eyebrow>
+            <h2 className="h2">{PP.orgsHead.title}</h2>
             <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-              Companies, governments and nonprofits partner with us to reach motivated students and
-              see fresh thinking on real problems.
+              {PP.orgsHead.text}
             </p>
           </div>
           <ol className="m-0 list-none p-0">
@@ -138,7 +136,7 @@ function Partners() {
 
       <section className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="03 — Case studies" title="What we’ve built together" />
+          <SectionHead eyebrow={PP.casesHead.eyebrow} title={PP.casesHead.title} />
           <div className="grid gap-4 md:grid-cols-2">
             {PP.cases.map((c) => (
               <SiteLink
@@ -181,7 +179,7 @@ function Partners() {
 
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="04 — How it works" title="From first call to showcase" />
+          <SectionHead eyebrow={PP.stepsHead.eyebrow} title={PP.stepsHead.title} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {PP.steps.map((s, i) => (
               <div
@@ -228,11 +226,10 @@ function Contact() {
     <section id="contact" className="gridbg">
       <Container className="grid gap-12 py-24 lg:grid-cols-2 lg:py-28">
         <div className="flex flex-col gap-5">
-          <Eyebrow>05 — Get in touch</Eyebrow>
-          <h2 className="h2">Let’s design something together.</h2>
+          <Eyebrow>{PP.contact.eyebrow}</Eyebrow>
+          <h2 className="h2">{PP.contact.title}</h2>
           <p className="m-0 max-w-[460px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-            Tell us a little about your school or organisation and we’ll be in touch within two
-            working days.
+            {PP.contact.text}
           </p>
           <div className="mt-2 flex flex-col gap-2 text-[length:calc(15px*var(--bl-scale))] text-bl-ink-2">
             <a
@@ -288,7 +285,7 @@ function Contact() {
             type="submit"
             className="mt-1 cursor-pointer rounded-full border-0 bg-bl-accent px-6 py-3.5 text-[length:calc(15px*var(--bl-scale))] font-semibold text-bl-bg hover:brightness-110"
           >
-            Send enquiry →
+            {PP.contact.submitLabel}
           </button>
         </form>
       </Container>

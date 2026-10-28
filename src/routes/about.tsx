@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
 import { CountUpStats, PersonCard } from "@/components/site/Shared";
-import { about as A, people, ARCHIVES_URL } from "@/content/site";
+import { about as A, people } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
   head: () => ({
@@ -23,7 +23,7 @@ function About() {
       <section className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-20 lg:py-24">
           <div className="flex max-w-[1000px] flex-col gap-6">
-            <Eyebrow>// About Build Learning</Eyebrow>
+            <Eyebrow>{A.eyebrow}</Eyebrow>
             <h1 className="disp m-0 text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
               {A.headline}
             </h1>
@@ -45,7 +45,7 @@ function About() {
 
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="01 — Founders" title="Born at Stanford. Built in Singapore." />
+          <SectionHead eyebrow={A.foundersHead.eyebrow} title={A.foundersHead.title} />
           <div className="grid gap-6 md:grid-cols-2">
             {A.founders.map((f) => {
               const p = people[f.key];
@@ -80,8 +80,8 @@ function About() {
       <section className="gridbg border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
-            eyebrow="02 — Mentors, speakers & judges"
-            title="Our network"
+            eyebrow={A.mentorsHead.eyebrow}
+            title={A.mentorsHead.title}
             aside={
               <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
                 {A.mentors.length}+ and growing
@@ -98,7 +98,7 @@ function About() {
 
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow="03 — What we believe" title="Our values" />
+          <SectionHead eyebrow={A.valuesHead.eyebrow} title={A.valuesHead.title} />
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {A.values.map((v, i) => (
               <div
@@ -128,17 +128,13 @@ function About() {
 
       <section className="gridbg">
         <Container className="flex flex-col items-start gap-6 py-24 lg:py-28">
-          <h2 className="h2 max-w-[820px]">
-            Join a program, bring us to your school, or explore student work.
-          </h2>
+          <h2 className="h2 max-w-[820px]">{A.closing.title}</h2>
           <div className="flex flex-wrap gap-3">
-            <Button href="/programs">See programs →</Button>
-            <Button href="/partners#contact" variant="ghost">
-              Partner with us
-            </Button>
-            <Button href={ARCHIVES_URL} variant="ghost">
-              The Global Archives ↗
-            </Button>
+            {A.closing.buttons.map((b, i) => (
+              <Button key={b.label + i} href={b.href} variant={i === 0 ? "primary" : "ghost"}>
+                {b.label}
+              </Button>
+            ))}
           </div>
         </Container>
       </section>
