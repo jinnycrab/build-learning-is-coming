@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
-import { programs, programsPage as PG, season, type ProgramType } from "@/content/site";
+import { programs, programsPage as PG, type ProgramType } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
@@ -38,7 +38,6 @@ function Programs() {
       (view === "All" || (view === "Upcoming") === p.upcoming) &&
       (type === "All" || p.type === type),
   );
-  const pct = (d: number) => `${((d / season.days) * 100).toFixed(2)}%`;
 
   return (
     <Page>
@@ -49,72 +48,6 @@ function Programs() {
             {PG.title}
           </h1>
           <p className="m-0 max-w-[640px] text-lg leading-relaxed text-bl-ink-2">{PG.text}</p>
-        </Container>
-      </section>
-
-      <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-5 py-14">
-          <div className="flex flex-wrap justify-between gap-3">
-            <Eyebrow>{season.label}</Eyebrow>
-            <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-              {PG.calendarKey}
-            </span>
-          </div>
-          <div className="overflow-x-auto rounded-2xl border border-white/15">
-            <div className="min-w-[900px]">
-              <div className="grid grid-cols-[260px_30fr_31fr_31fr] border-b border-white/15">
-                <span className="eyebrow px-5 py-3.5 text-[length:calc(11px*var(--bl-scale))] text-[#8C929C]">
-                  Program
-                </span>
-                {["Nov", "Dec", "Jan"].map((m) => (
-                  <span
-                    key={m}
-                    className="eyebrow border-l border-white/[.08] px-3 py-3.5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3"
-                  >
-                    {m}
-                  </span>
-                ))}
-              </div>
-              {season.rows.map((r) => (
-                <div
-                  key={r.name}
-                  className="grid grid-cols-[260px_minmax(0,1fr)] border-b border-white/[.06] last:border-0"
-                >
-                  <span className="px-5 py-4 text-sm text-[#D4D7DC]">{r.name}</span>
-                  <div className="relative h-[52px] border-l border-white/[.08]">
-                    {r.bar && (
-                      <div
-                        className="absolute top-3.5 flex h-6 items-center overflow-hidden rounded-md border border-bl-accent px-2.5"
-                        style={{
-                          left: pct(r.bar[0]),
-                          width: pct(r.bar[1] - r.bar[0]),
-                          background: r.solid ? "var(--bl-accent)" : "transparent",
-                        }}
-                      >
-                        <span
-                          className={`eyebrow whitespace-nowrap text-[length:calc(10px*var(--bl-scale))] ${r.solid ? "text-bl-bg" : "text-bl-ink"}`}
-                        >
-                          {r.label}
-                        </span>
-                      </div>
-                    )}
-                    {r.marks?.map(([d, l]) => (
-                      <div
-                        key={l}
-                        className="absolute top-3 flex -translate-x-1.5 items-center gap-1.5"
-                        style={{ left: pct(d) }}
-                      >
-                        <span className="text-sm text-bl-accent">◆</span>
-                        <span className="eyebrow whitespace-nowrap text-[length:calc(10px*var(--bl-scale))] text-bl-ink-2">
-                          {l}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         </Container>
       </section>
 

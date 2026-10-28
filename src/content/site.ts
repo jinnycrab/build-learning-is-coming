@@ -673,42 +673,11 @@ export const programsPage = {
   eyebrow: "// Programs · {count} listed",
   title: "Every program,\npast and upcoming.",
   text: "Competitions, immersions, studios and school partnerships — filter by what you’re looking for.",
-  calendarKey: "◆ = deadline / session",
   emptyText: "No programs match these filters",
   closing: {
     title: "Want a program for your school?",
     button: { label: "Talk to us →", href: "/partners" },
   },
-};
-
-export const season = {
-  label: "Season calendar · Nov 2026 – Jan 2027",
-  days: 92,
-  rows: [
-    { name: "GIC 2026 · registration", bar: [0, 29], label: "Open → 30 Nov", solid: false },
-    {
-      name: "GIC 2026 · program",
-      bar: [40, 76],
-      label: "11 Dec launch → 16 Jan seed-fund pitch",
-      solid: true,
-    },
-    { name: "SG Immersion · registration", bar: [0, 42], label: "1 Nov → 13 Dec", solid: false },
-    {
-      name: "SG Immersion · key dates",
-      marks: [
-        [12, "Info 1 · 13 Nov"],
-        [33, "Info 2 + early bird · 4 Dec"],
-        [44, "Deposit · 15 Dec"],
-      ],
-    },
-    { name: "SG Immersion · in Singapore", bar: [69, 77], label: "9–16 Jan", solid: true },
-  ] as Array<{
-    name: string;
-    bar?: [number, number];
-    label?: string;
-    solid?: boolean;
-    marks?: Array<[number, string]>;
-  }>,
 };
 
 /* ───────────── Competitions ───────────── */
