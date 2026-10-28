@@ -16,7 +16,7 @@ export function CountUpStats({
       className="grid grid-cols-2 overflow-hidden rounded-2xl border border-bl-line sm:grid-cols-3 lg:grid-cols-5"
     >
       {items.map((s) => (
-        <div key={s.label} className="border-b border-r border-bl-line px-6 py-5 lg:border-b-0">
+        <div key={s.label} className="min-w-0 border-b border-r border-bl-line px-3 py-5 sm:px-6 lg:border-b-0">
           <div
             className={`disp tabular-nums ${size === "lg" ? "text-5xl" : "text-[length:calc(30px*var(--bl-scale))]"}`}
           >

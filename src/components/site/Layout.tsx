@@ -58,7 +58,7 @@ export function Container({
   className?: string;
 }) {
   return (
-    <div className={`mx-auto w-full max-w-[1320px] px-5 sm:px-10 ${className}`}>{children}</div>
+    <div className={`mx-auto w-full min-w-0 max-w-[1320px] px-5 sm:px-10 ${className}`}>{children}</div>
   );
 }
 
@@ -116,8 +116,8 @@ export function SectionHead({
   children?: ReactNode;
 }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-6">
-      <div className="flex max-w-[860px] flex-col gap-4">
+    <div className="grid min-w-0 items-end gap-6 lg:flex lg:flex-wrap lg:justify-between">
+      <div className="flex min-w-0 max-w-[860px] flex-col gap-4">
         <Eyebrow>{eyebrow}</Eyebrow>
         <h2 className="h2">{title}</h2>
         {children}
@@ -133,22 +133,22 @@ function Header() {
   const crumb = nav.find((n) => n.href !== "/" && !n.external && pathname.startsWith(n.href));
   return (
     <header className="sticky top-0 z-40 border-b border-bl-line bg-bl-bg/85 backdrop-blur-md">
-      <Container className="flex items-center gap-6 py-4">
+      <Container className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-4 xl:flex xl:gap-5">
         <Link
           to="/"
           aria-label="Build Learning — home"
           title="Home"
-          className="flex shrink-0 items-center"
+          className="flex min-w-0 items-center xl:shrink-0"
         >
           <img
             src={settings.logo}
             alt="Build Learning"
-            className="h-7 w-auto brightness-0 invert"
+            className="h-auto max-h-7 w-auto max-w-full brightness-0 invert"
           />
         </Link>
         <nav
           aria-label="Primary"
-          className="hidden flex-1 justify-center gap-7 text-sm text-bl-ink-2 lg:flex"
+          className="hidden min-w-0 flex-1 justify-center gap-5 whitespace-nowrap text-sm text-bl-ink-2 xl:flex"
         >
           {nav.map((n) => {
             const active =
@@ -160,13 +160,13 @@ function Header() {
             );
           })}
         </nav>
-        <div className="ml-auto flex items-center gap-3 lg:ml-0">
-          <Button href={settings.headerCta.href} className="!min-h-10 !px-5 !py-2 text-sm">
+        <div className="flex shrink-0 items-center gap-2 xl:ml-0">
+          <Button href={settings.headerCta.href} className="!min-h-10 !px-3 !py-2 text-sm sm:!px-5">
             {settings.headerCta.label}
           </Button>
           <button
             type="button"
-            className="inline-flex h-11 w-11 items-center justify-center rounded-full border border-white/20 lg:hidden"
+            className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-bl-line xl:hidden"
             aria-label={open ? "Close menu" : "Open menu"}
             aria-expanded={open}
             onClick={() => setOpen((o) => !o)}
@@ -187,7 +187,7 @@ function Header() {
         </div>
       </Container>
       {open && (
-        <nav aria-label="Mobile" className="border-t border-bl-line lg:hidden">
+        <nav aria-label="Mobile" className="border-t border-bl-line xl:hidden">
           <Container className="flex flex-col py-3">
             {nav.map((n) => (
               <SiteLink
