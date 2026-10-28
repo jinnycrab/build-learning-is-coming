@@ -152,19 +152,17 @@ create trigger site_content_history_trg
   before insert or update or delete on public.site_content
   for each row execute function public.site_content_keep_history();
 
--- ── Media storage ────────────────────────────────────────────────────────
-insert into storage.buckets (id, name, public)
-values ('site-media', 'site-media', true)
-on conflict (id) do nothing;
+-- ── Access grants ────────────────────────────────────────────────────────
+-- Row-level security above decides which rows each role may touch; these
+-- grants let the roles reach the tables at all.
+grant usage on schema public to anon, authenticated, service_role;
+grant select on public.site_content to anon, authenticated;
+grant insert, update, delete on public.site_content to authenticated;
+grant select on public.site_content_history to authenticated;
+grant select on public.user_roles to authenticated;
+grant all on public.site_content, public.site_content_history, public.user_roles to service_role;
+grant usage, select on all sequences in schema public to service_role;
+grant execute on function public.has_role(uuid, public.app_role) to anon, authenticated, service_role;
 
-create policy "Public can view site media"
-  on storage.objects for select using (bucket_id = 'site-media');
-create policy "Admins can upload site media"
-  on storage.objects for insert to authenticated
-  with check (bucket_id = 'site-media' and public.has_role(auth.uid(), 'admin'));
-create policy "Admins can update site media"
-  on storage.objects for update to authenticated
-  using (bucket_id = 'site-media' and public.has_role(auth.uid(), 'admin'));
-create policy "Admins can delete site media"
-  on storage.objects for delete to authenticated
-  using (bucket_id = 'site-media' and public.has_role(auth.uid(), 'admin'));
+-- Media storage (the "site-media" bucket) is set up separately; see
+-- 20261028090100_cms_storage_policies.sql.
