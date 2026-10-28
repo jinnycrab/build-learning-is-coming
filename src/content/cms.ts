@@ -76,7 +76,7 @@ export const SECTIONS: SectionDef[] = [
     label: "Home",
     group: "Pages",
     description:
-      "Hero, photo strips, pathways, upcoming programs, map, testimonials, team and reel.",
+      "Hero, photo strips, pathways, upcoming programs, Stanford method, map, team and reel.",
     page: "/",
   },
   {
