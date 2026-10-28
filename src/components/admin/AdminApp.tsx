@@ -1,9 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "@tanstack/react-router";
 import { LivePreview } from "./LivePreview";
-import { Button } from "@/components/ui/button";
 import { PREVIEW_CHANNEL, previewOverrides } from "@/lib/cms-preview";
-import { Eye } from "lucide-react";
 import type { Session } from "@supabase/supabase-js";
 import { cmsSupabase as supabase } from "@/lib/cms-client";
 import type { Json } from "@/integrations/supabase/types";
@@ -390,8 +388,8 @@ function Editor({ session }: { session: Session }) {
 
   return (
     <MediaPickerHost>
-      <div className="flex min-h-screen">
-        <aside className="sticky top-0 flex h-screen w-[248px] shrink-0 flex-col gap-5 overflow-y-auto border-r border-zinc-200 bg-white p-4">
+      <div className="flex h-screen overflow-hidden">
+        <aside className="flex h-screen w-[168px] shrink-0 flex-col gap-5 overflow-y-auto border-r border-zinc-200 bg-white p-3 xl:w-[208px]">
           <div className="flex items-center gap-2 px-2 pt-1">
             <img src="/img/logos/bl_logo.png" alt="" className="h-6 w-auto" />
             <span className="rounded bg-zinc-900 px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white">
@@ -445,10 +443,10 @@ function Editor({ session }: { session: Session }) {
           </div>
         </aside>
 
-        <main className="min-w-0 flex-1">
+        <main className="min-w-0 flex-1 overflow-y-auto">
           {sec ? (
             <>
-              <header className="sticky top-0 z-10 flex flex-wrap items-center gap-3 border-b border-zinc-200 bg-zinc-100/90 px-8 py-4 backdrop-blur">
+              <header className="sticky top-0 z-10 flex flex-wrap items-center gap-3 border-b border-zinc-200 bg-zinc-100/90 px-4 py-4 backdrop-blur">
                 <div className="mr-auto flex min-w-0 flex-col">
                   <h1 className="m-0 text-[20px] font-bold">{sec.label}</h1>
                   <span className="text-[13px] text-zinc-500">
@@ -458,7 +456,6 @@ function Editor({ session }: { session: Session }) {
                       : " · Using original content"}
                   </span>
                 </div>
-                <Button asChild variant="outline"><a href="/cms-preview" target="_blank" rel="noreferrer"><Eye />Live preview</a></Button>
                 {sec.page && (
                   <a href={sec.page} target="_blank" rel="noreferrer" className={btnLight}>
                     View page ↗
@@ -500,7 +497,7 @@ function Editor({ session }: { session: Session }) {
                   {busy ? "Saving…" : isDirty(sec.key) ? "Save & publish" : "Saved"}
                 </button>
               </header>
-              <div className="mx-auto max-w-[1100px] px-8 py-8">
+              <div className="mx-auto max-w-[1100px] px-4 py-6">
                 {!loaded ? (
                   <p className="text-sm text-zinc-500">Loading…</p>
                 ) : (
@@ -528,6 +525,9 @@ function Editor({ session }: { session: Session }) {
             null
           )}
         </main>
+        <aside aria-label="Live website preview" className="h-screen w-[43%] min-w-[260px] shrink-0 border-l border-border">
+          <LivePreview overrides={previewOverrides(saved, drafts)} page={sec?.page ?? "/"} />
+        </aside>
       </div>
       {toast && (
         <div
