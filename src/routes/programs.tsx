@@ -86,7 +86,7 @@ function Programs() {
               ))}
             </div>
           </div>
-          <div className="grid gap-4 lg:grid-cols-2">
+          <div className="grid auto-rows-fr gap-4 lg:grid-cols-2">
             {shown.map((p) => (
               <SiteLink
                 key={p.title}
@@ -109,7 +109,7 @@ function Programs() {
                   </div>
                   <span className="disp text-xl leading-tight">{p.title}</span>
                   <span className="text-sm leading-relaxed text-[#B4B9C1]">{p.body}</span>
-                  <div className="eyebrow mt-auto flex flex-wrap justify-between gap-2 border-t border-bl-line pt-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
+                  <div className="eyebrow mt-auto flex flex-col gap-2 border-t border-bl-line pt-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
                     <span>{p.when}</span>
                     <span>{p.where}</span>
                   </div>
