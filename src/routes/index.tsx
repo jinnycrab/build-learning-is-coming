@@ -437,39 +437,25 @@ function Upcoming() {
   );
 }
 
-/* ───────── B.U.I.L.D ───────── */
+/* ───────── Method ───────── */
 function Method() {
+  const m = home.method;
   return (
     <section className="border-b border-bl-line">
-      <Container className="flex flex-col gap-12 py-24 lg:py-28">
-        <SectionHead
-          eyebrow={home.buildHead.eyebrow}
-          title={home.buildHead.title}
-          aside={
-            <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-              {home.buildHead.text}
-            </p>
-          }
-        />
-        <div className="grid border-t border-white/15 sm:grid-cols-2 lg:grid-cols-5">
-          {home.build.map((b) => (
-            <div
-              key={b.letter}
-              className="flex flex-col gap-3.5 border-r border-white/[.08] px-5 pb-2 pt-7"
-            >
-              <span
-                className="disp text-[length:calc(64px*var(--bl-scale))] leading-none"
-                style={{ color: b.color }}
-              >
-                {b.letter}
-              </span>
-              <span className="text-[length:calc(17px*var(--bl-scale))] font-semibold">
-                {b.title}
-              </span>
-              <span className="text-sm leading-relaxed text-[#B4B9C1]">{b.body}</span>
-            </div>
-          ))}
+      <Container className="grid items-center gap-12 py-24 lg:grid-cols-2 lg:gap-16 lg:py-28">
+        <div className="flex flex-col gap-5">
+          <Eyebrow>{m.eyebrow}</Eyebrow>
+          <h2 className="h2">{m.title}</h2>
+          <p className="m-0 max-w-[520px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+            {m.text}
+          </p>
         </div>
+        <img
+          src={m.img}
+          alt={m.alt}
+          loading="lazy"
+          className="aspect-[4/5] w-full max-w-[460px] rounded-2xl border border-bl-line object-cover lg:justify-self-end"
+        />
       </Container>
     </section>
   );
