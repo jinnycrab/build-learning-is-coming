@@ -51,8 +51,8 @@ function Hero() {
   return (
     <section className="gridbg border-b border-bl-line">
       <Container className="grid items-center gap-8 pb-8 pt-10 sm:gap-10 sm:pt-12 lg:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] lg:gap-10 lg:pb-10 lg:pt-14">
-        <div className="flex min-w-0 flex-col gap-5 sm:gap-6 lg:col-start-1 lg:row-start-1">
-          <Eyebrow muted>{home.eyebrow}</Eyebrow>
+        <div className="relative flex min-w-0 flex-col gap-5 sm:gap-6 lg:col-start-1 lg:row-start-1">
+          {home.eyebrow && <Eyebrow muted className="lg:absolute lg:bottom-full lg:mb-6">{home.eyebrow}</Eyebrow>}
           <h1
             className="disp home-headline m-0 text-[length:calc(2.25rem*var(--bl-hscale))] leading-[1.08] sm:text-[length:calc(3rem*var(--bl-hscale))] lg:text-[length:calc(3.5rem*var(--bl-hscale))] xl:text-[length:calc(4rem*var(--bl-hscale))]"
             aria-label={home.headline.join(" ")}
