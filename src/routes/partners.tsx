@@ -13,6 +13,10 @@ export const Route = createFileRoute("/partners")({
         content:
           "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor.",
       },
+      { property: "og:title", content: "Schools & Partners — Build Learning" },
+      { property: "og:description", content: "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Partners,

@@ -12,6 +12,10 @@ export const Route = createFileRoute("/programs")({
         content:
           "Every Build Learning program, past and upcoming: competitions, immersions, studio and school partnerships.",
       },
+      { property: "og:title", content: "Programs — Build Learning" },
+      { property: "og:description", content: "Every Build Learning program, past and upcoming: competitions, immersions, studio and school partnerships." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Programs,

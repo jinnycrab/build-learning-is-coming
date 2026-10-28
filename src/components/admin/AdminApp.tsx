@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useState, type FormEvent } from "react";
 import { useRouter } from "@tanstack/react-router";
 import type { Session } from "@supabase/supabase-js";
-import { supabase } from "@/integrations/supabase/client";
+import { cmsSupabase as supabase } from "@/lib/cms-client";
 import type { Json } from "@/integrations/supabase/types";
 import {
   SECTIONS,

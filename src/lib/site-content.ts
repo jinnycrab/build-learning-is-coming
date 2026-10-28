@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { cmsSupabase as supabase } from "@/lib/cms-client";
 import { SECTIONS, type Overrides, type SectionKey } from "@/content/cms";
 
 const KEYS = new Set<string>(SECTIONS.map((s) => s.key));

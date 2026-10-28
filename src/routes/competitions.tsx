@@ -12,6 +12,10 @@ export const Route = createFileRoute("/competitions")({
         content:
           "Hackathons in Singapore and Seoul and virtual competitions with students from every continent. Register for the Global Innovation Challenge 2026.",
       },
+      { property: "og:title", content: "Competitions & Hackathons — Build Learning" },
+      { property: "og:description", content: "Hackathons in Singapore and Seoul and virtual competitions with students from every continent. Register for the Global Innovation Challenge 2026." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
     ],
   }),
   component: Competitions,
