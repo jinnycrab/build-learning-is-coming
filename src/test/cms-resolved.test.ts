@@ -12,3 +12,18 @@ describe("CMS resolved content", () => {
     expect(home).toHaveProperty("method");
   });
 });
+
+describe("CMS list items", () => {
+  it("adds fields new in code to items saved before they existed", () => {
+    const saved = [{ category: "C", title: "T", by: "B", cover: "/x.webp" }];
+    const work = resolved("studentWork", saved) as Record<string, unknown>[];
+    expect(work).toHaveLength(1);
+    expect(work[0]).toEqual({ ...saved[0], href: "" });
+  });
+
+  it("keeps a saved link", () => {
+    const saved = [{ category: "C", title: "T", by: "B", cover: "/x.webp", href: "https://a.b" }];
+    const work = resolved("studentWork", saved) as Record<string, unknown>[];
+    expect(work[0]?.["href"]).toBe("https://a.b");
+  });
+});

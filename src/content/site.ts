@@ -241,79 +241,92 @@ export const people: Record<string, Person> = {
   },
 };
 
-export type Work = { category: string; title: string; by: string; cover: string };
+/** `href` is where the card links to; leave it empty to link to The Global Archives. */
+export type Work = { category: string; title: string; by: string; cover: string; href: string };
 export const studentWork: Work[] = [
   {
     category: "Global Impact",
     title: "What the City Throws Away",
     by: "Jonathan Liu · China · 2026",
     cover: WORK("city"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Namma Bangalore",
     by: "Zidaan Pasha · India · 2026",
     cover: WORK("namma"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Will the Looms Fall Silent?",
     by: "Mauli Sinha · India · 2026",
     cover: WORK("looms"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Hanji: Tradition Reimagined Through Fashion",
     by: "Henry Shim · South Korea · 2026",
     cover: WORK("hanji"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Filtered Realities",
     by: "Jessie Park · South Korea · 2026",
     cover: WORK("filtered"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "The Voice of Mongolia",
     by: "Nomun Chinzorig · Mongolia / USA · 2026",
     cover: WORK("mongolia"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Where the River Swallows Our Homes",
     by: "Addison Tran · Vietnam · 2026",
     cover: WORK("river"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Martinican Carnival Tour",
     by: "Jaydon Stanley-Owusu · Martinique · 2026",
     cover: WORK("carnival"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "After the Rain",
     by: "Yui Yoshida · Japan / Singapore · 2026",
     cover: WORK("rain"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Big Two, but in Hong Kong",
     by: "Linus Chan · Hong Kong · 2026",
     cover: WORK("bigtwo"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Dreaming in Bangkok",
     by: "Sameer Daga · Thailand · 2026",
     cover: WORK("bangkok"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "We Prompted This",
     by: "Kaiden Woo · USA · 2026",
     cover: WORK("prompted"),
+    href: "",
   },
 ];
 
@@ -853,26 +866,6 @@ export const immersion = {
     button: { label: "Find out more about fees →", href: "/partners#contact" },
     infoSession: { label: "Join a free info session (13 Nov or 4 Dec) →", href: "/partners#contact" },
   },
-  faqTitle: "Questions",
-  faq: [
-    {
-      q: "Is it safe? Who supervises students?",
-      a: "A resident mentor lives in the same building and is the point of contact at all times. Students are briefed on curfews and expectations on the first evening.",
-    },
-    {
-      q: "What does my child need to arrange?",
-      a: "Flights and any visa. We arrange airport pick-ups on Day 1 and Day 8 based on the flight details you share.",
-    },
-    {
-      q: "What is the cancellation policy?",
-      a: "The deposit is non-refundable. Later cancellations carry additional charges — contact us for the full policy.",
-    },
-    {
-      q: "Does my child need coding or business experience?",
-      a: "No. All training and resources are provided.",
-    },
-  ],
-  presentedByLabel: "Presented by",
 };
 
 /* ───────────── Partners ───────────── */
