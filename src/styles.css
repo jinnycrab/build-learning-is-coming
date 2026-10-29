@@ -267,6 +267,9 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 /* Solid top bar, so nothing shows through it while scrolling. */
 .m-bar { background: var(--bl-bg); }
 /* iPhone Safari shows the page through its see-through address bar: paint the strip above the bar too. */
+.m-bar { transition: transform .28s cubic-bezier(.2, .8, .2, 1); }
+/* Slid away while scrolling down; the strip above it goes too. */
+.m-bar-away { transform: translateY(-100%); }
 .m-bar::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: var(--bl-bg); pointer-events: none; }
 /* Menu sheet slides up from the bottom. */
 .m-sheet { animation: mSheetIn .32s cubic-bezier(.2, .8, .2, 1); }
@@ -280,4 +283,4 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 /* Home photo rows drift on their own, the second row the other way. */
 .m-film { animation: blMarq 80s linear infinite; }
 .m-film.rev { animation-direction: reverse; }
-@media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee, .m-film { animation: none; } }
+@media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee, .m-film { animation: none; } .m-bar { transition: none; } }
