@@ -103,7 +103,7 @@ export const SECTIONS: SectionDef[] = [
     key: "immersion",
     label: "Immersion",
     group: "Pages",
-    description: "Hero collage, key facts, outcomes, experience themes, your stay, mentors, dates, what’s included and FAQ.",
+    description: "Hero collage, key facts, outcomes, experience themes, your stay, mentors, dates and what’s included.",
     page: "/immersion",
   },
   {

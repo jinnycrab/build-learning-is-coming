@@ -866,26 +866,6 @@ export const immersion = {
     button: { label: "Find out more about fees →", href: "/partners#contact" },
     infoSession: { label: "Join a free info session (13 Nov or 4 Dec) →", href: "/partners#contact" },
   },
-  faqTitle: "Questions",
-  faq: [
-    {
-      q: "Is it safe? Who supervises students?",
-      a: "A resident mentor lives in the same building and is the point of contact at all times. Students are briefed on curfews and expectations on the first evening.",
-    },
-    {
-      q: "What does my child need to arrange?",
-      a: "Flights and any visa. We arrange airport pick-ups on Day 1 and Day 8 based on the flight details you share.",
-    },
-    {
-      q: "What is the cancellation policy?",
-      a: "The deposit is non-refundable. Later cancellations carry additional charges — contact us for the full policy.",
-    },
-    {
-      q: "Does my child need coding or business experience?",
-      a: "No. All training and resources are provided.",
-    },
-  ],
-  presentedByLabel: "Presented by",
 };
 
 /* ───────────── Partners ───────────── */

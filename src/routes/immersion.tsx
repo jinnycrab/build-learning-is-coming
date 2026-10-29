@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { PersonCard } from "@/components/site/Shared";
-import { immersion as I, logo, settings } from "@/content/site";
+import { immersion as I, logo } from "@/content/site";
 
 export const Route = createFileRoute("/immersion")({
   head: () => ({
@@ -188,30 +188,6 @@ function Immersion() {
               {I.fees.infoSession.label}
             </SiteLink>
           </div>
-        </Container>
-      </section>
-
-      {/* FAQ */}
-      <section className="border-b border-bl-line">
-        <Container className="grid gap-12 py-24 lg:grid-cols-2">
-          <h2 className="h2">{I.faqTitle}</h2>
-          <div>
-            {I.faq.map((f) => (
-              <details key={f.q} className="border-t border-white/15 py-5">
-                <summary className="cursor-pointer text-[length:calc(17px*var(--bl-scale))]">{f.q}</summary>
-                <p className="m-0 mt-3 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">{f.a}</p>
-              </details>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section>
-        <Container className="flex flex-wrap items-center gap-4 py-10">
-          <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">{I.presentedByLabel}</span>
-          <img src={settings.logo} alt="Build Learning" className="h-7 w-auto brightness-0 invert" />
-          <span className="text-[#8C929C]">×</span>
-          {logo("eduK8") && <img src={logo("eduK8")!.logo} alt="eduK8" className="h-7 w-auto brightness-0 invert" />}
         </Container>
       </section>
     </Page>
