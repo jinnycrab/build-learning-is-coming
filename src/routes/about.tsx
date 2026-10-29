@@ -2,12 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
-  MButton,
   MCarousel,
   MHead,
   MLogos,
   MMore,
-  MNext,
   MPage,
   MSection,
   firstSentence,
@@ -188,11 +186,6 @@ function MobileAbout() {
         <MMore rows={peopleRows(A.mentors)} first={6} label={A.mobileShowAll} />
       </MSection>
 
-      <MSection title={A.joinCard.title} text={A.joinCard.text}>
-        <MButton href={A.joinCard.link.href}>{A.joinCard.link.label}</MButton>
-      </MSection>
-
-      <MNext href="/programs" />
     </MPage>
   );
 }

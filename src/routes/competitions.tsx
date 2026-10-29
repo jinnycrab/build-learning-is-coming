@@ -7,9 +7,7 @@ import {
   MCarousel,
   MFacts,
   MHead,
-  MLink,
   MList,
-  MNext,
   MPage,
   MPhoto,
   MSection,
@@ -263,12 +261,10 @@ function MobileCompetitions() {
       </MSection>
 
       <MSection eyebrow={C.judgesHead.eyebrow} title={C.judgesHead.title}>
-        <MList rows={peopleRows(C.judges.slice(0, 4))} />
-        <MLink href={C.judgesMore.href}>{C.mobileJudgesLink}</MLink>
+        <MList rows={peopleRows(C.judges.slice(0, 4))} divided={false} />
+        {C.mobileJudgesLink.trim() && <p className={`${mt.body} px-5`}>{C.mobileJudgesLink}</p>}
       </MSection>
 
-      <MButton href={O.button.href}>{O.button.label}</MButton>
-      <MNext href="/immersion" />
     </MPage>
   );
 }

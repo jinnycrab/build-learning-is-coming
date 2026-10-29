@@ -59,7 +59,6 @@ export const settings = {
   /** Phone layout only. */
   mobile: {
     menuButton: { label: "Explore Programs", href: "/programs" },
-    nextLabel: "Next",
   },
 };
 
@@ -518,10 +517,11 @@ export const home = {
       eyebrow: "Programs",
       title: "Four ways to build",
       items: [
-        { icon: "studio", title: "Passion Project Studio", text: "1:1 or pair projects with a mentor", href: "/programs" },
-        { icon: "trophy", title: "Competitions", text: "Global challenges and hackathons", href: "/competitions" },
-        { icon: "globe", title: "Learning Immersions", text: "Eight days of building in Singapore", href: "/immersion" },
-        { icon: "school", title: "Schools & Partners", text: "Workshops, camps and hackathons", href: "/partners" },
+        /** Leave "img" empty to use the matching desktop program card photo. */
+        { img: "", title: "Passion Project Studio", text: "1:1 or pair projects with a mentor", href: "/programs" },
+        { img: "", title: "Competitions", text: "Global challenges and hackathons", href: "/competitions" },
+        { img: "", title: "Learning Immersions", text: "Eight days of building in Singapore", href: "/immersion" },
+        { img: "", title: "Schools & Partners", text: "Workshops, camps and hackathons", href: "/partners" },
       ],
     },
     studentWorkLimit: 6,
@@ -529,21 +529,6 @@ export const home = {
     skills: {
       eyebrow: "Our Philosophy",
       title: "What students hone",
-      items: [
-        { icon: "chat", title: "Communication" },
-        { icon: "heart", title: "Empathy" },
-        { icon: "users", title: "Teamwork" },
-        { icon: "target", title: "Critical thinking" },
-        { icon: "sparkles", title: "Creativity" },
-        { icon: "cpu", title: "AI literacy" },
-      ],
-    },
-    method: {
-      text: "Every program uses the teaching and innovation methods we learned at Stanford.",
-    },
-    reach: {
-      title: "Students from {count} countries across 5 continents",
-      hubs: ["Singapore", "Seoul", "San Francisco"],
     },
     mentorsLimit: 4,
     mentorsLink: { label: "See all mentors", href: "/about" },
@@ -664,7 +649,8 @@ export const programsPage = {
     text: "Over 8 sessions, individually or in pairs, students take an idea they care about from first question to finished prototype — guided by industry mentors at every step. It’s work that shows who they are, not just what they scored.",
     facts: ["8 sessions", "Individual or pair", "Online / Singapore", "Rolling intake"],
     button: { label: "Enquire about the Studio →", href: "/partners#contact" },
-    /** Phone layout: heading of the folded list of outcomes. */
+    /** Phone layout: headings of the folded rows. */
+    factsLabel: "Program details",
     outcomesLabel: "What students do",
     outcomes: [
       "User research and interviews with real people and experts",
@@ -797,8 +783,8 @@ export const competitions = {
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
   judgesMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
-  /** Phone layout: link under the first four judges. */
-  mobileJudgesLink: "See all mentors",
+  /** Phone layout: line under the first four judges. */
+  mobileJudgesLink: "And many more mentors, judges and speakers",
 };
 
 /* ───────────── Immersion ───────────── */
@@ -820,9 +806,6 @@ export const immersion = {
     ["Where", "Singapore"],
   ],
   reserveLabel: "Reserve a place →",
-  /** Phone layout: one photo instead of the moving collage. */
-  mobileHeroImage: P("gardens"),
-  mobileOutcomesLabel: "See the full list",
   outcomesHead: {
     eyebrow: "You leave with",
     title: "A portfolio, not a certificate.",
@@ -921,8 +904,6 @@ export const partnersPage = {
     title: "Build the future of learning with us.",
     text: "Workshops, challenges and immersions for your students — and real ways for organisations to mentor, judge and co-create with the next generation.",
     img: P("openai-talk"),
-    primary: { label: "I’m a school", href: "#schools" },
-    secondary: { label: "I’m an organisation", href: "#contact" },
   },
   logoStripLabel: "Trusted by Previous Partners, Sponsors, and Mentors from",
   logosLabel: "With speakers, partners and sponsors from",

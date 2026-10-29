@@ -8,11 +8,8 @@ import {
   MChecks,
   MFacts,
   MHead,
-  MLink,
   MList,
-  MNext,
   MPage,
-  MPhoto,
   MSection,
   firstSentence,
   mt,
@@ -221,15 +218,32 @@ function MobileImmersion() {
   const registerId = useAnchor("register", "phone");
   return (
     <MPage>
+      {/* The drifting photo columns from desktop, two columns wide, behind the title. */}
+      <section className="relative -mt-6 overflow-hidden">
+        <div aria-hidden="true" className="grid h-[440px] grid-cols-2 gap-2 px-2">
+          {I.heroCollage.slice(0, 2).map((col, ci) => (
+            <div key={ci} className={`hero-col flex flex-col gap-2 pb-2 ${ci % 2 ? "down" : "up"}`}>
+              {[...col, ...col].map((src, k) => (
+                <img key={k} src={src} alt="" className="block h-[200px] w-full rounded-xl object-cover" />
+              ))}
+            </div>
+          ))}
+        </div>
+        <div className="absolute inset-0 bg-gradient-to-b from-bl-bg/40 via-bl-bg/60 to-bl-bg" />
+        <div className="absolute inset-x-0 bottom-0">
+          <MHead as="h1" title={I.title} text={firstSentence(I.intro)} />
+        </div>
+      </section>
+
       <section className="flex flex-col gap-6">
-        <MHead as="h1" title={I.title} text={firstSentence(I.intro)} />
-        <MPhoto src={I.mobileHeroImage} />
         <MFacts rows={I.meta.map(([k, v]) => [k ?? "", v ?? ""] as [string, string])} />
         <MButton href="#register">{I.reserveLabel}</MButton>
       </section>
 
       <MSection eyebrow={I.outcomesHead.eyebrow} title={I.outcomesHead.title}>
-        <MAccordion items={[{ title: I.mobileOutcomesLabel, body: <MChecks items={I.outcomes} /> }]} />
+        <div className="px-5">
+          <MChecks items={I.outcomes} />
+        </div>
       </MSection>
 
       <MSection eyebrow={I.experienceHead.eyebrow} title={I.experienceHead.title} text={firstSentence(I.experienceHead.text)}>
@@ -239,7 +253,7 @@ function MobileImmersion() {
       </MSection>
 
       <MSection eyebrow={I.mentorsHead.eyebrow} title={I.mentorsHead.title}>
-        <MList rows={[...peopleRows(I.mentors), { title: I.industryCard.title, text: I.industryCard.text, icon: "users" }]} />
+        <MList rows={[...peopleRows(I.mentors), { title: I.industryCard.title, text: I.industryCard.text, icon: "users" }]} divided={false} />
       </MSection>
 
       <MSection id={registerId} eyebrow={I.fees.label} title={I.fees.title}>
@@ -262,15 +276,7 @@ function MobileImmersion() {
             { title: I.fees.excludesLabel, body: <p className={mt.body}>{I.fees.excludes}</p> },
           ]}
         />
-        <div className="flex flex-col gap-2">
-          <MButton href={I.fees.button.href}>{I.fees.button.label}</MButton>
-          <MLink href={I.fees.infoSession.href} center>
-            {I.fees.infoSession.label}
-          </MLink>
-        </div>
       </MSection>
-
-      <MNext href="/partners" />
     </MPage>
   );
 }

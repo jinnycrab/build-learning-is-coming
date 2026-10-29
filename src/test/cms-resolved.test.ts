@@ -11,6 +11,15 @@ describe("CMS resolved content", () => {
     expect(home).not.toHaveProperty("build");
     expect(home).toHaveProperty("method");
   });
+
+  it("drops removed fields inside saved objects too", () => {
+    const page = resolved("partnersPage", {
+      hero: { title: "Saved title", primary: { label: "I’m a school", href: "#schools" } },
+    }) as { hero: Record<string, unknown> };
+    expect(page.hero["title"]).toBe("Saved title");
+    expect(page.hero).not.toHaveProperty("primary");
+    expect(page.hero).toHaveProperty("text");
+  });
 });
 
 describe("CMS list items", () => {

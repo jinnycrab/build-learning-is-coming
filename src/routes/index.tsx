@@ -4,7 +4,7 @@ import { CountUpStats, LogoMarquee, MoreCue, PersonCard, useDaysLeft } from "@/c
 import { useScrollProgress } from "@/components/site/hooks";
 import { ARCHIVES_URL, home, stats, studentWork } from "@/content/site";
 import {
-  Icon,
+  MAccordion,
   MButton,
   MCard,
   MCarousel,
@@ -12,7 +12,6 @@ import {
   MList,
   MLogos,
   MPage,
-  MPhoto,
   MSection,
   MStats,
   mt,
@@ -75,6 +74,33 @@ function Home() {
 }
 
 /* ───────── Phone layout ───────── */
+
+/** The desktop photo rows, sized for phones: two rows gliding sideways as you scroll. */
+function PhoneFilmstrip() {
+  const { ref, p } = useScrollProgress<HTMLElement>();
+  return (
+    <section ref={ref} aria-label="Moments from our programs" className="flex flex-col gap-2 overflow-hidden">
+      {home.filmstrip.map((row, r) => (
+        <div
+          key={r}
+          className="flex w-max gap-2 will-change-transform"
+          style={{ transform: `translateX(${(r === 0 ? -40 + 30 * p : -10 - 30 * p).toFixed(2)}%)` }}
+        >
+          {row.map((im, k) => (
+            <img
+              key={k}
+              src={im.src}
+              alt={im.alt}
+              loading="lazy"
+              className="h-[132px] shrink-0 rounded-xl object-cover"
+              style={{ width: Math.round(im.w * 0.55) }}
+            />
+          ))}
+        </div>
+      ))}
+    </section>
+  );
+}
 function MobileHome() {
   const M = home.mobile;
   const days = useDaysLeft(home.nextUp.deadline);
@@ -101,8 +127,9 @@ function MobileHome() {
             {M.secondary.label}
           </MLink>
         </div>
-        <MPhoto src={home.heroImage} alt={home.heroAlt} />
       </section>
+
+      <PhoneFilmstrip />
 
       {/* Next up */}
       <div className="px-5">
@@ -130,7 +157,14 @@ function MobileHome() {
       <MLogos label={home.logoStrip.label} />
 
       <MSection eyebrow={M.programs.eyebrow} title={M.programs.title}>
-        <MList rows={M.programs.items} />
+        <MList
+          rows={M.programs.items.map((it, i) => ({
+            title: it.title,
+            text: it.text,
+            href: it.href,
+            thumb: it.img || home.pathways[i]?.img,
+          }))}
+        />
       </MSection>
 
       <MSection eyebrow={home.studentWorkHead.eyebrow} title={home.studentWorkHead.title}>
@@ -143,30 +177,24 @@ function MobileHome() {
       </MSection>
 
       <MSection eyebrow={M.skills.eyebrow} title={M.skills.title}>
-        <div className="grid grid-cols-2 gap-2 px-5">
-          {M.skills.items.map((s) => (
-            <div key={s.title} className="m-card flex min-h-[96px] flex-col justify-between gap-3 rounded-2xl p-4">
-              <Icon name={s.icon} size={24} className="text-bl-accent" />
-              <span className={mt.card}>{s.title}</span>
-            </div>
-          ))}
-        </div>
+        <MAccordion items={home.humanStack.map((s) => ({ title: s.title, body: <p className={mt.body}>{s.body}</p> }))} />
       </MSection>
 
-      <MSection eyebrow={home.method.eyebrow} title={home.method.title} text={M.method.text} />
-
-      <MSection eyebrow={home.pinsHead.eyebrow} title={M.reach.title.replaceAll("{count}", String(home.pins.length))}>
-        <div className="flex flex-wrap gap-2 px-5">
-          {M.reach.hubs.map((h) => (
-            <span key={h} className={`m-card inline-flex h-9 items-center rounded-full px-4 ${mt.meta} !text-bl-ink`}>
-              {h}
-            </span>
+      <MSection eyebrow={home.method.eyebrow} title={home.method.title}>
+        <div className="flex flex-col gap-4 px-5">
+          {home.method.paragraphs.map((t, i) => (
+            <p key={i} className={mt.body}>
+              {t}
+            </p>
           ))}
         </div>
+        <MCarousel items={home.method.photos} label={home.method.title}>
+          {(ph) => <img src={ph.src} alt={ph.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+        </MCarousel>
       </MSection>
 
       <MSection eyebrow={home.teamHead.eyebrow} title={home.teamHead.title}>
-        <MList rows={peopleRows(home.team.slice(0, Math.max(1, M.mentorsLimit)))} />
+        <MList rows={peopleRows(home.team.slice(0, Math.max(1, M.mentorsLimit)))} divided={false} />
         <MLink href={M.mentorsLink.href}>{M.mentorsLink.label}</MLink>
       </MSection>
     </MPage>

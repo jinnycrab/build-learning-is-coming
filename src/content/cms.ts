@@ -177,12 +177,15 @@ function fillItems(base: unknown[], over: unknown[]): unknown[] {
   });
 }
 
-/** Objects merge field by field (so new fields added in code keep their defaults); lists are replaced whole. */
+/**
+ * Objects merge field by field (so new fields added in code keep their defaults,
+ * and saved fields the page no longer has are dropped); lists are replaced whole.
+ */
 function merge(base: unknown, over: unknown): unknown {
   if (over === undefined || over === null) return base;
   if (isObj(base) && isObj(over)) {
     const out: Record<string, unknown> = { ...base };
-    for (const k of Object.keys(over)) out[k] = merge(base[k], over[k]);
+    for (const k of Object.keys(over)) if (k in base) out[k] = merge(base[k], over[k]);
     return out;
   }
   if (Array.isArray(base) && Array.isArray(over)) return fillItems(base, over);

@@ -3,13 +3,10 @@ import type { CSSProperties } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
 import {
   MAccordion,
-  MButton,
   MCard,
   MCarousel,
   MHead,
-  MLink,
   MLogos,
-  MNext,
   MPage,
   MPhoto,
   MSection,
@@ -55,12 +52,6 @@ function Partners() {
             {H.title}
           </h1>
           <p className="m-0 max-w-[560px] text-lg leading-relaxed text-[#D4D7DC]">{H.text}</p>
-          <div className="flex flex-wrap gap-3">
-            <Button href={H.primary.href}>{H.primary.label}</Button>
-            <Button href={H.secondary.href} variant="ghost">
-              {H.secondary.label}
-            </Button>
-          </div>
         </Container>
       </section>
 
@@ -132,7 +123,6 @@ function Partners() {
 
 function MobilePartners() {
   const H = PP.hero;
-  const K = PP.contact;
   const schoolsId = useAnchor("schools", "phone");
   const pcaId = useAnchor("pca", "phone");
   return (
@@ -140,12 +130,6 @@ function MobilePartners() {
       <section className="flex flex-col gap-6">
         <MHead as="h1" eyebrow={H.eyebrow} title={H.title} text={firstSentence(H.text)} />
         <MPhoto src={H.img} />
-        <div className="flex flex-col gap-2">
-          <MButton href={H.primary.href}>{H.primary.label}</MButton>
-          <MLink href={H.secondary.href} center>
-            {H.secondary.label}
-          </MLink>
-        </div>
       </section>
 
       <MLogos label={PP.logoStripLabel} />
@@ -163,11 +147,6 @@ function MobilePartners() {
         <MAccordion items={PP.pca.programs.map((p) => ({ title: p.title, text: p.tag, body: <p className={mt.body}>{p.body}</p> }))} />
       </MSection>
 
-      <MSection eyebrow={K.eyebrow} title={K.title} text={K.text}>
-        <MButton href={`mailto:${settings.email}?subject=${encodeURIComponent(K.emailSubject)}`}>{K.submitLabel}</MButton>
-      </MSection>
-
-      <MNext href="/about" />
     </MPage>
   );
 }
