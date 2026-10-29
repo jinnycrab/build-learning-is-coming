@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState, type FormEvent } from "react";
+import { useState, type CSSProperties, type FormEvent } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { EventLogos, LogoMarquee } from "@/components/site/Shared";
 import { partnersPage as PP, settings } from "@/content/site";
@@ -75,12 +75,20 @@ function Partners() {
 
       <section id="schools" className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
-          <SectionHead eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title}>
-            <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
+          <div className="grid items-end gap-6 lg:grid-cols-2 lg:gap-12">
+            <div className="flex flex-col gap-4">
+              <Eyebrow>{PP.schoolsHead.eyebrow}</Eyebrow>
+              <h2 className="h2">{PP.schoolsHead.title}</h2>
+            </div>
+            <p className="m-0 max-w-[560px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
               {PP.schoolsHead.text}
             </p>
-          </SectionHead>
-          <div className="m-swipe grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          </div>
+          {/* Columns follow the number of formats in the CMS, so removing one never leaves a gap. */}
+          <div
+            className="m-swipe grid gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(var(--cols),minmax(0,1fr))]"
+            style={{ "--cols": Math.min(Math.max(PP.schools.length, 1), 5) } as CSSProperties}
+          >
             {PP.schools.map((s) => (
               <div key={s.title} className="flex flex-col overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface">
                 <img src={s.img} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
