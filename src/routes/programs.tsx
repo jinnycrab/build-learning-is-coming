@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
-import { programs, programsPage as PG, type ProgramType } from "@/content/site";
+import { useScrollProgress } from "@/components/site/hooks";
+import { programs, programsPage as PG, type Program } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
   head: () => ({
@@ -10,10 +10,14 @@ export const Route = createFileRoute("/programs")({
       {
         name: "description",
         content:
-          "Every Build Learning program, past and upcoming: competitions, immersions, studio and school partnerships.",
+          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
       },
       { property: "og:title", content: "Programs — Build Learning" },
-      { property: "og:description", content: "Every Build Learning program, past and upcoming: competitions, immersions, studio and school partnerships." },
+      {
+        property: "og:description",
+        content:
+          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -21,120 +25,142 @@ export const Route = createFileRoute("/programs")({
   component: Programs,
 });
 
-const VIEWS = ["All", "Upcoming", "Past"] as const;
-const TYPES: Array<"All" | ProgramType> = [
-  "All",
-  "Competitions",
-  "Immersions",
-  "Studio",
-  "Schools",
-];
-
 function Programs() {
-  const [view, setView] = useState<(typeof VIEWS)[number]>("All");
-  const [type, setType] = useState<(typeof TYPES)[number]>("All");
-  const shown = programs.filter(
-    (p) =>
-      (view === "All" || (view === "Upcoming") === p.upcoming) &&
-      (type === "All" || p.type === type),
-  );
-
+  const upcoming = programs.filter((p) => p.upcoming);
+  const past = programs.filter((p) => !p.upcoming);
   return (
     <Page>
-      <section className="gridbg border-b border-bl-line">
-        <Container className="flex flex-col gap-5 pb-14 pt-20">
-          <Eyebrow muted>{PG.eyebrow.replaceAll("{count}", String(programs.length))}</Eyebrow>
-          <h1 className="disp m-0 whitespace-pre-line text-[length:calc(clamp(2.75rem,6vw,5rem)*var(--bl-hscale))] leading-none">
-            {PG.title}
-          </h1>
-          <p className="m-0 max-w-[640px] text-lg leading-relaxed text-bl-ink-2">{PG.text}</p>
+      <section className="relative border-b border-bl-line">
+        <img
+          src={PG.heroImage}
+          alt={PG.heroAlt}
+          className="block h-[420px] w-full object-cover sm:h-[560px]"
+          style={{ objectPosition: "center 45%" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-bl-bg/15 via-bl-bg/35 to-bl-bg/95" />
+        <div className="absolute inset-x-0 bottom-0">
+          <Container className="flex flex-col gap-4 pb-12">
+            <h1 className="disp m-0 text-[length:calc(clamp(2.75rem,6vw,5rem)*var(--bl-hscale))] leading-none">
+              {PG.title}
+            </h1>
+            <p className="m-0 max-w-[600px] text-lg leading-relaxed text-[#D4D7DC]">{PG.text}</p>
+          </Container>
+        </div>
+      </section>
+
+      <Studio />
+
+      <section className="border-b border-bl-line">
+        <Container className="flex flex-col gap-12 py-24">
+          <div className="flex max-w-[760px] flex-col gap-4">
+            <Eyebrow>{PG.events.eyebrow}</Eyebrow>
+            <h2 className="h2">{PG.events.title}</h2>
+          </div>
+          {upcoming.length > 0 && <ProgramGroup label={PG.events.upcomingLabel} list={upcoming} />}
+          {past.length > 0 && <ProgramGroup label={PG.events.pastLabel} list={past} />}
         </Container>
       </section>
 
       <section>
-        <Container className="flex flex-col gap-8 pb-28 pt-14">
-          <div className="flex flex-wrap items-center justify-between gap-4">
-            <div
-              role="tablist"
-              aria-label="Status"
-              className="flex gap-1 rounded-full border border-white/15 p-1"
-            >
-              {VIEWS.map((v) => (
-                <button
-                  key={v}
-                  type="button"
-                  role="tab"
-                  aria-selected={v === view}
-                  onClick={() => setView(v)}
-                  className={`min-h-11 rounded-full px-5 text-sm ${v === view ? "bg-bl-ink text-bl-bg" : "text-bl-ink-2"}`}
-                >
-                  {v}
-                </button>
-              ))}
-            </div>
-            <div className="flex flex-wrap gap-2">
-              {TYPES.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  aria-pressed={t === type}
-                  onClick={() => setType(t)}
-                  className={`eyebrow min-h-11 rounded-full border px-4 text-[length:calc(11px*var(--bl-scale))] ${t === type ? "border-bl-accent text-bl-accent" : "border-white/20 text-bl-ink-2"}`}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-          <div className="grid auto-rows-fr gap-4 lg:grid-cols-2">
-            {shown.map((p) => (
-              <SiteLink
-                key={p.title}
-                href={p.href}
-                className="grid min-h-[260px] overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface sm:grid-cols-[0.9fr_1.1fr]"
-              >
-                <img
-                  src={p.img}
-                  alt=""
-                  loading="lazy"
-                  className="h-[200px] w-full object-cover sm:h-full"
-                  style={{ filter: p.upcoming ? "none" : "grayscale(1) brightness(.8)" }}
-                />
-                <div className="flex flex-col gap-3 p-6">
-                  <div className="eyebrow flex justify-between gap-2 text-[length:calc(10px*var(--bl-scale))]">
-                    <span style={{ color: p.upcoming ? "var(--bl-accent)" : "var(--bl-ink-3)" }}>
-                      ● {p.status}
-                    </span>
-                    <span className="text-bl-ink-3">{p.type}</span>
-                  </div>
-                  <span className="disp text-xl leading-tight">{p.title}</span>
-                  <span className="text-sm leading-relaxed text-[#B4B9C1]">{p.body}</span>
-                  <div className="eyebrow mt-auto flex flex-col gap-2 border-t border-bl-line pt-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
-                    <span>{p.when}</span>
-                    <span>{p.where}</span>
-                  </div>
-                </div>
-              </SiteLink>
-            ))}
-          </div>
-          {shown.length === 0 && (
-            <div className="rounded-2xl border border-dashed border-white/20 p-12 text-center text-bl-ink-3">
-              {PG.emptyText}
-            </div>
-          )}
-        </Container>
-      </section>
-
-      <section className="border-t border-bl-line">
         <Container className="flex flex-wrap items-center justify-between gap-6 py-10">
-          <span className="disp text-[length:calc(22px*var(--bl-scale))]">
-            {PG.closing.title}
-          </span>
+          <span className="disp text-[length:calc(22px*var(--bl-scale))]">{PG.closing.title}</span>
           <Button href={PG.closing.button.href} variant="light">
             {PG.closing.button.label}
           </Button>
         </Container>
       </section>
     </Page>
+  );
+}
+
+function Studio() {
+  const S = PG.studio;
+  const { ref, p } = useScrollProgress<HTMLDivElement>();
+  return (
+    <section className="border-b border-bl-line">
+      <Container className="grid items-start gap-16 pb-14 pt-20 lg:grid-cols-2">
+        <div className="flex flex-col gap-5">
+          <Eyebrow>{S.eyebrow}</Eyebrow>
+          <h2 className="disp m-0 text-[length:calc(clamp(2.25rem,4vw,3.25rem)*var(--bl-hscale))] leading-[1.05]">
+            {S.title}
+          </h2>
+          <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
+            {S.text}
+          </p>
+          <div className="eyebrow flex flex-wrap gap-x-5 gap-y-2 pt-1 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
+            {S.facts.map((f) => (
+              <span key={f}>{f}</span>
+            ))}
+          </div>
+          <div className="pt-2">
+            <Button href={S.button.href}>{S.button.label}</Button>
+          </div>
+        </div>
+        <ol className="m-0 list-none border-b border-white/15 p-0">
+          {S.outcomes.map((o) => (
+            <li key={o} className="grid grid-cols-[28px_minmax(0,1fr)] items-baseline gap-3 border-t border-white/15 py-5">
+              <span aria-hidden="true" className="text-bl-accent">
+                →
+              </span>
+              <span className="text-lg leading-snug">{o}</span>
+            </li>
+          ))}
+        </ol>
+      </Container>
+      {/* Photos shown uncropped; the strip slides left as you scroll. */}
+      <div ref={ref} className="overflow-hidden pb-24">
+        <div
+          className="flex w-max gap-3.5 pl-5 pr-10 will-change-transform sm:pl-10 lg:pl-[max(40px,calc((100vw-1320px)/2+40px))]"
+          style={{ transform: `translateX(${(-p * 45).toFixed(2)}%)` }}
+        >
+          {S.gallery.map((g) => (
+            <img
+              key={g.src}
+              src={g.src}
+              alt={g.alt}
+              loading="lazy"
+              className="block h-[260px] w-auto shrink-0 rounded-2xl border border-bl-line sm:h-[380px]"
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function ProgramGroup({ label, list }: { label: string; list: Program[] }) {
+  return (
+    <div className="flex flex-col gap-5">
+      <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">{label}</span>
+      <div className="grid auto-rows-fr gap-4 md:grid-cols-2">
+        {list.map((p) => (
+          <SiteLink
+            key={p.title}
+            href={p.href}
+            className="grid min-h-[260px] overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface sm:grid-cols-[0.9fr_1.1fr]"
+          >
+            <img
+              src={p.img}
+              alt=""
+              loading="lazy"
+              className="h-[200px] w-full object-cover sm:h-full"
+              style={{ filter: p.upcoming ? "none" : "grayscale(1) brightness(.8)" }}
+            />
+            <div className="flex flex-col gap-3 p-6">
+              <div className="eyebrow flex justify-between gap-2 text-[length:calc(10px*var(--bl-scale))]">
+                <span style={{ color: p.upcoming ? "var(--bl-accent)" : "var(--bl-ink-3)" }}>● {p.status}</span>
+                <span className="text-bl-ink-3">{p.type}</span>
+              </div>
+              <span className="disp text-[length:calc(20px*var(--bl-scale))] leading-tight">{p.title}</span>
+              <span className="text-sm leading-relaxed text-[#B4B9C1]">{p.body}</span>
+              <div className="eyebrow mt-auto flex flex-wrap justify-between gap-2 border-t border-bl-line pt-3 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">
+                <span>{p.when}</span>
+                <span>{p.where}</span>
+              </div>
+            </div>
+          </SiteLink>
+        ))}
+      </div>
+    </div>
   );
 }

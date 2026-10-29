@@ -219,6 +219,12 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
 
 /* map pins */
 .pin .ring { position: absolute; left: 50%; top: 50%; width: 10px; height: 10px; margin: -5px 0 0 -5px; border-radius: 50%; animation: blPulse 2.4s ease-out infinite; }
+/* immersion hero collage: columns drift up / down */
+.hero-col { will-change: transform; }
+.hero-col.up { animation: blHeroUp 60s linear infinite; }
+.hero-col.down { animation: blHeroDown 60s linear infinite; }
+@keyframes blHeroUp { from { transform: translateY(0); } to { transform: translateY(-50%); } }
+@keyframes blHeroDown { from { transform: translateY(-50%); } to { transform: translateY(0); } }
 @keyframes blPulse { from { transform: scale(1); opacity: .9; } to { transform: scale(4.2); opacity: 0; } }
 .pin .lbl { opacity: 0; transition: opacity .2s; pointer-events: none; }
 .pin:hover .lbl, .pin.hub .lbl { opacity: 1; }
@@ -226,7 +232,7 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
 .reel-slide { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: opacity 1.1s ease, transform 6s linear; }
 
 @media (prefers-reduced-motion: reduce) {
-  .marquee, .pin .ring { animation: none; }
+  .marquee, .pin .ring, .hero-col.up, .hero-col.down { animation: none; }
   .w, .fade-up { animation: none; opacity: 1; transform: none; filter: none; }
   .pv img, .reel-slide { transition: none; }
   html { scroll-behavior: auto; }

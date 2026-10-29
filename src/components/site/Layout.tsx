@@ -1,6 +1,6 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
-import { nav, settings, ARCHIVES_URL } from "@/content/site";
+import { nav, settings } from "@/content/site";
 
 export function SiteLink({
   href,
@@ -147,7 +147,7 @@ function Header() {
         </Link>
         <nav
           aria-label="Primary"
-          className="hidden min-w-0 flex-1 justify-center gap-5 whitespace-nowrap text-sm text-bl-ink-2 xl:flex"
+          className="hidden min-w-0 flex-1 justify-end gap-6 whitespace-nowrap text-sm text-bl-ink-2 xl:flex"
         >
           {nav.map((n) => {
             const active =
@@ -159,10 +159,7 @@ function Header() {
             );
           })}
         </nav>
-        <div className="flex shrink-0 items-center gap-2 xl:ml-0">
-          <Button href={settings.headerCta.href} className="!min-h-10 !px-3 !py-2 text-sm sm:!px-5">
-            {settings.headerCta.label}
-          </Button>
+        <div className="flex shrink-0 items-center gap-2 xl:hidden">
           <button
             type="button"
             className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-bl-line xl:hidden"
@@ -205,44 +202,41 @@ function Header() {
 }
 
 function Footer() {
+  const f = settings.footer;
+  const label = "eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3";
   return (
     <footer className="border-t border-bl-line">
       <Container className="grid gap-8 py-12 text-sm text-bl-ink-2 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
           <img src={settings.logo} alt="Build Learning" className="h-7 w-fit brightness-0 invert" />
-          <span>Singapore · Seoul · San Francisco</span>
+          <span>{f.tagline}</span>
         </div>
         <div className="flex flex-col gap-2.5">
-          <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-            Explore
-          </span>
-          <SiteLink href="/programs">Programs</SiteLink>
-          <SiteLink href="/competitions">Competitions</SiteLink>
-          <SiteLink href="/immersion">Immersions</SiteLink>
-          <SiteLink href="/partners">Schools & Partners</SiteLink>
-          <SiteLink href={ARCHIVES_URL}>The Global Archives ↗</SiteLink>
+          <span className={label}>{f.exploreLabel}</span>
+          {f.links.map((l) => (
+            <SiteLink key={l.label + l.href} href={l.href}>
+              {l.label}
+            </SiteLink>
+          ))}
         </div>
         <div className="flex flex-col gap-2.5">
-          <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-            Contact
-          </span>
+          <span className={label}>{f.contactLabel}</span>
           <SiteLink href={`mailto:${settings.email}`}>{settings.email}</SiteLink>
           {settings.phones.map((p) => (
             <span key={p}>{p}</span>
           ))}
         </div>
         <div className="flex flex-col gap-2.5">
-          <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-            Follow
-          </span>
-          <SiteLink href={settings.instagram}>Instagram</SiteLink>
-          <SiteLink href={settings.linkedin}>LinkedIn</SiteLink>
+          <span className={label}>{f.followLabel}</span>
+          {f.social.map((l) => (
+            <SiteLink key={l.label + l.href} href={l.href}>
+              {l.label}
+            </SiteLink>
+          ))}
         </div>
       </Container>
       <Container className="pb-10">
-        <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-          © {new Date().getFullYear()} Build Learning
-        </span>
+        <span className={label}>{f.copyright.replaceAll("{year}", String(new Date().getFullYear()))}</span>
       </Container>
     </footer>
   );
@@ -255,7 +249,7 @@ export function Page({ children }: { children: ReactNode }) {
         href="#main"
         className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-bl-ink focus:px-3 focus:py-2 focus:text-bl-bg"
       >
-        Skip to content
+        {settings.skipLink}
       </a>
       <Header />
       <main id="main">{children}</main>

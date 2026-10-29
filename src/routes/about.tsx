@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
-import { CountUpStats, PersonCard } from "@/components/site/Shared";
+import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
+import { PersonCard } from "@/components/site/Shared";
 import { about as A, people } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
@@ -18,12 +18,13 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+  const logos = A.universities.logos;
   return (
     <Page>
-      <section className="gridbg border-b border-bl-line">
+      <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-20 lg:py-24">
           <div className="flex max-w-[1000px] flex-col gap-6">
-            <Eyebrow>{A.eyebrow}</Eyebrow>
+            {A.eyebrow && <Eyebrow>{A.eyebrow}</Eyebrow>}
             <h1 className="disp m-0 text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
               {A.headline}
             </h1>
@@ -31,16 +32,34 @@ function About() {
           </div>
           <div className="grid gap-3 sm:grid-cols-3">
             {A.photos.map((ph) => (
+              <img key={ph.src} src={ph.src} alt={ph.alt} className="aspect-[3/2] w-full rounded-2xl object-cover" />
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Where students go next — moving university logo strip */}
+      <section className="border-b border-bl-line">
+        <Container className="flex flex-col gap-3 pt-20">
+          <h2 className="h2">{A.universities.title}</h2>
+          <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
+            {A.universities.text}
+          </p>
+        </Container>
+        <div className="overflow-hidden py-14 [mask-image:linear-gradient(90deg,transparent,#000_8%,#000_92%,transparent)]">
+          <div className="marquee flex w-max items-center gap-20 pr-20">
+            {[...logos, ...logos].map((u, i) => (
               <img
-                key={ph.src}
-                src={ph.src}
-                alt={ph.alt}
-                className="aspect-[3/2] w-full rounded-2xl object-cover"
+                key={u.name + i}
+                src={u.logo}
+                alt={i < logos.length ? u.name : ""}
+                aria-hidden={i >= logos.length || undefined}
+                style={{ height: u.height }}
+                className="w-auto shrink-0 opacity-90"
               />
             ))}
           </div>
-          <CountUpStats />
-        </Container>
+        </div>
       </section>
 
       <section className="border-b border-bl-line">
@@ -63,12 +82,13 @@ function About() {
                   />
                   <div className="flex flex-col gap-2.5 py-1">
                     <span className="text-xl font-semibold">{p.name}</span>
-                    <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
-                      {f.role}
-                    </span>
-                    <p className="m-0 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-                      {f.bio}
-                    </p>
+                    <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">{f.role}</span>
+                    <p className="m-0 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-bl-ink-3">{f.bio}</p>
+                    {f.link && (
+                      <SiteLink href={f.link} className="mt-1 text-sm text-bl-ink-2 no-underline hover:text-bl-accent">
+                        {A.founderLinkLabel}
+                      </SiteLink>
+                    )}
                   </div>
                 </div>
               );
@@ -77,56 +97,32 @@ function About() {
         </Container>
       </section>
 
-      <section className="gridbg border-b border-bl-line">
+      <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead
             eyebrow={A.mentorsHead.eyebrow}
             title={A.mentorsHead.title}
             aside={
-              <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
-                {A.mentors.length}+ and growing
-              </span>
+              <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">{A.mentorsHead.note}</span>
             }
           />
           <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
             {A.mentors.map((k) => (
               <PersonCard key={k} personKey={k} square />
             ))}
+            <SiteLink
+              href={A.joinCard.link.href}
+              className="flex aspect-square flex-col justify-center gap-2 rounded-2xl border border-dashed border-white/25 p-5 text-bl-ink no-underline hover:border-bl-accent"
+            >
+              <span className="text-lg font-semibold">{A.joinCard.title}</span>
+              <span className="text-sm text-bl-ink-3">{A.joinCard.text}</span>
+              <span className="text-sm text-bl-accent">{A.joinCard.link.label}</span>
+            </SiteLink>
           </div>
         </Container>
       </section>
 
-      <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow={A.valuesHead.eyebrow} title={A.valuesHead.title} />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {A.values.map((v, i) => (
-              <div
-                key={v.title}
-                className="flex flex-col gap-3 rounded-[18px] border border-white/15 p-6"
-              >
-                <span
-                  className="disp text-4xl"
-                  style={{
-                    color: [
-                      "var(--bl-accent)",
-                      "var(--bl-blue)",
-                      "var(--bl-green)",
-                      "var(--bl-yellow)",
-                    ][i % 4],
-                  }}
-                >
-                  0{i + 1}
-                </span>
-                <span className="text-lg font-semibold">{v.title}</span>
-                <span className="text-sm leading-relaxed text-bl-ink-3">{v.body}</span>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="gridbg">
+      <section>
         <Container className="flex flex-col items-start gap-6 py-24 lg:py-28">
           <h2 className="h2 max-w-[820px]">{A.closing.title}</h2>
           <div className="flex flex-wrap gap-3">

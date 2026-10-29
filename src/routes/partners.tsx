@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, type FormEvent } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
-import { LogoMarquee } from "@/components/site/Shared";
+import { EventLogos, LogoMarquee } from "@/components/site/Shared";
 import { partnersPage as PP, settings } from "@/content/site";
 
 export const Route = createFileRoute("/partners")({
@@ -23,65 +23,30 @@ export const Route = createFileRoute("/partners")({
 });
 
 function Partners() {
+  const H = PP.hero;
   return (
     <Page>
-      <section className="gridbg border-b border-bl-line">
-        <Container className="grid items-center gap-12 py-20 lg:grid-cols-[1.1fr_1fr] lg:py-24">
-          <div className="flex flex-col gap-6">
-            <Eyebrow>{PP.intro.eyebrow}</Eyebrow>
-            <h1 className="disp m-0 text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
-              {PP.intro.title}
-            </h1>
-            <p className="m-0 max-w-[560px] text-lg leading-relaxed text-bl-ink-2">
-              {PP.intro.text}
-            </p>
-            <div className="flex flex-wrap gap-3">
-              <Button href={PP.intro.primary.href}>{PP.intro.primary.label}</Button>
-              <Button href={PP.intro.secondary.href} variant="ghost">
-                {PP.intro.secondary.label}
-              </Button>
-            </div>
-          </div>
-          <img
-            src={PP.hero}
-            alt="Students at an industry talk"
-            className="aspect-[4/3] w-full rounded-[22px] object-cover"
-          />
-        </Container>
-      </section>
-
-      <LogoMarquee label="Who we’ve worked with" />
-
-      <section id="schools" className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title} />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {PP.schools.map((s) => (
-              <div
-                key={s.title}
-                className="flex flex-col overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface"
-              >
-                <img
-                  src={s.img}
-                  alt=""
-                  loading="lazy"
-                  className="aspect-[4/3] w-full object-cover"
-                />
-                <div className="flex flex-1 flex-col gap-3 p-5">
-                  <h3 className="m-0 text-lg font-semibold">{s.title}</h3>
-                  <p className="m-0 flex-1 text-sm leading-relaxed text-bl-ink-3">{s.body}</p>
-                  <div className="eyebrow flex justify-between border-t border-bl-line pt-3 text-[length:calc(10px*var(--bl-scale))]">
-                    <span className="text-bl-accent">{s.format}</span>
-                    <span className="text-bl-ink-3">{s.who}</span>
-                  </div>
-                </div>
-              </div>
-            ))}
+      <section className="relative overflow-hidden border-b border-bl-line">
+        <img src={H.img} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <div className="absolute inset-0 bg-gradient-to-r from-bl-bg/95 via-bl-bg/75 to-bl-bg/30" />
+        <Container className="relative flex min-h-[560px] flex-col justify-center gap-6 py-20">
+          {H.eyebrow && <Eyebrow>{H.eyebrow}</Eyebrow>}
+          <h1 className="disp m-0 max-w-[820px] text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
+            {H.title}
+          </h1>
+          <p className="m-0 max-w-[560px] text-lg leading-relaxed text-[#D4D7DC]">{H.text}</p>
+          <div className="flex flex-wrap gap-3">
+            <Button href={H.primary.href}>{H.primary.label}</Button>
+            <Button href={H.secondary.href} variant="ghost">
+              {H.secondary.label}
+            </Button>
           </div>
         </Container>
       </section>
 
-      <section id="pca" className="gridbg border-b border-bl-line">
+      <LogoMarquee label={PP.logoLabel} />
+
+      <section id="pca" className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-24 lg:py-28">
           <SectionHead eyebrow={PP.pca.eyebrow} title={PP.pca.title}>
             <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
@@ -90,105 +55,43 @@ function Partners() {
           </SectionHead>
           <div className="grid auto-rows-[200px] grid-cols-2 gap-3 lg:grid-cols-4">
             {PP.pca.imgs.map((src, i) => (
-              <div
-                key={src}
-                className={`overflow-hidden rounded-2xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}
-              >
-                <img
-                  src={src}
-                  alt="PCA Seoul program"
-                  loading="lazy"
-                  className="h-full w-full object-cover"
-                />
+              <div key={src} className={`overflow-hidden rounded-2xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
+                <img src={src} alt={PP.pca.title} loading="lazy" className="h-full w-full object-cover" />
+              </div>
+            ))}
+          </div>
+          <div className="grid gap-4 md:grid-cols-2">
+            {PP.pca.programs.map((p) => (
+              <div key={p.title} className="flex flex-col gap-3 rounded-[18px] border border-white/15 bg-bl-surface p-6">
+                <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">{p.tag}</span>
+                <h3 className="m-0 text-xl font-semibold">{p.title}</h3>
+                <p className="m-0 flex-1 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-bl-ink-3">{p.body}</p>
+                <EventLogos label={PP.logosLabel} names={p.logos} />
               </div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="border-b border-bl-line">
-        <Container className="grid gap-12 py-24 lg:grid-cols-[1fr_1.4fr] lg:py-28">
-          <div className="flex flex-col gap-4">
-            <Eyebrow>{PP.orgsHead.eyebrow}</Eyebrow>
-            <h2 className="h2">{PP.orgsHead.title}</h2>
-            <p className="m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-              {PP.orgsHead.text}
+      <section id="schools" className="border-b border-bl-line">
+        <Container className="flex flex-col gap-10 py-24 lg:py-28">
+          <SectionHead eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title}>
+            <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
+              {PP.schoolsHead.text}
             </p>
-          </div>
-          <ol className="m-0 list-none p-0">
-            {PP.orgs.map((o, i) => (
-              <li
-                key={o.title}
-                className="grid grid-cols-[56px_minmax(0,1fr)] gap-4 border-t border-white/15 py-5"
-              >
-                <span className="eyebrow pt-1 text-xs text-bl-accent">0{i + 1}</span>
-                <div>
-                  <div className="text-lg font-semibold">{o.title}</div>
-                  <div className="mt-1 text-[length:calc(15px*var(--bl-scale))] text-bl-ink-3">
-                    {o.body}
+          </SectionHead>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+            {PP.schools.map((s) => (
+              <div key={s.title} className="flex flex-col overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface">
+                <img src={s.img} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                <div className="flex flex-1 flex-col gap-3 p-5">
+                  <h3 className="m-0 text-lg font-semibold">{s.title}</h3>
+                  <p className="m-0 flex-1 text-sm leading-relaxed text-bl-ink-3">{s.body}</p>
+                  <div className="eyebrow flex justify-between gap-2 border-t border-bl-line pt-3 text-[length:calc(10px*var(--bl-scale))]">
+                    <span className="text-bl-accent">{s.format}</span>
+                    <span className="text-bl-ink-3">{s.who}</span>
                   </div>
                 </div>
-              </li>
-            ))}
-          </ol>
-        </Container>
-      </section>
-
-      <section className="gridbg border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow={PP.casesHead.eyebrow} title={PP.casesHead.title} />
-          <div className="grid gap-4 md:grid-cols-2">
-            {PP.cases.map((c) => (
-              <SiteLink
-                key={c.title}
-                href={c.href}
-                className="group flex flex-col overflow-hidden rounded-[22px] border border-white/15 bg-bl-bg no-underline transition-colors hover:border-bl-accent"
-              >
-                <div className="overflow-hidden">
-                  <img
-                    src={c.img}
-                    alt=""
-                    loading="lazy"
-                    className="aspect-[16/9] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                </div>
-                <div className="flex flex-col gap-3 p-6">
-                  <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">
-                    {c.kicker} · {c.who}
-                  </span>
-                  <h3 className="m-0 text-xl font-semibold text-bl-ink">{c.title}</h3>
-                  <p className="m-0 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
-                    {c.body}
-                  </p>
-                  <div className="flex gap-8 border-t border-bl-line pt-4">
-                    {c.stats.map(([n, l]) => (
-                      <div key={l} className="flex flex-col">
-                        <span className="disp text-2xl text-bl-ink">{n}</span>
-                        <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">
-                          {l}
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </SiteLink>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
-          <SectionHead eyebrow={PP.stepsHead.eyebrow} title={PP.stepsHead.title} />
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {PP.steps.map((s, i) => (
-              <div
-                key={s.title}
-                className="flex flex-col gap-3 rounded-[18px] border border-white/15 p-6"
-              >
-                <span className="disp text-4xl text-bl-accent">0{i + 1}</span>
-                <span className="text-lg font-semibold">{s.title}</span>
-                <span className="text-sm leading-relaxed text-bl-ink-3">{s.body}</span>
               </div>
             ))}
           </div>
@@ -209,21 +112,21 @@ function Contact() {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
     const body = [
-      `Name: ${f.get("name") ?? ""}`,
-      `Organisation: ${f.get("org") ?? ""}`,
-      `Email: ${f.get("email") ?? ""}`,
-      `Interested in: ${picked.join(", ") || "—"}`,
+      `${PP.contact.nameLabel}: ${f.get("name") ?? ""}`,
+      `${PP.contact.orgLabel}: ${f.get("org") ?? ""}`,
+      `${PP.contact.emailLabel}: ${f.get("email") ?? ""}`,
+      `${PP.contact.interestsLabel}: ${picked.join(", ") || "—"}`,
       "",
       String(f.get("msg") ?? ""),
     ].join("\n");
-    window.location.href = `mailto:${settings.email}?subject=${encodeURIComponent("Partnership enquiry")}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:${settings.email}?subject=${encodeURIComponent(PP.contact.emailSubject)}&body=${encodeURIComponent(body)}`;
   }
 
   const field =
     "w-full rounded-xl border border-white/15 bg-bl-bg px-4 py-3 text-[length:calc(15px*var(--bl-scale))] text-bl-ink outline-none placeholder:text-bl-ink-3 focus:border-bl-accent";
 
   return (
-    <section id="contact" className="gridbg">
+    <section id="contact" className="">
       <Container className="grid gap-12 py-24 lg:grid-cols-2 lg:py-28">
         <div className="flex flex-col gap-5">
           <Eyebrow>{PP.contact.eyebrow}</Eyebrow>
@@ -246,20 +149,20 @@ function Contact() {
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm text-bl-ink-2">
-              Name
+              {PP.contact.nameLabel}
               <input name="name" required className={field} autoComplete="name" />
             </label>
             <label className="flex flex-col gap-2 text-sm text-bl-ink-2">
-              Organisation
-              <input name="org" className={field} autoComplete="organization" />
+              {PP.contact.orgLabel}
+              <input name="org" placeholder={PP.contact.orgPlaceholder} className={field} autoComplete="organization" />
             </label>
           </div>
           <label className="flex flex-col gap-2 text-sm text-bl-ink-2">
-            Email
-            <input name="email" type="email" required className={field} autoComplete="email" />
+            {PP.contact.emailLabel}
+            <input name="email" type="email" required placeholder={PP.contact.emailPlaceholder} className={field} autoComplete="email" />
           </label>
           <fieldset className="m-0 flex flex-col gap-2 border-0 p-0">
-            <legend className="mb-2 text-sm text-bl-ink-2">Interested in</legend>
+            <legend className="mb-2 text-sm text-bl-ink-2">{PP.contact.interestsLabel}</legend>
             <div className="flex flex-wrap gap-2">
               {PP.interests.map((k) => {
                 const on = picked.includes(k);
@@ -278,7 +181,7 @@ function Contact() {
             </div>
           </fieldset>
           <label className="flex flex-col gap-2 text-sm text-bl-ink-2">
-            Message
+            {PP.contact.messageLabel}
             <textarea name="msg" rows={4} className={field} />
           </label>
           <button

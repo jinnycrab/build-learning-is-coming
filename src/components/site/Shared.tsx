@@ -1,29 +1,19 @@
-import { partners, people, stats as defaultStats, type Partner } from "@/content/site";
+import type { ReactNode } from "react";
+import { logo, partners, people, settings, stats as defaultStats, type Partner } from "@/content/site";
 import { useCountProgress, useCountdown, useInViewOnce } from "./hooks";
 
-export function CountUpStats({
-  items = defaultStats,
-  size = "md",
-}: {
-  items?: typeof defaultStats;
-  size?: "md" | "lg";
-}) {
+export function CountUpStats({ items = defaultStats }: { items?: typeof defaultStats }) {
   const { ref, seen } = useInViewOnce<HTMLDivElement>();
   const p = useCountProgress(seen);
   return (
-    <div
-      ref={ref}
-      className="grid grid-cols-2 overflow-hidden rounded-2xl border border-bl-line sm:grid-cols-3 lg:grid-cols-5"
-    >
+    <div ref={ref} className="grid grid-cols-2 border-t border-bl-line lg:grid-cols-4">
       {items.map((s) => (
-        <div key={s.label} className="min-w-0 border-b border-r border-bl-line px-3 py-5 sm:px-6 lg:border-b-0">
-          <div
-            className={`disp tabular-nums ${size === "lg" ? "text-5xl" : "text-[length:calc(30px*var(--bl-scale))]"}`}
-          >
+        <div key={s.label} className="min-w-0 py-8 pr-6 lg:py-10">
+          <div className="disp text-[length:calc(48px*var(--bl-hscale))] leading-none tabular-nums">
             {Math.round(s.value * p)}
             {s.suffix}
           </div>
-          <div className="eyebrow mt-1.5 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+          <div className="eyebrow mt-2 text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
             {s.label}
           </div>
         </div>
@@ -32,13 +22,63 @@ export function CountUpStats({
   );
 }
 
-export function LogoMarquee({ list = partners, label }: { list?: Partner[]; label?: string }) {
+/** A row of partner logos sitting on one shared baseline, with a label above. */
+export function EventLogos({
+  label,
+  names,
+  extraNames = [],
+}: {
+  label: string;
+  names: string[];
+  extraNames?: string[];
+}) {
+  const list = names.map((n) => logo(n)).filter((l): l is Partner => !!l);
+  if (!list.length && !extraNames.length) return null;
+  return (
+    <div className="flex flex-col gap-3.5 border-t border-bl-line pt-3.5">
+      <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] leading-none text-[#8C929C]">
+        {label}
+      </span>
+      <div className="flex flex-wrap items-end gap-x-8 gap-y-4">
+        {list.map((l) => (
+          <span key={l.name} className="inline-flex h-10 items-end">
+            <img
+              src={l.logo}
+              alt={l.name}
+              className="block w-auto opacity-80 brightness-0 invert"
+              style={{
+                height: Math.min(l.name === "Liminal" ? 36 : l.height * 0.85, 40),
+                marginBottom: l.name === "Coupang" ? -5 : 0,
+              }}
+            />
+          </span>
+        ))}
+        {extraNames.map((n) => (
+          <span key={n} className="inline-flex h-10 items-end">
+            <span className="disp text-[length:calc(15px*var(--bl-scale))] leading-none text-bl-ink-2">{n}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export function LogoMarquee({
+  list = partners,
+  label,
+  heading,
+}: {
+  list?: Partner[];
+  label?: string;
+  heading?: ReactNode;
+}) {
   const loop = [...list, ...list];
   return (
     <section
       className="border-b border-bl-line"
       aria-label={label ?? "Partners, sponsors and judges"}
     >
+      {heading}
       <div
         className="overflow-hidden py-7"
         style={{
@@ -97,11 +137,12 @@ export function PersonCard({
 
 export function CountdownChips({ iso, compact = false }: { iso: string; compact?: boolean }) {
   const c = useCountdown(iso);
+  const L = settings.countdown;
   const parts: Array<[string, string]> = [
-    [c.days, compact ? "d" : "Days"],
-    [c.hours, compact ? "h" : "Hours"],
-    [c.mins, compact ? "m" : "Mins"],
-    [c.secs, compact ? "s" : "Secs"],
+    [c.days, compact ? (L.short[0] ?? "") : L.days],
+    [c.hours, compact ? (L.short[1] ?? "") : L.hours],
+    [c.mins, compact ? (L.short[2] ?? "") : L.mins],
+    [c.secs, compact ? (L.short[3] ?? "") : L.secs],
   ];
   return (
     <div

@@ -37,7 +37,7 @@ export const SECTIONS: SectionDef[] = [
     key: "settings",
     label: "Brand & contact",
     group: "Brand & site",
-    description: "Colours, fonts, text sizes, logo, contact details and the header button.",
+    description: "Colours, fonts, text sizes, logo, contact details, footer text and countdown labels.",
   },
   {
     key: "nav",
@@ -49,13 +49,13 @@ export const SECTIONS: SectionDef[] = [
     key: "stats",
     label: "Headline numbers",
     group: "Shared",
-    description: "The count-up numbers on Home and About.",
+    description: "The count-up numbers on Home.",
   },
   {
     key: "partners",
     label: "Partner logos",
     group: "Shared",
-    description: "Logos in the scrolling strip and on competition cards.",
+    description: "Logos in the scrolling strip and on hackathon / partner cards.",
   },
   {
     key: "people",
@@ -75,49 +75,49 @@ export const SECTIONS: SectionDef[] = [
     label: "Home",
     group: "Pages",
     description:
-      "Hero, photo strips, pathways, upcoming programs, Stanford method, map, team and reel.",
+      "Hero, photo strip, partner strip label, pathways, human skills, The Method, student work, Our Reach map and team.",
     page: "/",
   },
   {
     key: "programsPage",
     label: "Programs page text",
     group: "Pages",
-    description: "Headline, intro and the closing banner on Programs.",
+    description: "Hero, Passion Project Studio, Events & Group Programs headings and the closing banner.",
     page: "/programs",
   },
   {
     key: "programs",
     label: "Programs list",
     group: "Pages",
-    description: "Cards on the Programs page.",
+    description: "Event and group program cards (Upcoming / Past) on Programs.",
     page: "/programs",
   },
   {
     key: "competitions",
     label: "Competitions",
     group: "Pages",
-    description: "Open competition, past competitions, how it works and judges.",
+    description: "Hero, Global Series (open challenge + past editions), hackathons, judges and closing.",
     page: "/competitions",
   },
   {
     key: "immersion",
     label: "Immersion",
     group: "Pages",
-    description: "Singapore immersion: days, stay, mentors, dates, fees and FAQ.",
+    description: "Hero collage, key facts, outcomes, experience themes, your stay, mentors, dates, what’s included and FAQ.",
     page: "/immersion",
   },
   {
     key: "partnersPage",
     label: "Schools & Partners",
     group: "Pages",
-    description: "Formats, PCA Seoul, case studies and the enquiry form.",
+    description: "Hero, logo strip, PCA Seoul, school formats and the enquiry form.",
     page: "/partners",
   },
   {
     key: "about",
     label: "About",
     group: "Pages",
-    description: "Headline, photos, founders, mentors and values.",
+    description: "Headline, photos, university logos, founders, mentors and closing.",
     page: "/about",
   },
 ];
@@ -258,6 +258,6 @@ export function brandCss(b: Partial<Brand>) {
   let css = `:root{${vars.join(";")}}`;
   if (b.showGrid === false) css += `.gridbg{background-image:none!important}`;
   if (b.motion === false)
-    css += `.marquee,.pin .ring{animation:none!important}.w,.fade-up{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}.pv img,.reel-slide{transition:none!important}`;
+    css += `.marquee,.pin .ring,.hero-col{animation:none!important}.w,.fade-up{animation:none!important;opacity:1!important;transform:none!important;filter:none!important}.pv img,.reel-slide{transition:none!important}`;
   return css;
 }
