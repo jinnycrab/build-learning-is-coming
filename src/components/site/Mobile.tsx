@@ -182,6 +182,8 @@ export type MRow = {
   href?: string | undefined;
   icon?: string | undefined;
   photo?: string | undefined;
+  /** A small square photo in place of an icon. */
+  thumb?: string | undefined;
   value?: string | undefined;
   active?: boolean;
 };
@@ -203,6 +205,7 @@ function RowInner({ r }: { r: MRow }) {
           style={{ objectPosition: "center 22%" }}
         />
       )}
+      {r.thumb && <img src={r.thumb} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className={`${mt.card} ${r.active ? "text-bl-accent" : ""}`}>{r.title}</span>
         {r.text && <span className={`${mt.meta} line-clamp-2`}>{r.text}</span>}
@@ -213,7 +216,7 @@ function RowInner({ r }: { r: MRow }) {
   );
 }
 
-export function MList({ rows }: { rows: MRow[] }) {
+export function MList({ rows, divided = true }: { rows: MRow[]; divided?: boolean }) {
   if (!rows.length) return null;
   return (
     <div className="px-5">
@@ -222,7 +225,13 @@ export function MList({ rows }: { rows: MRow[] }) {
           const cls = "relative flex min-h-[56px] items-center gap-3 px-4 py-3 text-bl-ink no-underline";
           return (
             <div key={r.title + i} className="relative">
-              {i > 0 && <span aria-hidden="true" className="m-sep absolute right-0 top-0" style={{ left: r.icon ? 60 : r.photo ? 76 : 16 }} />}
+              {i > 0 && divided && (
+                <span
+                  aria-hidden="true"
+                  className="m-sep absolute right-0 top-0"
+                  style={{ left: r.icon ? 60 : r.photo ? 76 : r.thumb ? 84 : 16 }}
+                />
+              )}
               {r.href ? (
                 <SiteLink href={r.href} className={cls}>
                   <RowInner r={r} />
@@ -263,7 +272,13 @@ export function MFacts({ rows }: { rows: Array<[string, string]> }) {
 export function MAccordion({
   items,
 }: {
-  items: Array<{ title: string; text?: string | undefined; photo?: string | undefined; body: ReactNode }>;
+  items: Array<{
+    title: string;
+    text?: string | undefined;
+    photo?: string | undefined;
+    thumb?: string | undefined;
+    body: ReactNode;
+  }>;
 }) {
   const list = items.filter((x) => x.title.trim());
   if (!list.length) return null;
@@ -283,6 +298,7 @@ export function MAccordion({
                   style={{ objectPosition: "center 22%" }}
                 />
               )}
+              {it.thumb && <img src={it.thumb} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className={mt.card}>{it.title}</span>
                 {it.text && <span className={mt.meta}>{it.text}</span>}
@@ -302,14 +318,14 @@ export function MMore({ rows, first, label }: { rows: MRow[]; first: number; lab
   const rest = rows.slice(first);
   return (
     <div className="flex flex-col gap-2">
-      <MList rows={rows.slice(0, first)} />
+      <MList rows={rows.slice(0, first)} divided={false} />
       {rest.length > 0 && (
         <details className="m-acc group flex flex-col">
           <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1 px-5 text-[length:calc(16px*var(--bl-scale))] font-medium text-bl-accent group-open:hidden">
             {label}
             <Icon name="down" size={16} />
           </summary>
-          <MList rows={rest} />
+          <MList rows={rest} divided={false} />
         </details>
       )}
     </div>
@@ -460,7 +476,10 @@ export function MLogos({ list = partners, label }: { list?: Partner[]; label: st
     <section aria-label={label} className="flex flex-col gap-4">
       {label.trim() && <span className={`${mt.statLabel} px-5`}>{label}</span>}
       <div className="overflow-hidden [mask-image:linear-gradient(90deg,transparent,#000_12%,#000_88%,transparent)]">
-        <div className="m-marquee flex w-max items-center gap-10 pl-10">
+        <div
+          className="m-marquee flex w-max items-center gap-10 pl-10"
+          style={{ animationDuration: `${Math.max(1, list.length) * (70 / Math.max(1, partners.length))}s` }}
+        >
           {loop.map((p, i) => (
             <img
               key={i}
@@ -485,23 +504,6 @@ export function peopleRows(keys: Array<string | { key: string; role?: string }>)
     if (!p) return [];
     return [{ title: p.name, text: (typeof k === "string" ? undefined : k.role) ?? p.role, photo: p.photo }];
   });
-}
-
-/** "Next" link at the end of a page, so phones never dead-end. */
-export function MNext({ href }: { href: string }) {
-  const item = nav.find((n) => n.href === href);
-  if (!item) return null;
-  return (
-    <div className="px-5">
-      <SiteLink href={href} className="m-card flex min-h-[64px] items-center gap-3 rounded-2xl px-4 py-3 text-bl-ink no-underline">
-        <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-          <span className={mt.statLabel}>{settings.mobile.nextLabel}</span>
-          <span className={mt.card}>{plain(item.label)}</span>
-        </span>
-        <Icon name="chevron" size={18} className="text-bl-ink-3" />
-      </SiteLink>
-    </div>
-  );
 }
 
 /* ───────── Top bar, menu sheet and footer ───────── */
@@ -597,21 +599,9 @@ export function MobileFooter() {
   const contactId = useAnchor("contact", "phone");
   const link = `inline-flex min-h-11 items-center ${mt.body} no-underline`;
   return (
-    <footer className="flex flex-col gap-8 px-5 pb-[max(32px,env(safe-area-inset-bottom))] pt-12 md:hidden">
-      <div className="flex flex-col gap-2">
-        <img src={settings.logo} alt="Build Learning" className="h-6 w-fit brightness-0 invert" />
-        <span className={mt.meta}>{f.tagline}</span>
-      </div>
-      <nav aria-label="Footer" className="grid grid-cols-2 gap-x-4">
-        {f.links.map((l) => (
-          <SiteLink key={l.label + l.href} href={l.href} className={`${link} gap-1 whitespace-nowrap`}>
-            {plain(l.label)}
-            {isExternal(l.href) && <Icon name="external" size={14} className="text-bl-ink-3" />}
-          </SiteLink>
-        ))}
-      </nav>
-      <div id={contactId} className="flex scroll-mt-20 flex-col">
-        <span className={mt.statLabel}>{f.contactLabel}</span>
+    <footer id={contactId} className="flex scroll-mt-20 flex-col gap-4 px-5 pb-[max(32px,env(safe-area-inset-bottom))] pt-12 md:hidden">
+      <img src={settings.logo} alt="Build Learning" className="h-6 w-fit brightness-0 invert" />
+      <div className="flex flex-col">
         <SiteLink href={`mailto:${settings.email}`} className={link}>
           {settings.email}
         </SiteLink>

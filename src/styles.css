@@ -264,8 +264,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 .m-card { background: color-mix(in srgb, var(--bl-bg), #fff 7%); }
 /* The only lines on phones: hairline dividers between rows in a list. */
 .m-sep { height: 0.5px; background: rgba(255, 255, 255, 0.14); }
-/* iOS-style translucent top bar. */
-.m-bar { background: color-mix(in srgb, var(--bl-bg) 72%, transparent); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+/* Solid top bar, so nothing shows through it while scrolling. */
+.m-bar { background: var(--bl-bg); }
 /* Menu sheet slides up from the bottom. */
 .m-sheet { animation: mSheetIn .32s cubic-bezier(.2, .8, .2, 1); }
 @keyframes mSheetIn { from { transform: translateY(100%); } to { transform: none; } }

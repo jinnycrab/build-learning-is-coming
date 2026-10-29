@@ -2,14 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
-  MButton,
   MCard,
   MCarousel,
   MChecks,
-  MFacts,
   MHead,
-  MList,
-  MNext,
   MPage,
   MPhoto,
   MSection,
@@ -94,12 +90,16 @@ function MobilePrograms() {
         <MPhoto src={PG.heroImage} alt={PG.heroAlt} />
       </section>
 
-      <MSection eyebrow={S.eyebrow} title={S.title} text={firstSentence(S.text)}>
-        <MFacts rows={S.facts.map((f) => ["", f] as [string, string])} />
+      <MSection eyebrow={S.eyebrow} title={S.title} text={S.text}>
         <MCarousel items={S.gallery} label={S.title}>
           {(g) => <img src={g.src} alt={g.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
         </MCarousel>
-        <MAccordion items={[{ title: S.outcomesLabel, body: <MChecks items={S.outcomes} /> }]} />
+        <MAccordion
+          items={[
+            { title: S.factsLabel, body: <MChecks items={S.facts} /> },
+            { title: S.outcomesLabel, body: <MChecks items={S.outcomes} /> },
+          ]}
+        />
       </MSection>
 
       <MSection eyebrow={PG.events.eyebrow} title={PG.events.title}>
@@ -114,13 +114,23 @@ function MobilePrograms() {
         {past.length > 0 && (
           <div className="flex flex-col gap-4">
             <span className={`${mt.statLabel} px-5`}>{PG.events.pastLabel}</span>
-            <MList rows={past.map((p) => ({ title: p.title, text: `${p.when} · ${p.where}`, href: p.href }))} />
+            <MAccordion
+              items={past.map((p) => ({
+                title: p.title,
+                text: `${p.when} · ${p.where}`,
+                thumb: p.img,
+                body: (
+                  <div className="flex flex-col gap-3">
+                    <img src={p.img} alt="" loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />
+                    <p className={mt.body}>{p.body}</p>
+                  </div>
+                ),
+              }))}
+            />
           </div>
         )}
       </MSection>
 
-      <MButton href={S.button.href}>{S.button.label}</MButton>
-      <MNext href="/competitions" />
     </MPage>
   );
 }
