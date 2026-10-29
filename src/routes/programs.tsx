@@ -137,13 +137,13 @@ function ProgramGroup({ label, list }: { label: string; list: Program[] }) {
           <SiteLink
             key={p.title}
             href={p.href}
-            className="grid min-h-[260px] overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface sm:grid-cols-[0.9fr_1.1fr]"
+            className="grid min-h-[260px] overflow-hidden rounded-[20px] sm:min-h-[360px] border border-white/15 bg-bl-surface sm:grid-cols-[0.9fr_1.1fr]"
           >
             <img
               src={p.img}
               alt=""
               loading="lazy"
-              className="h-[200px] w-full object-cover sm:h-full"
+              className="h-[200px] w-full object-cover sm:h-0 sm:min-h-full"
               style={{ filter: p.upcoming ? "none" : "grayscale(1) brightness(.8)" }}
             />
             <div className="flex flex-col gap-3 p-6">
