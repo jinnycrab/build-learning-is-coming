@@ -514,8 +514,31 @@ export function peopleRows(keys: Array<string | { key: string; role?: string }>)
 
 export function MobileHeader() {
   const [open, setOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
   const { pathname } = useLocation();
   useEffect(() => setOpen(false), [pathname]);
+  // Slide the bar away while scrolling down; bring it back on any scroll up.
+  useEffect(() => {
+    let last = window.scrollY;
+    let raf = 0;
+    const update = () => {
+      raf = 0;
+      const y = window.scrollY;
+      if (y < 56) setHidden(false);
+      else if (y > last + 6) setHidden(true);
+      else if (y < last - 6) setHidden(false);
+      if (Math.abs(y - last) > 6 || y < 56) last = y;
+    };
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(raf);
+    };
+  }, []);
+  useEffect(() => setHidden(false), [pathname]);
   useEffect(() => {
     if (!open) return;
     const prev = document.body.style.overflow;
@@ -532,7 +555,7 @@ export function MobileHeader() {
   const btn = settings.mobile.menuButton;
   return (
     <>
-      <header className="m-bar sticky top-0 z-40 md:hidden">
+      <header className={`m-bar sticky top-0 z-40 md:hidden ${hidden && !open ? "m-bar-away" : ""}`}>
         <div className="flex h-14 items-center justify-between pl-5 pr-2.5">
           <Link to="/" aria-label="Build Learning — home" className="flex h-11 items-center">
             <img src={settings.logo} alt="Build Learning" className="h-6 w-auto brightness-0 invert" />
