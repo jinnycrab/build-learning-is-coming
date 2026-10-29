@@ -1,5 +1,21 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
+import {
+  MAccordion,
+  MButton,
+  MCard,
+  MCarousel,
+  MChecks,
+  MFacts,
+  MHead,
+  MList,
+  MNext,
+  MPage,
+  MPhoto,
+  MSection,
+  firstSentence,
+  mt,
+} from "@/components/site/Mobile";
 import { useScrollProgress } from "@/components/site/hooks";
 import { programs, programsPage as PG, type Program } from "@/content/site";
 
@@ -30,6 +46,8 @@ function Programs() {
   const past = programs.filter((p) => !p.upcoming);
   return (
     <Page>
+      <MobilePrograms />
+      <div className="hidden md:block">
       <section className="relative border-b border-bl-line">
         <img
           src={PG.heroImage}
@@ -60,8 +78,50 @@ function Programs() {
           {past.length > 0 && <ProgramGroup label={PG.events.pastLabel} list={past} />}
         </Container>
       </section>
-
+      </div>
     </Page>
+  );
+}
+
+function MobilePrograms() {
+  const S = PG.studio;
+  const upcoming = programs.filter((p) => p.upcoming);
+  const past = programs.filter((p) => !p.upcoming);
+  return (
+    <MPage>
+      <section className="flex flex-col gap-6">
+        <MHead as="h1" title={PG.title} text={firstSentence(PG.text)} />
+        <MPhoto src={PG.heroImage} alt={PG.heroAlt} />
+      </section>
+
+      <MSection eyebrow={S.eyebrow} title={S.title} text={firstSentence(S.text)}>
+        <MFacts rows={S.facts.map((f) => ["", f] as [string, string])} />
+        <MCarousel items={S.gallery} label={S.title}>
+          {(g) => <img src={g.src} alt={g.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+        </MCarousel>
+        <MAccordion items={[{ title: S.outcomesLabel, body: <MChecks items={S.outcomes} /> }]} />
+      </MSection>
+
+      <MSection eyebrow={PG.events.eyebrow} title={PG.events.title}>
+        {upcoming.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <span className={`${mt.statLabel} px-5`}>{PG.events.upcomingLabel}</span>
+            <MCarousel items={upcoming} label={PG.events.upcomingLabel}>
+              {(p) => <MCard img={p.img} eyebrow={p.status} title={p.title} meta={`${p.when} · ${p.where}`} href={p.href} />}
+            </MCarousel>
+          </div>
+        )}
+        {past.length > 0 && (
+          <div className="flex flex-col gap-4">
+            <span className={`${mt.statLabel} px-5`}>{PG.events.pastLabel}</span>
+            <MList rows={past.map((p) => ({ title: p.title, text: `${p.when} · ${p.where}`, href: p.href }))} />
+          </div>
+        )}
+      </MSection>
+
+      <MButton href={S.button.href}>{S.button.label}</MButton>
+      <MNext href="/competitions" />
+    </MPage>
   );
 }
 

@@ -1,5 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
+import {
+  MAccordion,
+  MButton,
+  MCarousel,
+  MHead,
+  MLogos,
+  MMore,
+  MNext,
+  MPage,
+  MSection,
+  firstSentence,
+  mt,
+  peopleRows,
+} from "@/components/site/Mobile";
 import { PersonCard } from "@/components/site/Shared";
 import { about as A, people } from "@/content/site";
 
@@ -21,6 +35,8 @@ function About() {
   const logos = A.universities.logos;
   return (
     <Page>
+      <MobileAbout />
+      <div className="hidden md:block">
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-14 md:py-20 lg:py-24">
           <div className="flex max-w-[1000px] flex-col gap-6">
@@ -122,6 +138,62 @@ function About() {
         </Container>
       </section>
 
+      </div>
     </Page>
   );
 }
+
+function MobileAbout() {
+  const unis = A.universities.logos.map((u) => ({ ...u, role: "" }));
+  return (
+    <MPage>
+      <section className="flex flex-col gap-6">
+        <MHead as="h1" eyebrow={A.eyebrow} title={A.headline} text={firstSentence(A.intro)} />
+        <MCarousel items={A.photos} label={A.eyebrow || A.headline}>
+          {(ph) => <img src={ph.src} alt={ph.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+        </MCarousel>
+      </section>
+
+      <MSection title={A.universities.title} text={A.universities.text}>
+        <MLogos list={unis} label="" />
+      </MSection>
+
+      <MSection eyebrow={A.foundersHead.eyebrow} title={A.foundersHead.title}>
+        <MAccordion
+          items={A.founders.flatMap((f) => {
+            const p = people[f.key];
+            if (!p) return [];
+            return [
+              {
+                title: p.name,
+                text: f.role,
+                photo: p.photo,
+                body: (
+                  <div className="flex flex-col gap-2">
+                    <p className={mt.body}>{f.bio}</p>
+                    {f.link && (
+                      <SiteLink href={f.link} className="inline-flex min-h-11 items-center !text-bl-accent">
+                        {A.founderLinkLabel}
+                      </SiteLink>
+                    )}
+                  </div>
+                ),
+              },
+            ];
+          })}
+        />
+      </MSection>
+
+      <MSection eyebrow={A.mentorsHead.eyebrow} title={A.mentorsHead.title} text={A.mentorsHead.note}>
+        <MMore rows={peopleRows(A.mentors)} first={6} label={A.mobileShowAll} />
+      </MSection>
+
+      <MSection title={A.joinCard.title} text={A.joinCard.text}>
+        <MButton href={A.joinCard.link.href}>{A.joinCard.link.label}</MButton>
+      </MSection>
+
+      <MNext href="/programs" />
+    </MPage>
+  );
+}
+

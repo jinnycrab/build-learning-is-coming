@@ -258,3 +258,21 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
 /* Hide the browser scrollbar site-wide (scrolling still works). */
 html { scrollbar-width: none; }
 html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
+
+/* ───────── Phone layout (below 768px), used by components/site/Mobile.tsx ───────── */
+/* Cards sit on a slightly lighter fill instead of outlines. */
+.m-card { background: color-mix(in srgb, var(--bl-bg), #fff 7%); }
+/* The only lines on phones: hairline dividers between rows in a list. */
+.m-sep { height: 0.5px; background: rgba(255, 255, 255, 0.14); }
+/* iOS-style translucent top bar. */
+.m-bar { background: color-mix(in srgb, var(--bl-bg) 72%, transparent); -webkit-backdrop-filter: saturate(180%) blur(20px); backdrop-filter: saturate(180%) blur(20px); }
+/* Menu sheet slides up from the bottom. */
+.m-sheet { animation: mSheetIn .32s cubic-bezier(.2, .8, .2, 1); }
+@keyframes mSheetIn { from { transform: translateY(100%); } to { transform: none; } }
+/* One card centred at a time: a 20px spacer at each end plus the 20px gap keeps neighbours fully out of view. */
+.m-carousel { scrollbar-width: none; overscroll-behavior-x: contain; -webkit-overflow-scrolling: touch; }
+.m-carousel::-webkit-scrollbar { display: none; }
+.m-carousel::before, .m-carousel::after { content: ""; flex: 0 0 0px; }
+.m-acc > summary::-webkit-details-marker { display: none; }
+.m-marquee { animation: blMarq 70s linear infinite; }
+@media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee { animation: none; } }

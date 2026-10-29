@@ -2,7 +2,22 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { CountUpStats, LogoMarquee, MoreCue, PersonCard, useDaysLeft } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
-import { ARCHIVES_URL, home, studentWork } from "@/content/site";
+import { ARCHIVES_URL, home, stats, studentWork } from "@/content/site";
+import {
+  Icon,
+  MButton,
+  MCard,
+  MCarousel,
+  MLink,
+  MList,
+  MLogos,
+  MPage,
+  MPhoto,
+  MSection,
+  MStats,
+  mt,
+  peopleRows,
+} from "@/components/site/Mobile";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -29,6 +44,8 @@ export const Route = createFileRoute("/")({
 function Home() {
   return (
     <Page>
+      <MobileHome />
+      <div className="hidden md:block">
       <Hero />
       <Filmstrip />
       <LogoMarquee
@@ -52,7 +69,107 @@ function Home() {
       <StudentWork />
       <WorldMap />
       <Team />
+      </div>
     </Page>
+  );
+}
+
+/* ───────── Phone layout ───────── */
+function MobileHome() {
+  const M = home.mobile;
+  const days = useDaysLeft(home.nextUp.deadline);
+  const words = home.headline.filter(Boolean);
+  const works = studentWork.slice(0, Math.max(1, M.studentWorkLimit));
+  return (
+    <MPage>
+      {/* Hero */}
+      <section className="flex flex-col gap-6">
+        <div className="flex flex-col gap-2 px-5">
+          {home.eyebrow && <span className={mt.eyebrow}>{home.eyebrow}</span>}
+          <h1 className={mt.title}>
+            {words.map((w, i) => (
+              <span key={w + i} className={i === words.length - 1 ? "text-bl-accent" : ""}>
+                {w}{" "}
+              </span>
+            ))}
+          </h1>
+          <p className={`${mt.body} line-clamp-3`}>{M.intro}</p>
+        </div>
+        <div className="flex flex-col gap-2">
+          <MButton href={M.primary.href}>{M.primary.label}</MButton>
+          <MLink href={M.secondary.href} center>
+            {M.secondary.label}
+          </MLink>
+        </div>
+        <MPhoto src={home.heroImage} alt={home.heroAlt} />
+      </section>
+
+      {/* Next up */}
+      <div className="px-5">
+        <SiteLink href={home.nextUp.href} className="m-card flex flex-col gap-4 rounded-2xl p-4 text-bl-ink no-underline">
+          <span className="flex flex-col gap-2">
+            <span className={mt.eyebrow}>{home.nextUp.tag}</span>
+            <span className={mt.card}>{home.nextUp.title}</span>
+            <span className={mt.meta}>{home.nextUp.meta}</span>
+          </span>
+          <span className="grid grid-cols-2 gap-4">
+            <span className="flex flex-col gap-2">
+              <span className={mt.stat}>{days}</span>
+              <span className={mt.statLabel}>{home.nextUp.daysLabel}</span>
+            </span>
+            <span className="flex flex-col gap-2">
+              <span className={mt.stat}>{home.nextUp.award}</span>
+              <span className={mt.statLabel}>{home.nextUp.awardLabel}</span>
+            </span>
+          </span>
+        </SiteLink>
+      </div>
+
+      <MStats items={stats} />
+
+      <MLogos label={home.logoStrip.label} />
+
+      <MSection eyebrow={M.programs.eyebrow} title={M.programs.title}>
+        <MList rows={M.programs.items} />
+      </MSection>
+
+      <MSection eyebrow={home.studentWorkHead.eyebrow} title={home.studentWorkHead.title}>
+        <MCarousel items={works} label={home.studentWorkHead.title}>
+          {(w) => (
+            <MCard img={w.cover} eyebrow={w.category} title={w.title} meta={w.by} href={w.href || ARCHIVES_URL} />
+          )}
+        </MCarousel>
+        <MLink href={M.studentWorkLink.href}>{M.studentWorkLink.label}</MLink>
+      </MSection>
+
+      <MSection eyebrow={M.skills.eyebrow} title={M.skills.title}>
+        <div className="grid grid-cols-2 gap-2 px-5">
+          {M.skills.items.map((s) => (
+            <div key={s.title} className="m-card flex min-h-[96px] flex-col justify-between gap-3 rounded-2xl p-4">
+              <Icon name={s.icon} size={24} className="text-bl-accent" />
+              <span className={mt.card}>{s.title}</span>
+            </div>
+          ))}
+        </div>
+      </MSection>
+
+      <MSection eyebrow={home.method.eyebrow} title={home.method.title} text={M.method.text} />
+
+      <MSection eyebrow={home.pinsHead.eyebrow} title={M.reach.title.replaceAll("{count}", String(home.pins.length))}>
+        <div className="flex flex-wrap gap-2 px-5">
+          {M.reach.hubs.map((h) => (
+            <span key={h} className={`m-card inline-flex h-9 items-center rounded-full px-4 ${mt.meta} !text-bl-ink`}>
+              {h}
+            </span>
+          ))}
+        </div>
+      </MSection>
+
+      <MSection eyebrow={home.teamHead.eyebrow} title={home.teamHead.title}>
+        <MList rows={peopleRows(home.team.slice(0, Math.max(1, M.mentorsLimit)))} />
+        <MLink href={M.mentorsLink.href}>{M.mentorsLink.label}</MLink>
+      </MSection>
+    </MPage>
   );
 }
 

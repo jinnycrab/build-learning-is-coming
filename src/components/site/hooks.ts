@@ -113,3 +113,19 @@ export function reducedMotion() {
     !!window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
   );
 }
+
+/**
+ * True on phone-width screens (below 768px), where the phone layout shows.
+ * False during server rendering, so the first paint keeps the desktop anchors.
+ */
+export function useIsPhone() {
+  const [phone, setPhone] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 767px)");
+    const update = () => setPhone(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+  return phone;
+}
