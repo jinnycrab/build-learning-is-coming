@@ -1,8 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import type { CSSProperties } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
+import {
+  MAccordion,
+  MButton,
+  MCard,
+  MCarousel,
+  MHead,
+  MLink,
+  MLogos,
+  MNext,
+  MPage,
+  MPhoto,
+  MSection,
+  firstSentence,
+  mt,
+  useAnchor,
+} from "@/components/site/Mobile";
 import { EventLogos, LogoMarquee } from "@/components/site/Shared";
-import { partnersPage as PP } from "@/content/site";
+import { partnersPage as PP, settings } from "@/content/site";
 
 export const Route = createFileRoute("/partners")({
   head: () => ({
@@ -24,8 +40,12 @@ export const Route = createFileRoute("/partners")({
 
 function Partners() {
   const H = PP.hero;
+  const schoolsId = useAnchor("schools", "desktop");
+  const pcaId = useAnchor("pca", "desktop");
   return (
     <Page>
+      <MobilePartners />
+      <div className="hidden md:block">
       <section className="relative overflow-hidden border-b border-bl-line">
         <img src={H.img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-bl-bg/95 via-bl-bg/75 to-bl-bg/30" />
@@ -46,7 +66,7 @@ function Partners() {
 
       <LogoMarquee label={PP.logoStripLabel} />
 
-      <section id="pca" className="border-b border-bl-line">
+      <section id={pcaId} className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <SectionHead eyebrow={PP.pca.eyebrow} title={PP.pca.title}>
             <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
@@ -73,7 +93,7 @@ function Partners() {
         </Container>
       </section>
 
-      <section id="schools" className="border-b border-bl-line">
+      <section id={schoolsId} className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <div className="grid items-end gap-6 lg:grid-cols-2 lg:gap-12">
             <div className="flex flex-col gap-4">
@@ -105,7 +125,49 @@ function Partners() {
           </div>
         </Container>
       </section>
-
+      </div>
     </Page>
+  );
+}
+
+function MobilePartners() {
+  const H = PP.hero;
+  const K = PP.contact;
+  const schoolsId = useAnchor("schools", "phone");
+  const pcaId = useAnchor("pca", "phone");
+  return (
+    <MPage>
+      <section className="flex flex-col gap-6">
+        <MHead as="h1" eyebrow={H.eyebrow} title={H.title} text={firstSentence(H.text)} />
+        <MPhoto src={H.img} />
+        <div className="flex flex-col gap-2">
+          <MButton href={H.primary.href}>{H.primary.label}</MButton>
+          <MLink href={H.secondary.href} center>
+            {H.secondary.label}
+          </MLink>
+        </div>
+      </section>
+
+      <MLogos label={PP.logoStripLabel} />
+
+      <MSection id={schoolsId} eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title} text={firstSentence(PP.schoolsHead.text)}>
+        <MCarousel items={PP.schools} label={PP.schoolsHead.title}>
+          {(s) => <MCard img={s.img} title={s.title} meta={`${s.format} · ${s.who}`} text={s.body} />}
+        </MCarousel>
+      </MSection>
+
+      <MSection id={pcaId} eyebrow={PP.pca.eyebrow} title={PP.pca.title} text={firstSentence(PP.pca.intro)}>
+        <MCarousel items={PP.pca.imgs} label={PP.pca.title}>
+          {(src) => <img src={src} alt={PP.pca.title} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+        </MCarousel>
+        <MAccordion items={PP.pca.programs.map((p) => ({ title: p.title, text: p.tag, body: <p className={mt.body}>{p.body}</p> }))} />
+      </MSection>
+
+      <MSection eyebrow={K.eyebrow} title={K.title} text={K.text}>
+        <MButton href={`mailto:${settings.email}?subject=${encodeURIComponent(K.emailSubject)}`}>{K.submitLabel}</MButton>
+      </MSection>
+
+      <MNext href="/about" />
+    </MPage>
   );
 }

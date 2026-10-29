@@ -1,7 +1,25 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
-import { CountdownChips, EventLogos, MoreCue, PersonCard } from "@/components/site/Shared";
-import { competitions as C } from "@/content/site";
+import {
+  MAccordion,
+  MButton,
+  MCard,
+  MCarousel,
+  MFacts,
+  MHead,
+  MLink,
+  MList,
+  MNext,
+  MPage,
+  MPhoto,
+  MSection,
+  firstSentence,
+  mt,
+  peopleRows,
+  useAnchor,
+} from "@/components/site/Mobile";
+import { CountdownChips, EventLogos, MoreCue, PersonCard, useDaysLeft } from "@/components/site/Shared";
+import { competitions as C, settings } from "@/content/site";
 
 export const Route = createFileRoute("/competitions")({
   head: () => ({
@@ -70,8 +88,11 @@ function EventRow({
 }
 
 function Competitions() {
+  const seriesId = useAnchor("series", "desktop");
   return (
     <Page>
+      <MobileCompetitions />
+      <div className="hidden md:block">
       {/* Hero */}
       <section className="border-b border-bl-line">
         <Container className="grid items-end gap-8 pb-14 pt-14 md:gap-12 md:pt-20 lg:grid-cols-2">
@@ -95,7 +116,7 @@ function Competitions() {
       </section>
 
       {/* Global Series */}
-      <section id="series" className="border-b border-bl-line">
+      <section id={seriesId} className="border-b border-bl-line">
         <Container className="flex flex-col gap-12 py-16 md:py-24">
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
@@ -193,7 +214,61 @@ function Competitions() {
           <MoreCue label={C.judgesMore.label} href={C.judgesMore.href} />
         </Container>
       </section>
-
+      </div>
     </Page>
+  );
+}
+
+function MobileCompetitions() {
+  const O = C.open;
+  const days = useDaysLeft(O.deadline);
+  const seriesId = useAnchor("series", "phone");
+  const facts = O.facts.map((f, i) => [O.factLabels[i] ?? "", f] as [string, string]);
+  return (
+    <MPage>
+      <section className="flex flex-col gap-6">
+        <MHead as="h1" title={C.hero.title} text={firstSentence(C.hero.text)} />
+        <MPhoto src={C.hero.images[0] ?? ""} />
+      </section>
+
+      <MSection id={seriesId} eyebrow={C.series.eyebrow} title={C.series.title} text={firstSentence(C.series.text)}>
+        <div className="px-5">
+          <div className="m-card flex flex-col overflow-hidden rounded-2xl">
+            <img src={O.img} alt="" className="block aspect-[4/3] w-full object-cover" />
+            <div className="flex flex-col gap-2 p-4">
+              <span className={mt.eyebrow}>{O.label}</span>
+              <span className={mt.card}>{O.title}</span>
+              <span className={`${mt.body} line-clamp-3`}>{O.body}</span>
+            </div>
+          </div>
+        </div>
+        <MFacts rows={[...facts, [O.countdownLabel, `${days} ${settings.countdown.days.toLowerCase()}`]]} />
+        <MButton href={O.button.href}>{O.button.label}</MButton>
+      </MSection>
+
+      <MSection eyebrow={C.seriesPastLabel}>
+        <MCarousel items={C.seriesPast} label={C.seriesPastLabel}>
+          {(e) => <MCard img={e.imgs[0]} eyebrow={e.when} title={e.title} meta={e.where} text={e.body} href={e.button.href} />}
+        </MCarousel>
+      </MSection>
+
+      <MSection eyebrow={C.moreHead.eyebrow} title={C.moreHead.title}>
+        <MCarousel items={C.hackathons} label={C.moreHead.title}>
+          {(e) => <MCard img={e.imgs[0]} eyebrow={e.when} title={e.title} meta={e.where} text={e.body} />}
+        </MCarousel>
+      </MSection>
+
+      <MSection eyebrow={C.afterHead.eyebrow} title={C.afterHead.title}>
+        <MAccordion items={C.after.map((a) => ({ title: a.title, body: <p className={mt.body}>{a.body}</p> }))} />
+      </MSection>
+
+      <MSection eyebrow={C.judgesHead.eyebrow} title={C.judgesHead.title}>
+        <MList rows={peopleRows(C.judges.slice(0, 4))} />
+        <MLink href={C.judgesMore.href}>{C.mobileJudgesLink}</MLink>
+      </MSection>
+
+      <MButton href={O.button.href}>{O.button.label}</MButton>
+      <MNext href="/immersion" />
+    </MPage>
   );
 }

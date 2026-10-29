@@ -1,6 +1,8 @@
 import { Link, useLocation } from "@tanstack/react-router";
 import { useState, type ReactNode } from "react";
 import { nav, settings } from "@/content/site";
+import { useIsPhone } from "./hooks";
+import { MobileFooter, MobileHeader } from "./Mobile";
 
 export function SiteLink({
   href,
@@ -15,6 +17,7 @@ export function SiteLink({
   children: ReactNode;
   "aria-label"?: string;
   title?: string;
+  onClick?: () => void;
 }) {
   const external = /^https?:|^mailto:/.test(href);
   if (external)
@@ -133,7 +136,7 @@ function Header() {
   const { pathname } = useLocation();
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-40 border-b border-bl-line bg-bl-bg/85 backdrop-blur-md">
+    <header className="sticky top-0 z-40 hidden border-b border-bl-line bg-bl-bg/85 backdrop-blur-md md:block">
       <Container className="grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-4 xl:flex xl:gap-5">
         <Link
           to="/"
@@ -206,8 +209,10 @@ function Header() {
 function Footer() {
   const f = settings.footer;
   const label = "eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3";
+  // Only the visible footer carries the "#contact" target (the phone footer has its own).
+  const contactId = useIsPhone() ? undefined : "contact";
   return (
-    <footer className="border-t border-bl-line">
+    <footer className="hidden border-t border-bl-line md:block">
       <Container className="grid gap-8 py-12 text-sm text-bl-ink-2 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
           <img src={settings.logo} alt="Build Learning" className="h-7 w-fit brightness-0 invert" />
@@ -222,7 +227,7 @@ function Footer() {
           ))}
         </div>
         {/* Links to "#contact" (e.g. "I'm an organisation") land here now the enquiry form is gone. */}
-        <div id="contact" className="flex scroll-mt-24 flex-col gap-2.5">
+        <div id={contactId} className="flex scroll-mt-24 flex-col gap-2.5">
           <span className={label}>{f.contactLabel}</span>
           <SiteLink href={`mailto:${settings.email}`}>{settings.email}</SiteLink>
           {settings.phones.map((p) => (
@@ -254,9 +259,11 @@ export function Page({ children }: { children: ReactNode }) {
       >
         {settings.skipLink}
       </a>
+      <MobileHeader />
       <Header />
       <main id="main">{children}</main>
       <Footer />
+      <MobileFooter />
     </div>
   );
 }

@@ -1,5 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
+import {
+  MAccordion,
+  MButton,
+  MCard,
+  MCarousel,
+  MChecks,
+  MFacts,
+  MHead,
+  MLink,
+  MList,
+  MNext,
+  MPage,
+  MPhoto,
+  MSection,
+  firstSentence,
+  mt,
+  peopleRows,
+  useAnchor,
+} from "@/components/site/Mobile";
 import { PersonCard } from "@/components/site/Shared";
 import { immersion as I, logo } from "@/content/site";
 
@@ -29,8 +48,11 @@ const body = "m-0 text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-
 
 function Immersion() {
   const [first, second, ...others] = I.themes;
+  const registerId = useAnchor("register", "desktop");
   return (
     <Page>
+      <MobileImmersion />
+      <div className="hidden md:block">
       {/* Hero: a slowly drifting collage of the program's photos */}
       <section className="relative overflow-hidden border-b border-bl-line">
         <div aria-hidden="true" className="grid h-[560px] grid-cols-2 gap-3 px-3 sm:h-[680px] md:grid-cols-4">
@@ -153,7 +175,7 @@ function Immersion() {
       </section>
 
       {/* Dates and fees */}
-      <section id="register" className="border-b border-bl-line">
+      <section id={registerId} className="border-b border-bl-line">
         <Container className="grid items-start gap-8 py-16 md:py-24 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
             <Eyebrow>{I.datesLabel}</Eyebrow>
@@ -190,7 +212,66 @@ function Immersion() {
           </div>
         </Container>
       </section>
+      </div>
     </Page>
+  );
+}
+
+function MobileImmersion() {
+  const registerId = useAnchor("register", "phone");
+  return (
+    <MPage>
+      <section className="flex flex-col gap-6">
+        <MHead as="h1" title={I.title} text={firstSentence(I.intro)} />
+        <MPhoto src={I.mobileHeroImage} />
+        <MFacts rows={I.meta.map(([k, v]) => [k ?? "", v ?? ""] as [string, string])} />
+        <MButton href="#register">{I.reserveLabel}</MButton>
+      </section>
+
+      <MSection eyebrow={I.outcomesHead.eyebrow} title={I.outcomesHead.title}>
+        <MAccordion items={[{ title: I.mobileOutcomesLabel, body: <MChecks items={I.outcomes} /> }]} />
+      </MSection>
+
+      <MSection eyebrow={I.experienceHead.eyebrow} title={I.experienceHead.title} text={firstSentence(I.experienceHead.text)}>
+        <MCarousel items={[...I.themes, { title: I.stay.title, body: I.stay.text, img: I.stay.img, alt: I.stay.alt }]} label={I.experienceHead.title}>
+          {(t) => <MCard img={t.img} title={t.title} text={t.body} />}
+        </MCarousel>
+      </MSection>
+
+      <MSection eyebrow={I.mentorsHead.eyebrow} title={I.mentorsHead.title}>
+        <MList rows={[...peopleRows(I.mentors), { title: I.industryCard.title, text: I.industryCard.text, icon: "users" }]} />
+      </MSection>
+
+      <MSection id={registerId} eyebrow={I.fees.label} title={I.fees.title}>
+        <MAccordion
+          items={[
+            {
+              title: I.datesLabel,
+              body: (
+                <dl className="m-0 flex flex-col gap-3">
+                  {I.dates.map(([d, t], i) => (
+                    <div key={i} className="flex flex-col gap-0.5">
+                      <dt className={mt.meta}>{d}</dt>
+                      <dd className={`${mt.body} m-0`}>{t}</dd>
+                    </div>
+                  ))}
+                </dl>
+              ),
+            },
+            { title: I.fees.includesLabel, body: <p className={mt.body}>{I.fees.includes}</p> },
+            { title: I.fees.excludesLabel, body: <p className={mt.body}>{I.fees.excludes}</p> },
+          ]}
+        />
+        <div className="flex flex-col gap-2">
+          <MButton href={I.fees.button.href}>{I.fees.button.label}</MButton>
+          <MLink href={I.fees.infoSession.href} center>
+            {I.fees.infoSession.label}
+          </MLink>
+        </div>
+      </MSection>
+
+      <MNext href="/partners" />
+    </MPage>
   );
 }
 

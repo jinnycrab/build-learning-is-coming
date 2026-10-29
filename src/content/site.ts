@@ -56,6 +56,11 @@ export const settings = {
     ],
     copyright: "© {year} Build Learning",
   },
+  /** Phone layout only. */
+  mobile: {
+    menuButton: { label: "Explore Programs", href: "/programs" },
+    nextLabel: "Next",
+  },
 };
 
 export const nav = [
@@ -504,6 +509,45 @@ export const home = {
   },
   teamMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
   team: ["karin", "pratyusha", "gabriel", "lily", "hari", "mark", "jennifer", "ryan"],
+  /** Phone layout only: shorter text and the pieces that replace desktop-only sections. */
+  mobile: {
+    intro: "Students build real projects with industry mentors.",
+    primary: { label: "Explore Programs", href: "/programs" },
+    secondary: { label: "See Student Work", href: ARCHIVES_URL },
+    programs: {
+      eyebrow: "Programs",
+      title: "Four ways to build",
+      items: [
+        { icon: "studio", title: "Passion Project Studio", text: "1:1 or pair projects with a mentor", href: "/programs" },
+        { icon: "trophy", title: "Competitions", text: "Global challenges and hackathons", href: "/competitions" },
+        { icon: "globe", title: "Learning Immersions", text: "Eight days of building in Singapore", href: "/immersion" },
+        { icon: "school", title: "Schools & Partners", text: "Workshops, camps and hackathons", href: "/partners" },
+      ],
+    },
+    studentWorkLimit: 6,
+    studentWorkLink: { label: "See all on Global Archives", href: ARCHIVES_URL },
+    skills: {
+      eyebrow: "Our Philosophy",
+      title: "What students hone",
+      items: [
+        { icon: "chat", title: "Communication" },
+        { icon: "heart", title: "Empathy" },
+        { icon: "users", title: "Teamwork" },
+        { icon: "target", title: "Critical thinking" },
+        { icon: "sparkles", title: "Creativity" },
+        { icon: "cpu", title: "AI literacy" },
+      ],
+    },
+    method: {
+      text: "Every program uses the teaching and innovation methods we learned at Stanford.",
+    },
+    reach: {
+      title: "Students from {count} countries across 5 continents",
+      hubs: ["Singapore", "Seoul", "San Francisco"],
+    },
+    mentorsLimit: 4,
+    mentorsLink: { label: "See all mentors", href: "/about" },
+  },
 };
 
 /* ───────────── Programs ───────────── */
@@ -620,6 +664,8 @@ export const programsPage = {
     text: "Over 8 sessions, individually or in pairs, students take an idea they care about from first question to finished prototype — guided by industry mentors at every step. It’s work that shows who they are, not just what they scored.",
     facts: ["8 sessions", "Individual or pair", "Online / Singapore", "Rolling intake"],
     button: { label: "Enquire about the Studio →", href: "/partners#contact" },
+    /** Phone layout: heading of the folded list of outcomes. */
+    outcomesLabel: "What students do",
     outcomes: [
       "User research and interviews with real people and experts",
       "Creative ideation to find an idea worth building",
@@ -665,6 +711,8 @@ export const competitions = {
     deadline: "2026-12-01T04:59:00Z",
     countdownLabel: "Closes in",
     button: { label: "Register on Luma →", href: LUMA_URL },
+    /** Phone layout: labels for the facts above, in the same order. */
+    factLabels: ["Dates", "Format", "Who", "Team size", "Fee"],
   },
   seriesPastLabel: "Past Editions",
   seriesPast: [
@@ -749,6 +797,8 @@ export const competitions = {
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
   judgesMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
+  /** Phone layout: link under the first four judges. */
+  mobileJudgesLink: "See all mentors",
 };
 
 /* ───────────── Immersion ───────────── */
@@ -770,6 +820,9 @@ export const immersion = {
     ["Where", "Singapore"],
   ],
   reserveLabel: "Reserve a place →",
+  /** Phone layout: one photo instead of the moving collage. */
+  mobileHeroImage: P("gardens"),
+  mobileOutcomesLabel: "See the full list",
   outcomesHead: {
     eyebrow: "You leave with",
     title: "A portfolio, not a certificate.",
@@ -1037,5 +1090,7 @@ export const about = {
     text: "Mentor or judge a program",
     link: { label: "Get in touch →", href: "/partners#contact" },
   },
+  /** Phone layout: link that unfolds the rest of the mentor list. */
+  mobileShowAll: "Show all mentors",
 
 };
