@@ -319,7 +319,7 @@ function StudentWork() {
           style={{ transform: `translateX(${(-(1 - p) * 30).toFixed(2)}%)` }}
         >
           {studentWork.map((w) => (
-            <SiteLink key={w.title} href={ARCHIVES_URL} className="flex w-[320px] shrink-0 flex-col gap-3 sm:w-[400px]">
+            <SiteLink key={w.title} href={w.href || ARCHIVES_URL} className="flex w-[320px] shrink-0 flex-col gap-3 sm:w-[400px]">
               <img
                 src={w.cover}
                 alt={`Cover of ${w.title}`}

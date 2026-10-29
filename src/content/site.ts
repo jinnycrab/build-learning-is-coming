@@ -241,79 +241,92 @@ export const people: Record<string, Person> = {
   },
 };
 
-export type Work = { category: string; title: string; by: string; cover: string };
+/** `href` is where the card links to; leave it empty to link to The Global Archives. */
+export type Work = { category: string; title: string; by: string; cover: string; href: string };
 export const studentWork: Work[] = [
   {
     category: "Global Impact",
     title: "What the City Throws Away",
     by: "Jonathan Liu · China · 2026",
     cover: WORK("city"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Namma Bangalore",
     by: "Zidaan Pasha · India · 2026",
     cover: WORK("namma"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Will the Looms Fall Silent?",
     by: "Mauli Sinha · India · 2026",
     cover: WORK("looms"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Hanji: Tradition Reimagined Through Fashion",
     by: "Henry Shim · South Korea · 2026",
     cover: WORK("hanji"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Filtered Realities",
     by: "Jessie Park · South Korea · 2026",
     cover: WORK("filtered"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "The Voice of Mongolia",
     by: "Nomun Chinzorig · Mongolia / USA · 2026",
     cover: WORK("mongolia"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Where the River Swallows Our Homes",
     by: "Addison Tran · Vietnam · 2026",
     cover: WORK("river"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Martinican Carnival Tour",
     by: "Jaydon Stanley-Owusu · Martinique · 2026",
     cover: WORK("carnival"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "After the Rain",
     by: "Yui Yoshida · Japan / Singapore · 2026",
     cover: WORK("rain"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "Big Two, but in Hong Kong",
     by: "Linus Chan · Hong Kong · 2026",
     cover: WORK("bigtwo"),
+    href: "",
   },
   {
     category: "Global Impact",
     title: "Dreaming in Bangkok",
     by: "Sameer Daga · Thailand · 2026",
     cover: WORK("bangkok"),
+    href: "",
   },
   {
     category: "Global Cultures",
     title: "We Prompted This",
     by: "Kaiden Woo · USA · 2026",
     cover: WORK("prompted"),
+    href: "",
   },
 ];
 

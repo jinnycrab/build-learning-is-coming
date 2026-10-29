@@ -151,6 +151,32 @@ export function getDefault(key: SectionKey): Json {
 const isObj = (v: unknown): v is Record<string, unknown> =>
   typeof v === "object" && v !== null && !Array.isArray(v);
 
+function blankOf(v: unknown): unknown {
+  if (typeof v === "number") return 0;
+  if (typeof v === "boolean") return false;
+  if (Array.isArray(v)) return [];
+  if (isObj(v)) return {};
+  return "";
+}
+
+/**
+ * Saved list items get any field that every default item has but they lack,
+ * as a blank value, so fields added in code show up in the editor.
+ */
+function fillItems(base: unknown[], over: unknown[]): unknown[] {
+  if (!base.length || !base.every(isObj)) return over;
+  const shared = Object.keys(base[0] as Record<string, unknown>).filter((k) =>
+    base.every((b) => k in (b as Record<string, unknown>)),
+  );
+  return over.map((item) => {
+    if (!isObj(item)) return item;
+    const missing = shared.filter((k) => !(k in item));
+    if (!missing.length) return item;
+    const first = base[0] as Record<string, unknown>;
+    return { ...item, ...Object.fromEntries(missing.map((k) => [k, blankOf(first[k])])) };
+  });
+}
+
 /** Objects merge field by field (so new fields added in code keep their defaults); lists are replaced whole. */
 function merge(base: unknown, over: unknown): unknown {
   if (over === undefined || over === null) return base;
@@ -159,6 +185,7 @@ function merge(base: unknown, over: unknown): unknown {
     for (const k of Object.keys(over)) out[k] = merge(base[k], over[k]);
     return out;
   }
+  if (Array.isArray(base) && Array.isArray(over)) return fillItems(base, over);
   if (Array.isArray(base) && !Array.isArray(over)) return base;
   if (isObj(base) && !isObj(over)) return base;
   return over;
