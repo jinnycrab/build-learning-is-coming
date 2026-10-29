@@ -254,3 +254,7 @@ body.bl { background: var(--bl-bg); color: var(--bl-ink); font-family: var(--bl-
   .pv img, .reel-slide { transition: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Hide the browser scrollbar site-wide (scrolling still works). */
+html { scrollbar-width: none; }
+html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }

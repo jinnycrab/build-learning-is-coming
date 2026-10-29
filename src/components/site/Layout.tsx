@@ -221,7 +221,8 @@ function Footer() {
             </SiteLink>
           ))}
         </div>
-        <div className="flex flex-col gap-2.5">
+        {/* Links to "#contact" (e.g. "I'm an organisation") land here now the enquiry form is gone. */}
+        <div id="contact" className="flex scroll-mt-24 flex-col gap-2.5">
           <span className={label}>{f.contactLabel}</span>
           <SiteLink href={`mailto:${settings.email}`}>{settings.email}</SiteLink>
           {settings.phones.map((p) => (
