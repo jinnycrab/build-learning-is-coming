@@ -266,6 +266,8 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 .m-sep { height: 0.5px; background: rgba(255, 255, 255, 0.14); }
 /* Solid top bar, so nothing shows through it while scrolling. */
 .m-bar { background: var(--bl-bg); }
+/* iPhone Safari shows the page through its see-through address bar: paint the strip above the bar too. */
+.m-bar::before { content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 100vh; background: var(--bl-bg); pointer-events: none; }
 /* Menu sheet slides up from the bottom. */
 .m-sheet { animation: mSheetIn .32s cubic-bezier(.2, .8, .2, 1); }
 @keyframes mSheetIn { from { transform: translateY(100%); } to { transform: none; } }
@@ -275,4 +277,7 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 .m-carousel::before, .m-carousel::after { content: ""; flex: 0 0 0px; }
 .m-acc > summary::-webkit-details-marker { display: none; }
 .m-marquee { animation: blMarq 70s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee { animation: none; } }
+/* Home photo rows drift on their own, the second row the other way. */
+.m-film { animation: blMarq 80s linear infinite; }
+.m-film.rev { animation-direction: reverse; }
+@media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee, .m-film { animation: none; } }

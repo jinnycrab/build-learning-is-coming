@@ -119,12 +119,7 @@ function MobilePrograms() {
                 title: p.title,
                 text: `${p.when} · ${p.where}`,
                 thumb: p.img,
-                body: (
-                  <div className="flex flex-col gap-3">
-                    <img src={p.img} alt="" loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />
-                    <p className={mt.body}>{p.body}</p>
-                  </div>
-                ),
+                body: <p className={mt.body}>{p.body}</p>,
               }))}
             />
           </div>

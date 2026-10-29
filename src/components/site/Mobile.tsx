@@ -313,20 +313,24 @@ export function MAccordion({
   );
 }
 
-/** A list that shows its first rows and folds the rest behind a "Show all" link. */
+/** A list that shows its first rows; "Show all" grows the same list in place. */
 export function MMore({ rows, first, label }: { rows: MRow[]; first: number; label: string }) {
-  const rest = rows.slice(first);
+  const [open, setOpen] = useState(false);
+  const more = rows.length > first;
   return (
     <div className="flex flex-col gap-2">
-      <MList rows={rows.slice(0, first)} divided={false} />
-      {rest.length > 0 && (
-        <details className="m-acc group flex flex-col">
-          <summary className="flex min-h-11 cursor-pointer list-none items-center gap-1 px-5 text-[length:calc(16px*var(--bl-scale))] font-medium text-bl-accent group-open:hidden">
+      <MList rows={open || !more ? rows : rows.slice(0, first)} divided={false} />
+      {more && !open && (
+        <div className="px-5">
+          <button
+            type="button"
+            onClick={() => setOpen(true)}
+            className="inline-flex min-h-11 items-center gap-1 text-[length:calc(16px*var(--bl-scale))] font-medium text-bl-accent"
+          >
             {label}
             <Icon name="down" size={16} />
-          </summary>
-          <MList rows={rest} divided={false} />
-        </details>
+          </button>
+        </div>
       )}
     </div>
   );
