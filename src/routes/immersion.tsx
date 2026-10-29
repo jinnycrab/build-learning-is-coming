@@ -65,7 +65,7 @@ function Immersion() {
               <span className="text-[length:calc(17px*var(--bl-scale))] font-medium">{v}</span>
             </div>
           ))}
-          <div className="py-5 lg:justify-self-end">
+          <div className="col-span-2 py-5 lg:col-span-1 lg:justify-self-end">
             <Button href="#register">{I.reserveLabel}</Button>
           </div>
         </Container>
@@ -73,7 +73,7 @@ function Immersion() {
 
       {/* Outcomes */}
       <section className="border-b border-bl-line">
-        <Container className="grid gap-14 py-24 lg:grid-cols-2">
+        <Container className="grid gap-8 py-16 md:gap-14 md:py-24 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
             <Eyebrow>{I.outcomesHead.eyebrow}</Eyebrow>
             <h2 className="h2">{I.outcomesHead.title}</h2>
@@ -81,11 +81,11 @@ function Immersion() {
           </div>
           <ol className="m-0 list-none p-0">
             {I.outcomes.map((o) => (
-              <li key={o} className="grid grid-cols-[28px_minmax(0,1fr)] items-baseline gap-3 border-t border-white/15 py-5">
+              <li key={o} className="grid grid-cols-[28px_minmax(0,1fr)] items-baseline gap-3 border-t border-white/15 py-4 md:py-5">
                 <span aria-hidden="true" className="text-bl-accent">
                   →
                 </span>
-                <span className="text-lg leading-snug">{o}</span>
+                <span className="text-base leading-snug md:text-lg">{o}</span>
               </li>
             ))}
           </ol>
@@ -94,7 +94,7 @@ function Immersion() {
 
       {/* The experience: five themes, two featured */}
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24">
+        <Container className="flex flex-col gap-10 py-16 md:py-24">
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
               <Eyebrow>{I.experienceHead.eyebrow}</Eyebrow>
@@ -102,7 +102,7 @@ function Immersion() {
             </div>
             <p className={`${body} lg:pt-8`}>{I.experienceHead.text}</p>
           </div>
-          <div className="grid gap-3 md:grid-cols-6">
+          <div className="m-swipe grid gap-3 md:grid-cols-6">
             {[first, second].filter(Boolean).map((t) => (
               <ThemeCard key={t!.title} t={t!} big />
             ))}
@@ -111,8 +111,8 @@ function Immersion() {
             ))}
           </div>
           <div className="grid overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface md:grid-cols-2">
-            <img src={I.stay.img} alt={I.stay.alt} loading="lazy" className="h-full min-h-[260px] w-full object-cover" />
-            <div className="flex flex-col justify-center gap-3 p-8">
+            <img src={I.stay.img} alt={I.stay.alt} loading="lazy" className="h-full min-h-[200px] w-full object-cover md:min-h-[260px]" />
+            <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
               <Eyebrow className="text-[length:calc(11px*var(--bl-scale))]">{I.stay.label}</Eyebrow>
               <span className="disp text-[length:calc(26px*var(--bl-hscale))] leading-tight">{I.stay.title}</span>
               <p className="m-0 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">{I.stay.text}</p>
@@ -123,9 +123,9 @@ function Immersion() {
 
       {/* Mentors */}
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24">
+        <Container className="flex flex-col gap-10 py-16 md:py-24">
           <SectionHead eyebrow={I.mentorsHead.eyebrow} title={I.mentorsHead.title} />
-          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          <div className="m-swipe m-swipe-sm grid grid-cols-2 gap-4 lg:grid-cols-4">
             {I.mentors.map((m) => (
               <PersonCard key={m.key} personKey={m.key} role={m.role} square />
             ))}
@@ -154,7 +154,7 @@ function Immersion() {
 
       {/* Dates and fees */}
       <section id="register" className="border-b border-bl-line">
-        <Container className="grid items-start gap-8 py-24 lg:grid-cols-2">
+        <Container className="grid items-start gap-8 py-16 md:py-24 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
             <Eyebrow>{I.datesLabel}</Eyebrow>
             <ol className="m-0 list-none p-0">
@@ -209,9 +209,9 @@ function ThemeCard({
         src={t.img}
         alt={t.alt}
         loading="lazy"
-        className={`w-full object-cover ${big ? "h-[300px]" : "h-[220px]"}`}
+        className={`h-[180px] w-full object-cover ${big ? "md:h-[300px]" : "md:h-[220px]"}`}
       />
-      <div className="flex flex-1 flex-col gap-2.5 px-6 pb-7 pt-5">
+      <div className="flex flex-1 flex-col gap-2.5 px-5 pb-6 pt-4 md:px-6 md:pb-7 md:pt-5">
         <span className="disp text-[length:calc(22px*var(--bl-hscale))] leading-tight">{t.title}</span>
         <span className="text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">{t.body}</span>
       </div>

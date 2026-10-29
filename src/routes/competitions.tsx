@@ -41,16 +41,16 @@ function EventRow({
 }) {
   const [a, b, c] = e.imgs;
   return (
-    <article className="grid items-center gap-8 border-t border-white/15 pt-10 lg:grid-cols-2">
+    <article className="grid content-start items-center gap-5 border-t border-white/15 pt-6 md:gap-8 md:pt-10 lg:grid-cols-2">
       {photosFull ? (
         // Main photo shown uncropped on top; two smaller photos below.
         <div className={`grid grid-cols-2 gap-2 ${i % 2 ? "lg:order-2" : ""}`}>
-          {a && <img src={a} alt="" loading="lazy" className="col-span-2 block h-auto w-full rounded-2xl" />}
-          {b && <img src={b} alt="" loading="lazy" className="h-[170px] w-full rounded-2xl object-cover" />}
-          {c && <img src={c} alt="" loading="lazy" className="h-[170px] w-full rounded-2xl object-cover" />}
+          {a && <img src={a} alt="" loading="lazy" className="col-span-2 block h-[200px] w-full rounded-2xl object-cover md:h-auto md:object-fill" />}
+          {b && <img src={b} alt="" loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
+          {c && <img src={c} alt="" loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
         </div>
       ) : (
-        <div className={`grid grid-cols-[1.5fr_1fr] grid-rows-[170px_170px] gap-2 ${i % 2 ? "lg:order-2" : ""}`}>
+        <div className={`grid grid-cols-[1.5fr_1fr] grid-rows-[120px_120px] gap-2 md:grid-rows-[170px_170px] ${i % 2 ? "lg:order-2" : ""}`}>
           {a && <img src={a} alt="" loading="lazy" className="row-span-2 h-full w-full min-w-0 rounded-2xl object-cover" />}
           {b && <img src={b} alt="" loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
           {c && <img src={c} alt="" loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
@@ -61,7 +61,7 @@ function EventRow({
           <span className="text-bl-accent">{e.when}</span>
           <span className="text-bl-ink-3">{e.where}</span>
         </div>
-        <h3 className="disp m-0 text-[length:calc(30px*var(--bl-hscale))] leading-tight">{e.title}</h3>
+        <h3 className="disp m-0 text-[length:calc(24px*var(--bl-hscale))] leading-tight md:text-[length:calc(30px*var(--bl-hscale))]">{e.title}</h3>
         <p className={body}>{e.body}</p>
         {children}
       </div>
@@ -74,14 +74,14 @@ function Competitions() {
     <Page>
       {/* Hero */}
       <section className="border-b border-bl-line">
-        <Container className="grid items-end gap-12 pb-14 pt-20 lg:grid-cols-2">
+        <Container className="grid items-end gap-8 pb-14 pt-14 md:gap-12 md:pt-20 lg:grid-cols-2">
           <div className="flex flex-col gap-6">
             <h1 className="disp m-0 text-[length:calc(clamp(2.75rem,6vw,5.25rem)*var(--bl-hscale))] leading-none">
               {C.hero.title}
             </h1>
             <p className="m-0 max-w-[560px] text-lg leading-relaxed text-bl-ink-2">{C.hero.text}</p>
           </div>
-          <div className="grid grid-cols-[1.4fr_1fr] grid-rows-[200px_200px] gap-2.5">
+          <div className="grid grid-cols-[1.4fr_1fr] grid-rows-[130px_130px] gap-2.5 md:grid-rows-[200px_200px]">
             {C.hero.images.slice(0, 3).map((src, i) => (
               <img
                 key={src + i}
@@ -96,7 +96,7 @@ function Competitions() {
 
       {/* Global Series */}
       <section id="series" className="border-b border-bl-line">
-        <Container className="flex flex-col gap-12 py-24">
+        <Container className="flex flex-col gap-12 py-16 md:py-24">
           <div className="grid items-start gap-8 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
               <Eyebrow>{C.series.eyebrow}</Eyebrow>
@@ -106,8 +106,8 @@ function Competitions() {
           </div>
 
           <div className="grid items-center overflow-hidden rounded-3xl border border-bl-accent bg-bl-surface lg:grid-cols-2">
-            <img src={C.open.img} alt="" className="h-[300px] w-full object-cover sm:h-[440px]" style={{ objectPosition: "center 55%" }} />
-            <div className="flex flex-col gap-5 p-8 sm:p-10">
+            <img src={C.open.img} alt="" className="h-[200px] w-full object-cover sm:h-[440px]" style={{ objectPosition: "center 55%" }} />
+            <div className="flex flex-col gap-4 p-6 sm:gap-5 sm:p-10">
               <Eyebrow>{C.open.label}</Eyebrow>
               <span className="disp text-[length:calc(32px*var(--bl-hscale))] leading-tight">{C.open.title}</span>
               <p className={body}>{C.open.body}</p>
@@ -128,34 +128,38 @@ function Competitions() {
             </div>
           </div>
 
-          <Eyebrow className="pt-6">{C.seriesPastLabel}</Eyebrow>
-          {C.seriesPast.map((e, i) => (
-            <EventRow key={e.title} e={e} i={i}>
-              <div className="pt-1">
-                <Button href={e.button.href} variant="ghost">
-                  {e.button.label}
-                </Button>
-              </div>
-            </EventRow>
-          ))}
+          <Eyebrow className="md:pt-6">{C.seriesPastLabel}</Eyebrow>
+          <div className="m-swipe flex flex-col gap-12">
+            {C.seriesPast.map((e, i) => (
+              <EventRow key={e.title} e={e} i={i}>
+                <div className="pt-1">
+                  <Button href={e.button.href} variant="ghost">
+                    {e.button.label}
+                  </Button>
+                </div>
+              </EventRow>
+            ))}
+          </div>
         </Container>
       </section>
 
       {/* Hackathons */}
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-12 py-24">
+        <Container className="flex flex-col gap-12 py-16 md:py-24">
           <SectionHead eyebrow={C.moreHead.eyebrow} title={C.moreHead.title} />
-          {C.hackathons.map((e, i) => (
-            <EventRow key={e.title} e={e} i={i} photosFull>
-              <EventLogos label={C.logosLabel} names={e.logos} extraNames={e.extraNames} />
-            </EventRow>
-          ))}
+          <div className="m-swipe flex flex-col gap-12">
+            {C.hackathons.map((e, i) => (
+              <EventRow key={e.title} e={e} i={i} photosFull>
+                <EventLogos label={C.logosLabel} names={e.logos} extraNames={e.extraNames} />
+              </EventRow>
+            ))}
+          </div>
         </Container>
       </section>
 
       {/* After the finals */}
       <section className="border-b border-bl-line">
-        <Container className="grid items-center gap-12 py-24 lg:grid-cols-2">
+        <Container className="grid items-center gap-8 py-16 md:gap-12 md:py-24 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
             <Eyebrow>{C.afterHead.eyebrow}</Eyebrow>
             <h2 className="h2">{C.afterHead.title}</h2>
@@ -179,9 +183,9 @@ function Competitions() {
 
       {/* Judges */}
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24">
+        <Container className="flex flex-col gap-10 py-16 md:py-24">
           <SectionHead eyebrow={C.judgesHead.eyebrow} title={C.judgesHead.title} />
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="m-swipe m-swipe-sm grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
             {C.judges.map((j) => (
               <PersonCard key={j.key} personKey={j.key} role={j.role} square />
             ))}
@@ -197,7 +201,7 @@ function Competitions() {
 
       {/* Closing */}
       <section>
-        <Container className="flex flex-wrap items-end justify-between gap-8 py-24">
+        <Container className="flex flex-wrap items-end justify-between gap-8 py-16 md:py-24">
           <h2 className="disp m-0 max-w-[760px] text-[length:calc(clamp(2.5rem,5vw,4.5rem)*var(--bl-hscale))] leading-[1.02]">
             <AccentEnd text={C.closing.title} />
           </h2>

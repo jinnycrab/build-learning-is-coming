@@ -22,7 +22,7 @@ function About() {
   return (
     <Page>
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-20 lg:py-24">
+        <Container className="flex flex-col gap-10 py-14 md:py-20 lg:py-24">
           <div className="flex max-w-[1000px] flex-col gap-6">
             {A.eyebrow && <Eyebrow>{A.eyebrow}</Eyebrow>}
             <h1 className="disp m-0 text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
@@ -30,7 +30,7 @@ function About() {
             </h1>
             <p className="m-0 max-w-[680px] text-lg leading-relaxed text-bl-ink-2">{A.intro}</p>
           </div>
-          <div className="grid gap-3 sm:grid-cols-3">
+          <div className="m-swipe grid gap-3 sm:grid-cols-3">
             {A.photos.map((ph) => (
               <img key={ph.src} src={ph.src} alt={ph.alt} className="aspect-[3/2] w-full rounded-2xl object-cover" />
             ))}
@@ -40,7 +40,7 @@ function About() {
 
       {/* Where students go next — moving university logo strip */}
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-3 pt-20">
+        <Container className="flex flex-col gap-3 pt-14 md:pt-20">
           <h2 className="h2">{A.universities.title}</h2>
           <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-3">
             {A.universities.text}
@@ -63,21 +63,21 @@ function About() {
       </section>
 
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
+        <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <SectionHead eyebrow={A.foundersHead.eyebrow} title={A.foundersHead.title} />
-          <div className="grid gap-6 md:grid-cols-2">
+          <div className="m-swipe grid gap-6 md:grid-cols-2">
             {A.founders.map((f) => {
               const p = people[f.key];
               if (!p) return null;
               return (
                 <div
                   key={f.key}
-                  className="grid gap-6 rounded-[22px] border border-white/15 bg-bl-surface p-5 sm:grid-cols-[200px_minmax(0,1fr)]"
+                  className="grid content-start gap-5 rounded-[22px] border border-white/15 bg-bl-surface p-4 md:grid-cols-[200px_minmax(0,1fr)] md:gap-6 md:p-5"
                 >
                   <img
                     src={p.photo}
                     alt={`Portrait of ${p.name}`}
-                    className="aspect-square w-full rounded-2xl object-cover"
+                    className="aspect-[4/3] w-full rounded-2xl object-cover md:aspect-square"
                     style={{ objectPosition: "center 22%" }}
                   />
                   <div className="flex flex-col gap-2.5 py-1">
@@ -98,7 +98,7 @@ function About() {
       </section>
 
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
+        <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <SectionHead
             eyebrow={A.mentorsHead.eyebrow}
             title={A.mentorsHead.title}
@@ -106,7 +106,7 @@ function About() {
               <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">{A.mentorsHead.note}</span>
             }
           />
-          <div className="grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
+          <div className="m-swipe m-swipe-2 grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-3 lg:grid-cols-6">
             {A.mentors.map((k) => (
               <PersonCard key={k} personKey={k} square />
             ))}
@@ -123,7 +123,7 @@ function About() {
       </section>
 
       <section>
-        <Container className="flex flex-col items-start gap-6 py-24 lg:py-28">
+        <Container className="flex flex-col items-start gap-6 py-16 md:py-24 lg:py-28">
           <h2 className="h2 max-w-[820px]">{A.closing.title}</h2>
           <div className="flex flex-wrap gap-3">
             {A.closing.buttons.map((b, i) => (

@@ -29,7 +29,7 @@ function Partners() {
       <section className="relative overflow-hidden border-b border-bl-line">
         <img src={H.img} alt="" className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-bl-bg/95 via-bl-bg/75 to-bl-bg/30" />
-        <Container className="relative flex min-h-[560px] flex-col justify-center gap-6 py-20">
+        <Container className="relative flex min-h-[460px] flex-col justify-center gap-6 py-14 md:min-h-[560px] md:py-20">
           {H.eyebrow && <Eyebrow>{H.eyebrow}</Eyebrow>}
           <h1 className="disp m-0 max-w-[820px] text-[length:calc(clamp(2.5rem,5.5vw,4.75rem)*var(--bl-hscale))] leading-[1.02]">
             {H.title}
@@ -47,20 +47,20 @@ function Partners() {
       <LogoMarquee label={PP.logoLabel} />
 
       <section id="pca" className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
+        <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <SectionHead eyebrow={PP.pca.eyebrow} title={PP.pca.title}>
             <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
               {PP.pca.intro}
             </p>
           </SectionHead>
-          <div className="grid auto-rows-[200px] grid-cols-2 gap-3 lg:grid-cols-4">
+          <div className="m-swipe grid auto-rows-[200px] grid-cols-2 gap-3 lg:grid-cols-4">
             {PP.pca.imgs.map((src, i) => (
-              <div key={src} className={`overflow-hidden rounded-2xl ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
+              <div key={src} className={`h-[220px] overflow-hidden rounded-2xl md:h-auto ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
                 <img src={src} alt={PP.pca.title} loading="lazy" className="h-full w-full object-cover" />
               </div>
             ))}
           </div>
-          <div className="grid gap-4 md:grid-cols-2">
+          <div className="m-swipe grid gap-4 md:grid-cols-2">
             {PP.pca.programs.map((p) => (
               <div key={p.title} className="flex flex-col gap-3 rounded-[18px] border border-white/15 bg-bl-surface p-6">
                 <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-accent">{p.tag}</span>
@@ -74,13 +74,13 @@ function Partners() {
       </section>
 
       <section id="schools" className="border-b border-bl-line">
-        <Container className="flex flex-col gap-10 py-24 lg:py-28">
+        <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
           <SectionHead eyebrow={PP.schoolsHead.eyebrow} title={PP.schoolsHead.title}>
             <p className="m-0 max-w-[640px] text-[length:calc(17px*var(--bl-scale))] leading-relaxed text-bl-ink-2">
               {PP.schoolsHead.text}
             </p>
           </SectionHead>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <div className="m-swipe grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
             {PP.schools.map((s) => (
               <div key={s.title} className="flex flex-col overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface">
                 <img src={s.img} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
@@ -127,7 +127,7 @@ function Contact() {
 
   return (
     <section id="contact" className="">
-      <Container className="grid gap-12 py-24 lg:grid-cols-2 lg:py-28">
+      <Container className="grid gap-8 py-16 md:gap-12 md:py-24 lg:grid-cols-2 lg:py-28">
         <div className="flex flex-col gap-5">
           <Eyebrow>{PP.contact.eyebrow}</Eyebrow>
           <h2 className="h2">{PP.contact.title}</h2>
@@ -145,7 +145,7 @@ function Contact() {
         </div>
         <form
           onSubmit={submit}
-          className="flex flex-col gap-4 rounded-[22px] border border-white/15 bg-bl-surface p-7"
+          className="flex flex-col gap-4 rounded-[22px] border border-white/15 bg-bl-surface p-5 md:p-7"
         >
           <div className="grid gap-4 sm:grid-cols-2">
             <label className="flex flex-col gap-2 text-sm text-bl-ink-2">
