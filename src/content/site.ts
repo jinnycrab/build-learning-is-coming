@@ -424,6 +424,10 @@ export const home = {
       href: "/partners",
     },
   ],
+  humanStackPhoto: {
+    src: P("process-wall"),
+    alt: "A student project wall mapping the brief, understand, ideate, lead and demo stages with sticky notes",
+  },
   humanStackHead: {
     eyebrow: "Our Philosophy",
     title: "Technological Literacy Is Important, But So Are Uniquely Human Skills",
@@ -497,8 +501,8 @@ export const home = {
   teamHead: {
     eyebrow: "People",
     title: "Previous Speakers & Mentors",
-    link: { label: "Meet all our mentors →", href: "/about" },
   },
+  teamMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
   team: ["karin", "pratyusha", "gabriel", "lily", "hari", "mark", "jennifer", "ryan"],
 };
 
@@ -637,10 +641,6 @@ export const programsPage = {
     upcomingLabel: "Upcoming",
     pastLabel: "Past Programs",
   },
-  closing: {
-    title: "Want a program for your school?",
-    button: { label: "Talk to us →", href: "/partners" },
-  },
 };
 
 /* ───────────── Competitions ───────────── */
@@ -748,14 +748,7 @@ export const competitions = {
     { key: "emma", role: "Mentor · Global Cultures" },
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
-  pastJudgesLabel: "Past judges include",
-  pastJudges:
-    "Dr Angus Whitehead (NIE / NTU) · Edwin Lai (ex-Microsoft, Google) · Deborah Oludimu (A Pad for Her) · Ryan Chua (Samsung) · Dr Gift Iyioku (Stanford Hoover Institution) · Chavvi Sharma (Uniphore) · Minho Ryu (Kakao) · Sangah Lee (Coupang) · Joshua Choy & Stephanie How (Liminal) · Sreejith Mohan (StartX)",
-  closing: {
-    title: "Ready to compete?",
-    primary: { label: "Register for GIC 2026 →", href: LUMA_URL },
-    secondary: { label: "Bring a competition to your school", href: "/partners" },
-  },
+  judgesMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
 };
 
 /* ───────────── Immersion ───────────── */

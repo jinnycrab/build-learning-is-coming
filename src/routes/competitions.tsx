@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
-import { AccentEnd, CountdownChips, EventLogos, PersonCard } from "@/components/site/Shared";
+import { CountdownChips, EventLogos, MoreCue, PersonCard } from "@/components/site/Shared";
 import { competitions as C } from "@/content/site";
 
 export const Route = createFileRoute("/competitions")({
@@ -185,34 +185,15 @@ function Competitions() {
       <section className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-16 md:py-24">
           <SectionHead eyebrow={C.judgesHead.eyebrow} title={C.judgesHead.title} />
-          <div className="m-swipe m-swipe-sm grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-            {C.judges.map((j) => (
-              <PersonCard key={j.key} personKey={j.key} role={j.role} square />
+          <div className="m-swipe m-swipe-sm grid grid-cols-2 gap-5 lg:grid-cols-4">
+            {C.judges.slice(0, 8).map((j) => (
+              <PersonCard key={j.key} personKey={j.key} role={j.role} />
             ))}
           </div>
-          <p className="m-0 border-t border-bl-line pt-5 text-[length:calc(15px*var(--bl-scale))] leading-relaxed text-[#B4B9C1]">
-            <span className="eyebrow mr-3 text-[length:calc(10px*var(--bl-scale))] text-[#8C929C]">
-              {C.pastJudgesLabel}
-            </span>
-            {C.pastJudges}
-          </p>
+          <MoreCue label={C.judgesMore.label} href={C.judgesMore.href} />
         </Container>
       </section>
 
-      {/* Closing */}
-      <section>
-        <Container className="flex flex-wrap items-end justify-between gap-8 py-16 md:py-24">
-          <h2 className="disp m-0 max-w-[760px] text-[length:calc(clamp(2.5rem,5vw,4.5rem)*var(--bl-hscale))] leading-[1.02]">
-            <AccentEnd text={C.closing.title} />
-          </h2>
-          <div className="flex flex-wrap gap-3">
-            <Button href={C.closing.primary.href}>{C.closing.primary.label}</Button>
-            <Button href={C.closing.secondary.href} variant="ghost">
-              {C.closing.secondary.label}
-            </Button>
-          </div>
-        </Container>
-      </section>
     </Page>
   );
 }

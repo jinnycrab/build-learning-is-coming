@@ -61,14 +61,6 @@ function Programs() {
         </Container>
       </section>
 
-      <section>
-        <Container className="flex flex-wrap items-center justify-between gap-6 py-10">
-          <span className="disp text-[length:calc(22px*var(--bl-scale))]">{PG.closing.title}</span>
-          <Button href={PG.closing.button.href} variant="light">
-            {PG.closing.button.label}
-          </Button>
-        </Container>
-      </section>
     </Page>
   );
 }

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { logo, partners, people, settings, stats as defaultStats, type Partner } from "@/content/site";
 import { useCountProgress, useCountdown, useInViewOnce } from "./hooks";
+import { SiteLink } from "./Layout";
 
 export function CountUpStats({ items = defaultStats }: { items?: typeof defaultStats }) {
   const { ref, seen } = useInViewOnce<HTMLDivElement>();
@@ -187,5 +188,20 @@ export function AccentEnd({ text }: { text: string }) {
       {end ? text.slice(0, -1) : text}
       {end && <span className="text-bl-accent">{end}</span>}
     </>
+  );
+}
+
+/** Three fading dots + a short line, used under people grids to hint there are more on About. */
+export function MoreCue({ label, href }: { label: string; href: string }) {
+  if (!label.trim()) return null;
+  return (
+    <SiteLink href={href} className="flex flex-col items-center gap-2.5 self-center pt-2 !text-bl-ink-3 no-underline hover:!text-bl-ink">
+      <span aria-hidden="true" className="flex gap-2">
+        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent" />
+        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent opacity-60" />
+        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent opacity-30" />
+      </span>
+      <span className="eyebrow text-[length:calc(11px*var(--bl-scale))]">{label}</span>
+    </SiteLink>
   );
 }

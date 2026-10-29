@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
-import { CountUpStats, LogoMarquee, PersonCard, useDaysLeft } from "@/components/site/Shared";
+import { CountUpStats, LogoMarquee, MoreCue, PersonCard, useDaysLeft } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
 import { ARCHIVES_URL, home, studentWork } from "@/content/site";
 
@@ -231,11 +231,21 @@ function Pathways() {
 function HumanStack() {
   return (
     <section className="gridbg border-b border-bl-line">
-      <Container className="grid items-start gap-16 py-16 md:py-24 lg:grid-cols-2 lg:py-28">
-        <div className="flex flex-col gap-5">
+      <Container className="grid items-start gap-x-16 gap-y-8 py-16 md:py-24 lg:grid-cols-2 lg:py-28">
+        <div className="flex flex-col gap-5 lg:col-span-2">
           <Eyebrow>{home.humanStackHead.eyebrow}</Eyebrow>
           <h2 className="h2">{home.humanStackHead.title}</h2>
+        </div>
+        <div className="flex flex-col gap-5">
           <p className={body17}>{home.humanStackHead.text}</p>
+          {home.humanStackPhoto.src && (
+            <img
+              src={home.humanStackPhoto.src}
+              alt={home.humanStackPhoto.alt}
+              loading="lazy"
+              className="mt-2 block h-auto w-full rounded-2xl border border-white/10"
+            />
+          )}
         </div>
         <div className="flex flex-col gap-2">
           {home.humanStack.map((l) => (
@@ -407,20 +417,13 @@ function Team() {
   return (
     <section className="border-b border-bl-line">
       <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">
-        <SectionHead
-          eyebrow={home.teamHead.eyebrow}
-          title={home.teamHead.title}
-          aside={
-            <SiteLink href={home.teamHead.link.href} className="text-[length:calc(15px*var(--bl-scale))] !text-bl-accent">
-              {home.teamHead.link.label}
-            </SiteLink>
-          }
-        />
+        <SectionHead eyebrow={home.teamHead.eyebrow} title={home.teamHead.title} />
         <div className="m-swipe m-swipe-sm grid grid-cols-2 gap-5 lg:grid-cols-4">
           {home.team.map((k) => (
             <PersonCard key={k} personKey={k} />
           ))}
         </div>
+        <MoreCue label={home.teamMore.label} href={home.teamMore.href} />
       </Container>
     </section>
   );

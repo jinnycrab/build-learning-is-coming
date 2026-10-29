@@ -82,7 +82,7 @@ export const SECTIONS: SectionDef[] = [
     key: "programsPage",
     label: "Programs page text",
     group: "Pages",
-    description: "Hero, Passion Project Studio, Events & Group Programs headings and the closing banner.",
+    description: "Hero, Passion Project Studio and Events & Group Programs headings.",
     page: "/programs",
   },
   {
@@ -96,7 +96,7 @@ export const SECTIONS: SectionDef[] = [
     key: "competitions",
     label: "Competitions",
     group: "Pages",
-    description: "Hero, Global Series (open challenge + past editions), hackathons, judges and closing.",
+    description: "Hero, Global Series (open challenge + past editions), hackathons and judges.",
     page: "/competitions",
   },
   {
