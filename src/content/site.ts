@@ -878,7 +878,7 @@ export const partnersPage = {
     primary: { label: "I’m a school", href: "#schools" },
     secondary: { label: "I’m an organisation", href: "#contact" },
   },
-  logoLabel: "Sponsors, partners, judges & speakers",
+  logoStripLabel: "Trusted by Previous Partners, Sponsors, and Mentors from",
   logosLabel: "With speakers, partners and sponsors from",
   pca: {
     eyebrow: "Featured school partner · Seoul, South Korea",

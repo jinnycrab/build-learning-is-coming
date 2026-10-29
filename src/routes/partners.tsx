@@ -44,7 +44,7 @@ function Partners() {
         </Container>
       </section>
 
-      <LogoMarquee label={PP.logoLabel} />
+      <LogoMarquee label={PP.logoStripLabel} />
 
       <section id="pca" className="border-b border-bl-line">
         <Container className="flex flex-col gap-10 py-16 md:py-24 lg:py-28">

@@ -33,7 +33,7 @@ function Home() {
       <Filmstrip />
       <LogoMarquee
         heading={
-          <Container className="flex flex-wrap items-baseline justify-between gap-4 pt-7">
+          <Container className="flex flex-wrap items-baseline justify-center gap-x-6 gap-y-2 pt-7 text-center">
             <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
               {home.logoStrip.label}
             </span>

@@ -78,7 +78,12 @@ export function LogoMarquee({
       className="border-b border-bl-line"
       aria-label={label ?? "Partners, sponsors and judges"}
     >
-      {heading}
+      {heading ??
+        (label?.trim() ? (
+          <div className="mx-auto max-w-[1320px] px-5 pt-7 text-center sm:px-10">
+            <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">{label}</span>
+          </div>
+        ) : null)}
       <div
         className="overflow-hidden py-7"
         style={{
