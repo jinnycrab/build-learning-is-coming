@@ -75,22 +75,18 @@ function Home() {
 
 /* ───────── Phone layout ───────── */
 
-/** The desktop photo rows, sized for phones: two rows gliding sideways as you scroll. */
+/** The desktop photo rows, sized for phones: two rows drifting on their own, in opposite directions. */
 function PhoneFilmstrip() {
-  const { ref, p } = useScrollProgress<HTMLElement>();
   return (
-    <section ref={ref} aria-label="Moments from our programs" className="flex flex-col gap-2 overflow-hidden">
+    <section aria-label="Moments from our programs" className="flex flex-col gap-2 overflow-hidden">
       {home.filmstrip.map((row, r) => (
-        <div
-          key={r}
-          className="flex w-max gap-2 will-change-transform"
-          style={{ transform: `translateX(${(r === 0 ? -40 + 30 * p : -10 - 30 * p).toFixed(2)}%)` }}
-        >
-          {row.map((im, k) => (
+        <div key={r} className={`m-film flex w-max gap-2 pr-2 will-change-transform ${r % 2 ? "rev" : ""}`}>
+          {[...row, ...row].map((im, k) => (
             <img
               key={k}
               src={im.src}
-              alt={im.alt}
+              alt={k < row.length ? im.alt : ""}
+              aria-hidden={k >= row.length || undefined}
               loading="lazy"
               className="h-[132px] shrink-0 rounded-xl object-cover"
               style={{ width: Math.round(im.w * 0.55) }}
@@ -195,7 +191,7 @@ function MobileHome() {
 
       <MSection eyebrow={home.teamHead.eyebrow} title={home.teamHead.title}>
         <MList rows={peopleRows(home.team.slice(0, Math.max(1, M.mentorsLimit)))} divided={false} />
-        <MLink href={M.mentorsLink.href}>{M.mentorsLink.label}</MLink>
+        {M.mentorsMore.trim() && <p className={`${mt.body} px-5`}>{M.mentorsMore}</p>}
       </MSection>
     </MPage>
   );

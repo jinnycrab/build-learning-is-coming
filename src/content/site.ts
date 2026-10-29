@@ -531,7 +531,7 @@ export const home = {
       title: "What students hone",
     },
     mentorsLimit: 4,
-    mentorsLink: { label: "See all mentors", href: "/about" },
+    mentorsMore: "And many more mentors, judges and speakers",
   },
 };
 
