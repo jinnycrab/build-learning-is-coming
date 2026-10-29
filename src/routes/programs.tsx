@@ -51,7 +51,7 @@ function Programs() {
       <Studio />
 
       <section className="border-b border-bl-line">
-        <Container className="flex flex-col gap-12 py-24">
+        <Container className="flex flex-col gap-12 py-16 md:py-24">
           <div className="flex max-w-[760px] flex-col gap-4">
             <Eyebrow>{PG.events.eyebrow}</Eyebrow>
             <h2 className="h2">{PG.events.title}</h2>
@@ -78,7 +78,7 @@ function Studio() {
   const { ref, p } = useScrollProgress<HTMLDivElement>();
   return (
     <section className="border-b border-bl-line">
-      <Container className="grid items-start gap-16 pb-14 pt-20 lg:grid-cols-2">
+      <Container className="grid items-start gap-10 pb-14 pt-14 md:gap-16 md:pt-20 lg:grid-cols-2">
         <div className="flex flex-col gap-5">
           <Eyebrow>{S.eyebrow}</Eyebrow>
           <h2 className="disp m-0 text-[length:calc(clamp(2.25rem,4vw,3.25rem)*var(--bl-hscale))] leading-[1.05]">
@@ -108,7 +108,7 @@ function Studio() {
         </ol>
       </Container>
       {/* Photos shown uncropped; the strip slides left as you scroll. */}
-      <div ref={ref} className="overflow-hidden pb-24">
+      <div ref={ref} className="overflow-hidden pb-16 md:pb-24">
         <div
           className="flex w-max gap-3.5 pl-5 pr-10 will-change-transform sm:pl-10 lg:pl-[max(40px,calc((100vw-1320px)/2+40px))]"
           style={{ transform: `translateX(${(-p * 45).toFixed(2)}%)` }}
@@ -132,18 +132,18 @@ function ProgramGroup({ label, list }: { label: string; list: Program[] }) {
   return (
     <div className="flex flex-col gap-5">
       <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-2">{label}</span>
-      <div className="grid auto-rows-fr gap-4 md:grid-cols-2">
+      <div className="m-swipe grid auto-rows-fr gap-4 md:grid-cols-2">
         {list.map((p) => (
           <SiteLink
             key={p.title}
             href={p.href}
-            className="grid min-h-[260px] overflow-hidden rounded-[20px] sm:min-h-[360px] border border-white/15 bg-bl-surface sm:grid-cols-[0.9fr_1.1fr]"
+            className="grid min-h-[260px] grid-rows-[auto_1fr] overflow-hidden rounded-[20px] border border-white/15 bg-bl-surface md:min-h-[360px] md:grid-cols-[0.9fr_1.1fr] md:grid-rows-1"
           >
             <img
               src={p.img}
               alt=""
               loading="lazy"
-              className="h-[200px] w-full object-cover sm:h-0 sm:min-h-full"
+              className="h-[180px] w-full object-cover md:h-0 md:min-h-full"
               style={{ filter: p.upcoming ? "none" : "grayscale(1) brightness(.8)" }}
             />
             <div className="flex flex-col gap-3 p-6">
