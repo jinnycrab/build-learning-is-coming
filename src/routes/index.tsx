@@ -37,12 +37,12 @@ function Home() {
             <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
               {home.logoStrip.label}
             </span>
-            <SiteLink
+            {home.logoStrip.link.label.trim() && <SiteLink
               href={home.logoStrip.link.href}
               className="eyebrow text-[length:calc(11px*var(--bl-scale))]"
             >
               {home.logoStrip.link.label}
-            </SiteLink>
+            </SiteLink>}
           </Container>
         }
       />

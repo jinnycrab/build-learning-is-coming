@@ -97,6 +97,8 @@ export function Button({
       : variant === "light"
         ? "bg-bl-ink !text-bl-bg"
         : "border border-white/30 hover:border-bl-yellow";
+  // A label cleared in the CMS hides the button instead of leaving an empty pill.
+  if (children == null || (typeof children === "string" && !children.trim())) return null;
   return (
     <SiteLink href={href} className={`${base} ${v} ${className}`}>
       {children}
