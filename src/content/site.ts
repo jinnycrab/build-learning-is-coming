@@ -1037,12 +1037,5 @@ export const about = {
     text: "Mentor or judge a program",
     link: { label: "Get in touch →", href: "/partners#contact" },
   },
-  closing: {
-    title: "Join a program, bring us to your school, or explore student work.",
-    buttons: [
-      { label: "See programs →", href: "/programs" },
-      { label: "Partner with us", href: "/partners#contact" },
-      { label: "The Global Archives ↗", href: ARCHIVES_URL },
-    ],
-  },
+
 };

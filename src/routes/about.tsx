@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
+import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { PersonCard } from "@/components/site/Shared";
 import { about as A, people } from "@/content/site";
 
@@ -122,18 +122,6 @@ function About() {
         </Container>
       </section>
 
-      <section>
-        <Container className="flex flex-col items-start gap-6 py-16 md:py-24 lg:py-28">
-          <h2 className="h2 max-w-[820px]">{A.closing.title}</h2>
-          <div className="flex flex-wrap gap-3">
-            {A.closing.buttons.map((b, i) => (
-              <Button key={b.label + i} href={b.href} variant={i === 0 ? "primary" : "ghost"}>
-                {b.label}
-              </Button>
-            ))}
-          </div>
-        </Container>
-      </section>
     </Page>
   );
 }

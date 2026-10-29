@@ -117,7 +117,7 @@ export const SECTIONS: SectionDef[] = [
     key: "about",
     label: "About",
     group: "Pages",
-    description: "Headline, photos, university logos, founders, mentors and closing.",
+    description: "Headline, photos, university logos, founders and mentors.",
     page: "/about",
   },
 ];
