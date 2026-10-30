@@ -16,6 +16,7 @@ import appCss from "../styles.css?url";
 import { applyOverrides, brandCss, fontHref, type Brand } from "@/content/cms";
 import { settings } from "@/content/site";
 import { fetchOverrides } from "@/lib/site-content";
+import { jsonLd, organization } from "@/lib/seo";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 
 function NotFoundComponent() {
@@ -91,14 +92,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Build Learning — Build what AI can’t" },
+      { title: "Build Learning — Portfolio building with industry mentors" },
       {
         name: "description",
         content:
           "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
       },
       { name: "author", content: "Build Learning" },
-      { property: "og:title", content: "Build Learning — Build what AI can’t" },
+      { property: "og:title", content: "Build Learning — Portfolio building with industry mentors" },
       {
         property: "og:description",
         content:
@@ -117,6 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
+    scripts: [jsonLd(organization())],
   }),
   shellComponent: RootShell,
   component: RootComponent,

@@ -191,17 +191,12 @@ export function AccentEnd({ text }: { text: string }) {
   );
 }
 
-/** Three fading dots + a short line, used under people grids to hint there are more on About. */
-export function MoreCue({ label, href }: { label: string; href: string }) {
+/** A short line under people grids, e.g. "+ More industry mentors, judges and speakers". */
+export function MoreCue({ label }: { label: string; href?: string }) {
   if (!label.trim()) return null;
   return (
-    <SiteLink href={href} className="flex flex-col items-center gap-2.5 self-center pt-2 !text-bl-ink-3 no-underline hover:!text-bl-ink">
-      <span aria-hidden="true" className="flex gap-2">
-        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent" />
-        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent opacity-60" />
-        <span className="h-1.5 w-1.5 rounded-full bg-bl-accent opacity-30" />
-      </span>
-      <span className="eyebrow text-[length:calc(11px*var(--bl-scale))]">{label}</span>
-    </SiteLink>
+    <span className="eyebrow self-center pt-2 text-center text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
+      {label}
+    </span>
   );
 }

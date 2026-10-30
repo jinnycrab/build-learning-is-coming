@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 import type { CSSProperties } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
 import {
@@ -18,20 +19,14 @@ import { EventLogos, LogoMarquee } from "@/components/site/Shared";
 import { partnersPage as PP, settings } from "@/content/site";
 
 export const Route = createFileRoute("/partners")({
-  head: () => ({
-    meta: [
-      { title: "Schools & Partners — Build Learning" },
-      {
-        name: "description",
-        content:
-          "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor.",
-      },
-      { property: "og:title", content: "Schools & Partners — Build Learning" },
-      { property: "og:description", content: "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor." },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/partners",
+      title: "Schools & Partners — Build Learning",
+      description:
+        "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor.",
+      image: "/img/og/partners.jpg",
+    }),
   component: Partners,
 });
 

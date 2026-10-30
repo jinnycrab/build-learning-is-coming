@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { event, jsonLd, pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -20,24 +21,28 @@ import { PersonCard } from "@/components/site/Shared";
 import { immersion as I, logo } from "@/content/site";
 
 export const Route = createFileRoute("/immersion")({
-  head: () => ({
-    meta: [
-      { title: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning" },
-      {
-        name: "description",
-        content:
+  head: () => {
+    const listing = event({
+      name: I.title,
+      description: I.intro,
+      startDate: I.schema.startDate,
+      endDate: I.schema.endDate,
+      url: "/immersion",
+      image: "/img/og/immersion.jpg",
+      online: false,
+      place: "Singapore",
+    });
+    return {
+      ...pageHead({
+        path: "/immersion",
+        title: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning",
+        description:
           "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges. Ages 14–18, 9–16 Jan 2027.",
-      },
-      { property: "og:title", content: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning" },
-      {
-        property: "og:description",
-        content:
-          "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+        image: "/img/og/immersion.jpg",
+      }),
+      scripts: listing ? [jsonLd(listing)] : [],
+    };
+  },
   component: Immersion,
 });
 

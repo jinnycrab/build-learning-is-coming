@@ -356,7 +356,7 @@ export const home = {
     awardLabel: "seed award",
     daysLabel: "days to register",
     deadline: "2026-12-01T04:59:00Z",
-    href: "/competitions",
+    href: LUMA_URL,
   },
   filmstrip: [
     [
@@ -506,7 +506,7 @@ export const home = {
     eyebrow: "People",
     title: "Previous Speakers & Mentors",
   },
-  teamMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
+  teamMore: { label: "+ More industry mentors, judges and speakers" },
   team: ["karin", "pratyusha", "gabriel", "lily", "hari", "mark", "jennifer", "ryan"],
   /** Phone layout only: shorter text and the pieces that replace desktop-only sections. */
   mobile: {
@@ -558,7 +558,7 @@ export const programs: Program[] = [
     when: "11 Dec 2026 – 16 Jan 2027",
     where: "Virtual · Grade 9+",
     img: P("gic-visual"),
-    href: "/competitions",
+    href: LUMA_URL,
   },
   {
     status: "Early bird to 4 Dec",
@@ -648,7 +648,8 @@ export const programsPage = {
     title: "Passion Project Studio",
     text: "Over 8 sessions, individually or in pairs, students take an idea they care about from first question to finished prototype — guided by industry mentors at every step. It’s work that shows who they are, not just what they scored.",
     facts: ["8 sessions", "Individual or pair", "Online / Singapore", "Rolling intake"],
-    button: { label: "Enquire about the Studio →", href: "/partners#contact" },
+    /** Opens an email to Build Learning with this subject. */
+    button: { label: "Enquire about the Studio →", emailSubject: "Passion Project Studio enquiry" },
     /** Phone layout: headings of the folded rows. */
     factsLabel: "Program details",
     outcomesLabel: "What students do",
@@ -699,6 +700,8 @@ export const competitions = {
     button: { label: "Register on Luma →", href: LUMA_URL },
     /** Phone layout: labels for the facts above, in the same order. */
     factLabels: ["Dates", "Format", "Who", "Team size", "Fee"],
+    /** For Google and AI event listings: dates as YYYY-MM-DD, price as a number. */
+    schema: { startDate: "2026-12-11", endDate: "2027-01-16", price: "250", currency: "USD" },
   },
   seriesPastLabel: "Past Editions",
   seriesPast: [
@@ -782,7 +785,7 @@ export const competitions = {
     { key: "emma", role: "Mentor · Global Cultures" },
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
-  judgesMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
+  judgesMore: { label: "+ More industry mentors, judges and speakers" },
   /** Phone layout: line under the first four judges. */
   mobileJudgesLink: "And many more mentors, judges and speakers",
 };
@@ -806,6 +809,8 @@ export const immersion = {
     ["Where", "Singapore"],
   ],
   reserveLabel: "Reserve a place →",
+  /** For Google and AI event listings: dates as YYYY-MM-DD. */
+  schema: { startDate: "2027-01-09", endDate: "2027-01-16" },
   outcomesHead: {
     eyebrow: "You leave with",
     title: "A portfolio, not a certificate.",
@@ -1069,7 +1074,11 @@ export const about = {
   joinCard: {
     title: "+ Join us",
     text: "Mentor or judge a program",
-    link: { label: "Get in touch →", href: "/partners#contact" },
+    /** Opens an email to Build Learning with this subject. */
+    emailLabel: "Email us",
+    emailSubject: "Mentor, judge or speaker",
+    /** Links to the LinkedIn page in the footer settings. */
+    linkedinLabel: "LinkedIn ↗",
   },
   /** Phone layout: link that unfolds the rest of the mentor list. */
   mobileShowAll: "Show all mentors",

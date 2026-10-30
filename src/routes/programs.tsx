@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -13,27 +14,17 @@ import {
   mt,
 } from "@/components/site/Mobile";
 import { useScrollProgress } from "@/components/site/hooks";
-import { programs, programsPage as PG, type Program } from "@/content/site";
+import { programs, programsPage as PG, settings, type Program } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
-  head: () => ({
-    meta: [
-      { title: "Programs — Build Learning" },
-      {
-        name: "description",
-        content:
-          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
-      },
-      { property: "og:title", content: "Programs — Build Learning" },
-      {
-        property: "og:description",
-        content:
-          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/programs",
+      title: "Programs — Build Learning",
+      description:
+        "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
+      image: "/img/og/programs.jpg",
+    }),
   component: Programs,
 });
 
@@ -150,7 +141,10 @@ function Studio() {
             ))}
           </div>
           <div className="pt-2">
-            <Button href={S.button.href}>{S.button.label}</Button>
+            {/* Always opens an email to Build Learning, with the subject filled in. */}
+            <Button href={`mailto:${settings.email}?subject=${encodeURIComponent(S.button.emailSubject)}`}>
+              {S.button.label}
+            </Button>
           </div>
         </div>
         <ol className="m-0 list-none border-b border-white/15 p-0">

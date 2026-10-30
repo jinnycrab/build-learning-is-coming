@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { CountUpStats, LogoMarquee, MoreCue, PersonCard, useDaysLeft } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
@@ -19,24 +20,14 @@ import {
 } from "@/components/site/Mobile";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Build Learning — Portfolio building with industry mentors" },
-      {
-        name: "description",
-        content:
-          "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
-      },
-      { property: "og:title", content: "Build Learning — Portfolio building with industry mentors" },
-      {
-        property: "og:description",
-        content:
-          "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/",
+      title: "Build Learning — Portfolio building with industry mentors",
+      description:
+        "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
+      image: "/img/og/home.jpg",
+    }),
   component: Home,
 });
 
@@ -108,13 +99,14 @@ function MobileHome() {
       <section className="flex flex-col gap-6">
         <div className="flex flex-col gap-2 px-5">
           {home.eyebrow && <span className={mt.eyebrow}>{home.eyebrow}</span>}
-          <h1 className={mt.title}>
+          {/* The desktop hero carries the page's <h1>. */}
+          <div role="heading" aria-level={1} className={mt.title}>
             {words.map((w, i) => (
               <span key={w + i} className={i === words.length - 1 ? "text-bl-accent" : ""}>
                 {w}{" "}
               </span>
             ))}
-          </h1>
+          </div>
           <p className={`${mt.body} line-clamp-3`}>{M.intro}</p>
         </div>
         <div className="flex flex-col gap-2">
@@ -564,7 +556,7 @@ function Team() {
             <PersonCard key={k} personKey={k} />
           ))}
         </div>
-        <MoreCue label={home.teamMore.label} href={home.teamMore.href} />
+        <MoreCue label={home.teamMore.label} />
       </Container>
     </section>
   );

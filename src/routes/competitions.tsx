@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
+import { event, jsonLd, pageHead } from "@/lib/seo";
+import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
   MButton,
@@ -20,24 +21,30 @@ import { CountdownChips, EventLogos, MoreCue, PersonCard, useDaysLeft } from "@/
 import { competitions as C, settings } from "@/content/site";
 
 export const Route = createFileRoute("/competitions")({
-  head: () => ({
-    meta: [
-      { title: "Competitions & Hackathons — Build Learning" },
-      {
-        name: "description",
-        content:
+  head: () => {
+    const O = C.open;
+    const listing = event({
+      name: O.title,
+      description: O.body,
+      startDate: O.schema.startDate,
+      endDate: O.schema.endDate,
+      url: "/competitions",
+      image: O.img,
+      online: true,
+      price: O.schema.price,
+      currency: O.schema.currency,
+    });
+    return {
+      ...pageHead({
+        path: "/competitions",
+        title: "Competitions & Hackathons — Build Learning",
+        description:
           "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons. Register for the Global Innovation Challenge 2026.",
-      },
-      { property: "og:title", content: "Competitions & Hackathons — Build Learning" },
-      {
-        property: "og:description",
-        content:
-          "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+        image: "/img/og/competitions.jpg",
+      }),
+      scripts: listing ? [jsonLd(listing)] : [],
+    };
+  },
   component: Competitions,
 });
 
@@ -209,7 +216,7 @@ function Competitions() {
               <PersonCard key={j.key} personKey={j.key} role={j.role} />
             ))}
           </div>
-          <MoreCue label={C.judgesMore.label} href={C.judgesMore.href} />
+          <MoreCue label={C.judgesMore.label} />
         </Container>
       </section>
       </div>
@@ -231,14 +238,14 @@ function MobileCompetitions() {
 
       <MSection id={seriesId} eyebrow={C.series.eyebrow} title={C.series.title} text={firstSentence(C.series.text)}>
         <div className="px-5">
-          <div className="m-card flex flex-col overflow-hidden rounded-2xl">
+          <SiteLink href={O.button.href} className="m-card flex flex-col overflow-hidden rounded-2xl text-bl-ink no-underline">
             <img src={O.img} alt="" className="block aspect-[4/3] w-full object-cover" />
-            <div className="flex flex-col gap-2 p-4">
+            <span className="flex flex-col gap-2 p-4">
               <span className={mt.eyebrow}>{O.label}</span>
               <span className={mt.card}>{O.title}</span>
               <span className={`${mt.body} line-clamp-3`}>{O.body}</span>
-            </div>
-          </div>
+            </span>
+          </SiteLink>
         </div>
         <MFacts rows={[...facts, [O.countdownLabel, `${days} ${settings.countdown.days.toLowerCase()}`]]} />
         <MButton href={O.button.href}>{O.button.label}</MButton>
