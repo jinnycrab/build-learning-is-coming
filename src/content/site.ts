@@ -37,6 +37,12 @@ export const settings = {
   },
   logo: LOGO("bl_logo"),
   email: "hello@buildlearning.co",
+  /**
+   * Free Web3Forms access key (web3forms.com) that emails contact-form
+   * enquiries to the address it was created with. Leave empty and the form
+   * opens the visitor's email app instead.
+   */
+  formKey: "",
   phones: ["+65 8223 2551 (SG)", "+1 650 248 7785 (US)"],
   footer: {
     tagline: "Singapore · Seoul · San Francisco",
@@ -1081,5 +1087,26 @@ export const about = {
   },
   /** Phone layout: link that unfolds the rest of the mentor list. */
   mobileShowAll: "Show all mentors",
+  contact: {
+    eyebrow: "Contact",
+    title: "What will you build and innovate?",
+    text: "Let’s talk",
+    /** "whatsapp" is the full number with country code, digits only. */
+    phones: [
+      { label: "+65 8223 2551 (Singapore)", whatsapp: "6582232551" },
+      { label: "+1 650 248 7785 (United States)", whatsapp: "16502487785" },
+    ],
+    followLabel: "Follow us",
+    form: {
+      nameLabel: "Name",
+      emailLabel: "Email",
+      messageLabel: "Enquiry details",
+      submitLabel: "Send message",
+      sendingLabel: "Sending…",
+      sentText: "Thank you, your message has been sent. We’ll be in touch soon.",
+      errorText: "Sorry, your message couldn’t be sent. Please email us at {email}.",
+      emailSubject: "New enquiry from the Build Learning website",
+    },
+  },
 
 };

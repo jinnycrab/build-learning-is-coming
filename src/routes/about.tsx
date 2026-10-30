@@ -12,7 +12,9 @@ import {
   firstSentence,
   mt,
   peopleRows,
+  useAnchor,
 } from "@/components/site/Mobile";
+import { ContactSection, MobileContactSection } from "@/components/site/Contact";
 import { PersonCard } from "@/components/site/Shared";
 import { about as A, people, settings } from "@/content/site";
 
@@ -28,6 +30,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+  const enquiryId = useAnchor("enquiry", "desktop");
   const linkedin = settings.footer.social.find((s) => /linkedin/i.test(s.label + s.href))?.href;
   const logos = A.universities.logos;
   return (
@@ -144,12 +147,14 @@ function About() {
         </Container>
       </section>
 
+      <ContactSection id={enquiryId} />
       </div>
     </Page>
   );
 }
 
 function MobileAbout() {
+  const enquiryId = useAnchor("enquiry", "phone");
   const unis = A.universities.logos.map((u) => ({ ...u, role: "" }));
   return (
     <MPage>
@@ -193,6 +198,8 @@ function MobileAbout() {
       <MSection eyebrow={A.mentorsHead.eyebrow} title={A.mentorsHead.title} text={A.mentorsHead.note}>
         <MMore rows={peopleRows(A.mentors)} first={6} label={A.mobileShowAll} />
       </MSection>
+
+      <MobileContactSection id={enquiryId} />
 
     </MPage>
   );
