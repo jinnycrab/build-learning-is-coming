@@ -7,7 +7,7 @@
  */
 import { about, people, settings } from "@/content/site";
 
-export const SITE_URL = "https://build-learning-is-coming.lovable.app";
+export const SITE_URL = "https://buildlearning.co";
 
 /** Public pages, in the order they appear in the sitemap. */
 export const PUBLIC_PAGES = ["/", "/programs", "/competitions", "/immersion", "/partners", "/about"];
