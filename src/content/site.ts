@@ -654,8 +654,8 @@ export const programsPage = {
     title: "Passion Project Studio",
     text: "Over 8 sessions, individually or in pairs, students take an idea they care about from first question to finished prototype — guided by industry mentors at every step. It’s work that shows who they are, not just what they scored.",
     facts: ["8 sessions", "Individual or pair", "Online / Singapore", "Rolling intake"],
-    /** Opens an email to Build Learning with this subject. */
-    button: { label: "Enquire about the Studio →", emailSubject: "Passion Project Studio enquiry" },
+    /** Leads to the contact form at the end of About. */
+    button: { label: "Enquire about the Studio →" },
     /** Phone layout: headings of the folded rows. */
     factsLabel: "Program details",
     outcomesLabel: "What students do",
@@ -1079,11 +1079,8 @@ export const about = {
   joinCard: {
     title: "+ Join us",
     text: "Mentor or judge a program",
-    /** Opens an email to Build Learning with this subject. */
-    emailLabel: "Email us",
-    emailSubject: "Mentor, judge or speaker",
-    /** Links to the LinkedIn page in the footer settings. */
-    linkedinLabel: "LinkedIn ↗",
+    /** The card leads to the contact form at the end of this page. */
+    contactLabel: "Get in touch →",
   },
   /** Phone layout: link that unfolds the rest of the mentor list. */
   mobileShowAll: "Show all mentors",
@@ -1091,11 +1088,6 @@ export const about = {
     eyebrow: "Contact",
     title: "What will you build and innovate?",
     text: "Let’s talk",
-    /** "whatsapp" is the full number with country code, digits only. */
-    phones: [
-      { label: "+65 8223 2551 (Singapore)", whatsapp: "6582232551" },
-      { label: "+1 650 248 7785 (United States)", whatsapp: "16502487785" },
-    ],
     followLabel: "Follow us",
     form: {
       nameLabel: "Name",
