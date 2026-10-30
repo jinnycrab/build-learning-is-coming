@@ -35,7 +35,13 @@ export function firstSentence(text: string) {
 /** The anchor id for an element that exists in both layouts: only the visible one gets it. */
 export function useAnchor(id: string, layout: "phone" | "desktop") {
   const phone = useIsPhone();
-  return (layout === "phone") === phone ? id : undefined;
+  const mine = (layout === "phone") === phone;
+  // A page opened straight at "#id" on a phone: the browser looked before the
+  // phone copy had the id, so jump once it does.
+  useEffect(() => {
+    if (mine && layout === "phone" && window.location.hash === `#${id}`) document.getElementById(id)?.scrollIntoView();
+  }, [mine, layout, id]);
+  return mine ? id : undefined;
 }
 
 /* ───────── Icons ───────── */
