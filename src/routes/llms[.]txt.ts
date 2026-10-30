@@ -32,6 +32,11 @@ function build() {
   for (const p of programs.filter((x) => x.upcoming)) lines.push(`- ${p.title} — ${p.when}, ${p.where}. ${p.body}`);
   lines.push("", "## Past programs", "");
   for (const p of programs.filter((x) => !x.upcoming)) lines.push(`- ${p.title} — ${p.when}, ${p.where}. ${p.body}`);
+  const qa = seo.aiQuestions.filter((q) => q.question.trim() && q.answer.trim());
+  if (qa.length) {
+    lines.push("", "## Common questions");
+    for (const q of qa) lines.push("", `### ${q.question.trim()}`, "", q.answer.trim());
+  }
   lines.push("", "## Contact", "", `- Email: ${settings.email}`, ...settings.phones.map((p) => `- Phone: ${p}`), "");
   return lines.join("\n");
 }

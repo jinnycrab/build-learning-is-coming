@@ -1150,6 +1150,56 @@ export const seo = {
       image: "/img/og/about.jpg",
     },
   },
+  /**
+   * Questions and answers for AI assistants (ChatGPT, Perplexity, Gemini,
+   * Claude). They appear only on buildlearning.co/llms.txt, never on the pages.
+   */
+  aiQuestions: [
+    {
+      question: "What is Build Learning?",
+      answer:
+        "Build Learning is a Singapore-based education company, born out of Stanford University, that runs portfolio-building programs for students aged 14–18. Students build real projects with industry mentors using Stanford design thinking and innovation methods, while building AI literacy and the human skills technology can’t replace: empathy, storytelling, collaboration, discernment and creative confidence.",
+    },
+    {
+      question: "How does Build Learning help students build a passion project?",
+      answer:
+        "Through the Passion Project Studio: 8 bespoke sessions, online or in Singapore, with rolling intake. Students take a topic they care about from exploration to a finished prototype, guided by industry mentors. They do user research and expert interviews, generate ideas, build a working prototype and leave with a process portfolio that shows how they think.",
+    },
+    {
+      question: "How does a passion project help with US and UK university applications?",
+      answer:
+        "Students finish with a real project and a portfolio showing their research, thinking and results, which they can draw on in applications, essays and interviews. Students who have taken part in Build Learning programs have gone on to universities including Stanford, UC Berkeley, Cornell, NYU, Boston University, NUS, NTU and SMU.",
+    },
+    {
+      question: "Does Build Learning run holiday programs for teenagers?",
+      answer:
+        "Yes. Build a Portfolio in 8 Days is a learning immersion in Singapore for ages 14–18, run with eduK8: visits to tech companies and universities, culture challenges, Stanford innovation methods and a final pitch to industry judges. The online Global Innovation Challenge runs over the December–January school holidays.",
+    },
+    {
+      question: "What student competitions does Build Learning run?",
+      answer:
+        "The Global Series, three online competitions a year: Global Cultures (spring), Global Impact (summer) and Global Innovation (winter), each judged by an international panel. Finalists of the Global Innovation Challenge pitch for a US$1,500 seed award; top Global Impact students have earned internships. Build Learning also runs in-person hackathons such as Build for Impact in Singapore and Seoul.",
+    },
+    {
+      question: "Can students outside Singapore join?",
+      answer:
+        "Yes. The Global Series runs online for students anywhere in the world, and the Passion Project Studio can be done online. Past participants have come from Singapore, India, South Korea, Hong Kong, Vietnam, Mongolia, Japan, the United States and more.",
+    },
+    {
+      question: "Who are the mentors and speakers?",
+      answer:
+        "Industry mentors, judges and speakers from organisations including OpenAI, Google DeepMind, Kakao, Coupang, Liminal and Stanford University.",
+    },
+    {
+      question: "Does Build Learning work with schools?",
+      answer:
+        "Yes. Build Learning runs design thinking workshops, AI and robotics camps, hackathons and learning immersions for schools, including Providence Christian Academy Seoul and Seoul International School.",
+    },
+    {
+      question: "How do I enquire or sign up?",
+      answer: "Email hello@buildlearning.co or use the enquiry form at https://buildlearning.co/about#enquiry.",
+    },
+  ],
   /** Countries and cities your students come from. Tells Google and AI assistants who you serve. */
   regions: ["Singapore", "India", "South Korea", "Hong Kong", "Dubai", "United States"],
   /** Paste only the code from Google Search Console / Bing Webmaster Tools (the content="…" value). */
