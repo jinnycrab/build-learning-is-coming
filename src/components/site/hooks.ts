@@ -114,15 +114,20 @@ export function reducedMotion() {
   );
 }
 
+let hydrated = false;
+const phoneQuery = () => window.matchMedia("(max-width: 767px)").matches;
+
 /**
  * True on phone-width screens (below 768px), where the phone layout shows.
- * False during server rendering, so the first paint keeps the desktop anchors.
+ * False during server rendering and the first hydration, so markup matches;
+ * after that, pages opened in the app know the answer from their first render.
  */
 export function useIsPhone() {
-  const [phone, setPhone] = useState(false);
+  const [phone, setPhone] = useState(() => hydrated && phoneQuery());
   useEffect(() => {
+    hydrated = true;
     const mq = window.matchMedia("(max-width: 767px)");
-    const update = () => setPhone(mq.matches);
+    const update = () => setPhone(phoneQuery());
     update();
     mq.addEventListener("change", update);
     return () => mq.removeEventListener("change", update);

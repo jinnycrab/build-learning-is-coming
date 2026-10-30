@@ -7,6 +7,7 @@ import {
   MCarousel,
   MChecks,
   MHead,
+  MLink,
   MPage,
   MPhoto,
   MSection,
@@ -91,6 +92,7 @@ function MobilePrograms() {
             { title: S.outcomesLabel, body: <MChecks items={S.outcomes} /> },
           ]}
         />
+        <MLink href="/about#enquiry">{S.button.label}</MLink>
       </MSection>
 
       <MSection eyebrow={PG.events.eyebrow} title={PG.events.title}>
