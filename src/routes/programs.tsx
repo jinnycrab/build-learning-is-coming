@@ -13,9 +13,8 @@ import {
   firstSentence,
   mt,
 } from "@/components/site/Mobile";
-import { EmailPopup } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
-import { programs, programsPage as PG, type Program } from "@/content/site";
+import { programs, programsPage as PG, settings, type Program } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
   head: () =>
@@ -142,8 +141,10 @@ function Studio() {
             ))}
           </div>
           <div className="pt-2">
-            {/* Shows the email address, with Copy and "Open email app". */}
-            <EmailPopup label={S.button.label} subject={S.button.emailSubject} />
+            {/* Always opens an email to Build Learning, with the subject filled in. */}
+            <Button href={`mailto:${settings.email}?subject=${encodeURIComponent(S.button.emailSubject)}`}>
+              {S.button.label}
+            </Button>
           </div>
         </div>
         <ol className="m-0 list-none border-b border-white/15 p-0">

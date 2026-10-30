@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import type { ReactNode } from "react";
 import { logo, partners, people, settings, stats as defaultStats, type Partner } from "@/content/site";
 import { useCountProgress, useCountdown, useInViewOnce } from "./hooks";
 import { SiteLink } from "./Layout";
@@ -197,89 +197,6 @@ export function MoreCue({ label }: { label: string; href?: string }) {
   return (
     <span className="eyebrow self-center pt-2 text-center text-[length:calc(11px*var(--bl-scale))] text-bl-ink-3">
       {label}
-    </span>
-  );
-}
-
-/**
- * An email contact that shows the address in a small popup, with Copy and
- * "Open email app", so it also works for visitors without an email app set up.
- */
-export function EmailPopup({
-  label,
-  subject,
-  look = "button",
-}: {
-  label: string;
-  subject: string;
-  look?: "button" | "link";
-}) {
-  const [open, setOpen] = useState(false);
-  const [copied, setCopied] = useState(false);
-  const box = useRef<HTMLSpanElement>(null);
-  const addressRef = useRef<HTMLSpanElement>(null);
-  const email = settings.email;
-  useEffect(() => {
-    if (!open) return;
-    const onDown = (e: PointerEvent) => !box.current?.contains(e.target as Node) && setOpen(false);
-    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
-    document.addEventListener("pointerdown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("pointerdown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [open]);
-  const copy = async () => {
-    try {
-      await navigator.clipboard.writeText(email);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      // Clipboard blocked: select the address so it can be copied by hand.
-      const sel = window.getSelection();
-      if (sel && addressRef.current) {
-        sel.selectAllChildren(addressRef.current);
-      }
-    }
-  };
-  if (!label.trim()) return null;
-  const trigger =
-    look === "button"
-      ? "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-full border-0 bg-bl-accent px-6 py-3 text-[length:calc(15px*var(--bl-scale))] font-semibold text-bl-bg transition-transform hover:-translate-y-0.5"
-      : "cursor-pointer border-0 bg-transparent p-0 text-sm text-bl-accent hover:text-bl-yellow";
-  return (
-    <span ref={box} className="relative inline-block">
-      <button type="button" className={trigger} aria-expanded={open} onClick={() => setOpen((o) => !o)}>
-        {label}
-      </button>
-      {open && (
-        <span
-          role="dialog"
-          aria-label="Email Build Learning"
-          className="absolute left-0 top-full z-30 mt-2 flex w-[min(320px,calc(100vw-40px))] flex-col gap-3 rounded-2xl border border-white/15 bg-bl-bg p-4 shadow-[0_12px_40px_rgba(0,0,0,.6)]"
-        >
-          <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-bl-ink-3">Email us at</span>
-          <span ref={addressRef} className="select-all break-all text-[length:calc(17px*var(--bl-scale))] font-semibold text-bl-ink">
-            {email}
-          </span>
-          <span className="flex gap-2">
-            <button
-              type="button"
-              onClick={copy}
-              className="inline-flex min-h-10 flex-1 cursor-pointer items-center justify-center rounded-full border border-white/25 bg-transparent px-4 text-sm font-semibold text-bl-ink hover:border-bl-yellow"
-            >
-              {copied ? "Copied" : "Copy"}
-            </button>
-            <a
-              href={`mailto:${email}?subject=${encodeURIComponent(subject)}`}
-              className="inline-flex min-h-10 flex-1 items-center justify-center rounded-full bg-bl-accent px-4 text-sm font-semibold !text-bl-bg"
-            >
-              Open email app
-            </a>
-          </span>
-        </span>
-      )}
     </span>
   );
 }
