@@ -536,8 +536,6 @@ export const home = {
       eyebrow: "Our Philosophy",
       title: "What students hone",
     },
-    mentorsLimit: 4,
-    mentorsMore: "And many more mentors, judges and speakers",
   },
 };
 

@@ -148,14 +148,23 @@ export function MSection({
   );
 }
 
-/** Full-width 50px primary button. */
-export function MButton({ href, children }: { href: string; children: string }) {
+/** Full-width 50px button: orange for the main action, outline for a quieter one. */
+export function MButton({
+  href,
+  children,
+  variant = "primary",
+}: {
+  href: string;
+  children: string;
+  variant?: "primary" | "outline";
+}) {
   if (!children.trim()) return null;
+  const look = variant === "primary" ? "bg-bl-accent !text-bl-bg" : "border border-white/30 !text-bl-ink";
   return (
     <div className="px-5">
       <SiteLink
         href={href}
-        className="flex h-[50px] w-full items-center justify-center rounded-full bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold !text-bl-bg"
+        className={`flex h-[50px] w-full items-center justify-center rounded-full text-[length:calc(16px*var(--bl-scale))] font-semibold no-underline ${look}`}
       >
         {plain(children)}
       </SiteLink>
