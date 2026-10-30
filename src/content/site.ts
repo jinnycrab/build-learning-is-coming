@@ -356,7 +356,7 @@ export const home = {
     awardLabel: "seed award",
     daysLabel: "days to register",
     deadline: "2026-12-01T04:59:00Z",
-    href: "/competitions",
+    href: LUMA_URL,
   },
   filmstrip: [
     [
@@ -506,7 +506,7 @@ export const home = {
     eyebrow: "People",
     title: "Previous Speakers & Mentors",
   },
-  teamMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
+  teamMore: { label: "+ More industry mentors, judges and speakers" },
   team: ["karin", "pratyusha", "gabriel", "lily", "hari", "mark", "jennifer", "ryan"],
   /** Phone layout only: shorter text and the pieces that replace desktop-only sections. */
   mobile: {
@@ -558,7 +558,7 @@ export const programs: Program[] = [
     when: "11 Dec 2026 – 16 Jan 2027",
     where: "Virtual · Grade 9+",
     img: P("gic-visual"),
-    href: "/competitions",
+    href: LUMA_URL,
   },
   {
     status: "Early bird to 4 Dec",
@@ -784,7 +784,7 @@ export const competitions = {
     { key: "emma", role: "Mentor · Global Cultures" },
     { key: "gabriel", role: "Speaker · Build for Impact" },
   ],
-  judgesMore: { label: "+ More industry mentors, judges and speakers", href: "/about" },
+  judgesMore: { label: "+ More industry mentors, judges and speakers" },
   /** Phone layout: line under the first four judges. */
   mobileJudgesLink: "And many more mentors, judges and speakers",
 };

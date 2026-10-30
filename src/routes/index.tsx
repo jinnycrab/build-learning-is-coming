@@ -556,7 +556,7 @@ function Team() {
             <PersonCard key={k} personKey={k} />
           ))}
         </div>
-        <MoreCue label={home.teamMore.label} href={home.teamMore.href} />
+        <MoreCue label={home.teamMore.label} />
       </Container>
     </section>
   );
