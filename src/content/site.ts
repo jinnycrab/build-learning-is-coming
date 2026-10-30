@@ -1151,7 +1151,7 @@ export const seo = {
     },
   },
   /** Countries and cities your students come from. Tells Google and AI assistants who you serve. */
-  regions: ["Singapore", "India", "South Korea", "Hong Kong"],
+  regions: ["Singapore", "India", "South Korea", "Hong Kong", "Dubai", "United States"],
   /** Paste only the code from Google Search Console / Bing Webmaster Tools (the content="…" value). */
   googleVerification: "",
   bingVerification: "",
