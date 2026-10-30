@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { event, jsonLd, pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -37,10 +38,7 @@ export const Route = createFileRoute("/competitions")({
     return {
       ...pageHead({
         path: "/competitions",
-        title: "Competitions & Hackathons — Build Learning",
-        description:
-          "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons. Register for the Global Innovation Challenge 2026.",
-        image: "/img/og/competitions.jpg",
+        ...seo.pages.competitions,
       }),
       scripts: listing ? [jsonLd(listing)] : [],
     };

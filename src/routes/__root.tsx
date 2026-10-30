@@ -14,7 +14,7 @@ import type { Overrides } from "@/content/cms";
 
 import appCss from "../styles.css?url";
 import { applyOverrides, brandCss, fontHref, type Brand } from "@/content/cms";
-import { settings } from "@/content/site";
+import { seo, settings } from "@/content/site";
 import { fetchOverrides } from "@/lib/site-content";
 import { jsonLd, organization } from "@/lib/seo";
 import { reportLovableError } from "../lib/lovable-error-reporting";
@@ -92,21 +92,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Build Learning — Portfolio building with industry mentors" },
-      {
-        name: "description",
-        content:
-          "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
-      },
-      { name: "author", content: "Build Learning" },
-      { property: "og:title", content: "Build Learning — Portfolio building with industry mentors" },
-      {
-        property: "og:description",
-        content:
-          "Programs, competitions and learning immersions for students. Singapore · Seoul · San Francisco.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { title: seo.pages.home.title },
+      { name: "description", content: seo.pages.home.description },
+      { name: "author", content: seo.siteName },
+      ...(seo.googleVerification.trim() ? [{ name: "google-site-verification", content: seo.googleVerification.trim() }] : []),
+      ...(seo.bingVerification.trim() ? [{ name: "msvalidate.01", content: seo.bingVerification.trim() }] : []),
     ],
     links: [
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -116,7 +106,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "icon", href: "/favicon.ico", sizes: "any" },
+      { rel: "icon", href: "/favicon.png", type: "image/png" },
+      { rel: "apple-touch-icon", href: "/apple-touch-icon.png" },
     ],
     scripts: [jsonLd(organization())],
   }),

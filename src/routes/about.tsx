@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -22,9 +23,7 @@ export const Route = createFileRoute("/about")({
   head: () =>
     pageHead({
       path: "/about",
-      title: "About — Build Learning",
-      description: A.intro,
-      image: "/img/og/about.jpg",
+      ...seo.pages.about,
     }),
   component: About,
 });

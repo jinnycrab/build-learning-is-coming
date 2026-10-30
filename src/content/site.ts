@@ -1100,3 +1100,57 @@ export const about = {
   },
 
 };
+
+/* ───────────── Search & sharing (SEO / AEO) ───────────── */
+/**
+ * What Google, AI assistants (ChatGPT, Perplexity, Gemini…) and link previews
+ * see for each page. Titles: about 50–60 characters. Descriptions: about
+ * 140–160 characters, written as a plain answer to "what is this page?".
+ * Share images are 1200×630.
+ */
+export const seo = {
+  siteName: "Build Learning",
+  summary:
+    "Build Learning runs portfolio-building programs for students aged 14–18: the Passion Project Studio, the Global Series of online competitions, in-person hackathons and learning immersions in Singapore. Students work with industry mentors using Stanford design thinking and innovation methods.",
+  pages: {
+    home: {
+      title: "Build Learning — Portfolio building with industry mentors",
+      description:
+        "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
+      image: "/img/og/home.jpg",
+    },
+    programs: {
+      title: "Programs — Build Learning",
+      description:
+        "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
+      image: "/img/og/programs.jpg",
+    },
+    competitions: {
+      title: "Competitions & Hackathons — Build Learning",
+      description:
+        "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons. Register for the Global Innovation Challenge 2026.",
+      image: "/img/og/competitions.jpg",
+    },
+    immersion: {
+      title: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning",
+      description:
+        "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges. Ages 14–18, 9–16 Jan 2027.",
+      image: "/img/og/immersion.jpg",
+    },
+    partners: {
+      title: "Schools & Partners — Build Learning",
+      description:
+        "Design thinking workshops, AI & robotics camps, hackathons and learning immersions for schools, plus ways for organisations to mentor, judge and sponsor.",
+      image: "/img/og/partners.jpg",
+    },
+    about: {
+      title: "About — Build Learning",
+      description:
+        "Build Learning was born at Stanford and built in Singapore. Meet the founders and the industry mentors, judges and speakers behind our programs.",
+      image: "/img/og/about.jpg",
+    },
+  },
+  /** Paste only the code from Google Search Console / Bing Webmaster Tools (the content="…" value). */
+  googleVerification: "",
+  bingVerification: "",
+};

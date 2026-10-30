@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { event, jsonLd, pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -34,10 +35,7 @@ export const Route = createFileRoute("/immersion")({
     return {
       ...pageHead({
         path: "/immersion",
-        title: "Build a Portfolio in 8 Days — Singapore Immersion · Build Learning",
-        description:
-          "An 8-day learning immersion in Singapore with eduK8: Stanford innovation methods, tech visits, culture challenges and a pitch to industry judges. Ages 14–18, 9–16 Jan 2027.",
-        image: "/img/og/immersion.jpg",
+        ...seo.pages.immersion,
       }),
       scripts: listing ? [jsonLd(listing)] : [],
     };

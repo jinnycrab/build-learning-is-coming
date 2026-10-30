@@ -5,7 +5,7 @@
  * change this one line; the canonical tags, sitemap, robots.txt, share
  * previews and structured data all follow it.
  */
-import { about, people, settings } from "@/content/site";
+import { about, people, seo, settings } from "@/content/site";
 
 export const SITE_URL = "https://build-learning-is-coming.lovable.app";
 
@@ -33,7 +33,7 @@ export function pageHead({
     meta: [
       { title },
       { name: "description", content: description },
-      { property: "og:site_name", content: "Build Learning" },
+      { property: "og:site_name", content: seo.siteName },
       { property: "og:title", content: title },
       { property: "og:description", content: description },
       { property: "og:type", content: "website" },
@@ -63,7 +63,7 @@ export function organization() {
     url: SITE_URL,
     logo: abs(settings.logo),
     email: settings.email,
-    description: about.intro,
+    description: seo.summary,
     address: { "@type": "PostalAddress", addressLocality: "Singapore", addressCountry: "SG" },
     founder: about.founders.flatMap((f) => (people[f.key] ? [{ "@type": "Person", name: people[f.key]!.name }] : [])),
     sameAs: settings.footer.social.map((s) => s.href),

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import { CountUpStats, LogoMarquee, MoreCue, PersonCard, useDaysLeft } from "@/components/site/Shared";
 import { useScrollProgress } from "@/components/site/hooks";
@@ -22,10 +23,7 @@ export const Route = createFileRoute("/")({
   head: () =>
     pageHead({
       path: "/",
-      title: "Build Learning — Portfolio building with industry mentors",
-      description:
-        "Programs, global competitions and learning immersions where students build real projects with industry mentors — and the human skills AI can’t replace.",
-      image: "/img/og/home.jpg",
+      ...seo.pages.home,
     }),
   component: Home,
 });

@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import type { CSSProperties } from "react";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
 import {
@@ -22,10 +23,7 @@ export const Route = createFileRoute("/partners")({
   head: () =>
     pageHead({
       path: "/partners",
-      title: "Schools & Partners — Build Learning",
-      description:
-        "Workshops, AI camps, hackathons and immersions for schools, plus ways for organisations to sponsor, set briefs, judge and mentor.",
-      image: "/img/og/partners.jpg",
+      ...seo.pages.partners,
     }),
   component: Partners,
 });

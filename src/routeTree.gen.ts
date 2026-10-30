@@ -15,6 +15,7 @@ import { Route as AdminRouteImport } from './routes/admin'
 import { Route as CmsPreviewRouteImport } from './routes/cms-preview'
 import { Route as CompetitionsRouteImport } from './routes/competitions'
 import { Route as ImmersionRouteImport } from './routes/immersion'
+import { Route as LlmsDottxtRouteImport } from './routes/llms[.]txt'
 import { Route as PartnersRouteImport } from './routes/partners'
 import { Route as ProgramsRouteImport } from './routes/programs'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
@@ -50,6 +51,11 @@ const ImmersionRoute = ImmersionRouteImport.update({
   path: '/immersion',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LlmsDottxtRoute = LlmsDottxtRouteImport.update({
+  id: '/llms.txt',
+  path: '/llms.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
@@ -78,6 +84,7 @@ export interface FileRoutesByFullPath {
   '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/partners': typeof PartnersRoute
   '/programs': typeof ProgramsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -90,6 +97,7 @@ export interface FileRoutesByTo {
   '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/partners': typeof PartnersRoute
   '/programs': typeof ProgramsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -103,6 +111,7 @@ export interface FileRoutesById {
   '/cms-preview': typeof CmsPreviewRoute
   '/competitions': typeof CompetitionsRoute
   '/immersion': typeof ImmersionRoute
+  '/llms.txt': typeof LlmsDottxtRoute
   '/partners': typeof PartnersRoute
   '/programs': typeof ProgramsRoute
   '/robots.txt': typeof RobotsDottxtRoute
@@ -117,6 +126,7 @@ export interface FileRouteTypes {
     | '/cms-preview'
     | '/competitions'
     | '/immersion'
+    | '/llms.txt'
     | '/partners'
     | '/programs'
     | '/robots.txt'
@@ -129,6 +139,7 @@ export interface FileRouteTypes {
     | '/cms-preview'
     | '/competitions'
     | '/immersion'
+    | '/llms.txt'
     | '/partners'
     | '/programs'
     | '/robots.txt'
@@ -141,6 +152,7 @@ export interface FileRouteTypes {
     | '/cms-preview'
     | '/competitions'
     | '/immersion'
+    | '/llms.txt'
     | '/partners'
     | '/programs'
     | '/robots.txt'
@@ -154,6 +166,7 @@ export interface RootRouteChildren {
   CmsPreviewRoute: typeof CmsPreviewRoute
   CompetitionsRoute: typeof CompetitionsRoute
   ImmersionRoute: typeof ImmersionRoute
+  LlmsDottxtRoute: typeof LlmsDottxtRoute
   PartnersRoute: typeof PartnersRoute
   ProgramsRoute: typeof ProgramsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
@@ -204,6 +217,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ImmersionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/llms.txt': {
+      id: '/llms.txt'
+      path: '/llms.txt'
+      fullPath: '/llms.txt'
+      preLoaderRoute: typeof LlmsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/partners': {
       id: '/partners'
       path: '/partners'
@@ -242,6 +262,7 @@ const rootRouteChildren: RootRouteChildren = {
   CmsPreviewRoute: CmsPreviewRoute,
   CompetitionsRoute: CompetitionsRoute,
   ImmersionRoute: ImmersionRoute,
+  LlmsDottxtRoute: LlmsDottxtRoute,
   PartnersRoute: PartnersRoute,
   ProgramsRoute: ProgramsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,

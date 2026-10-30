@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { pageHead } from "@/lib/seo";
+import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -21,10 +22,7 @@ export const Route = createFileRoute("/programs")({
   head: () =>
     pageHead({
       path: "/programs",
-      title: "Programs — Build Learning",
-      description:
-        "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
-      image: "/img/og/programs.jpg",
+      ...seo.pages.programs,
     }),
   component: Programs,
 });

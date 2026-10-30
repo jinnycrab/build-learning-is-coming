@@ -20,7 +20,8 @@ export type SectionKey =
   | "competitions"
   | "immersion"
   | "partnersPage"
-  | "about";
+  | "about"
+  | "seo";
 
 export type SectionDef = {
   key: SectionKey;
@@ -120,6 +121,13 @@ export const SECTIONS: SectionDef[] = [
     description: "Headline, photos, university logos, founders and mentors.",
     page: "/about",
   },
+  {
+    key: "seo",
+    label: "Search & sharing (SEO)",
+    group: "Brand & site",
+    description:
+      "Google and AI-assistant titles, descriptions and share images for each page, plus Search Console verification codes.",
+  },
 ];
 
 type Json = unknown;
@@ -139,6 +147,7 @@ const live: Record<SectionKey, Json> = {
   immersion: site.immersion,
   partnersPage: site.partnersPage,
   about: site.about,
+  seo: site.seo,
 };
 
 /** Untouched copies of the defaults, so removed edits can be restored. */
