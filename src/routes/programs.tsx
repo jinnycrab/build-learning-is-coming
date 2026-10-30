@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -16,24 +17,14 @@ import { useScrollProgress } from "@/components/site/hooks";
 import { programs, programsPage as PG, type Program } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
-  head: () => ({
-    meta: [
-      { title: "Programs — Build Learning" },
-      {
-        name: "description",
-        content:
-          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
-      },
-      { property: "og:title", content: "Programs — Build Learning" },
-      {
-        property: "og:description",
-        content:
-          "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/programs",
+      title: "Programs — Build Learning",
+      description:
+        "Our flagship Passion Project Studio, plus competitions, immersions and school programs throughout the year.",
+      image: "/img/og/programs.jpg",
+    }),
   component: Programs,
 });
 

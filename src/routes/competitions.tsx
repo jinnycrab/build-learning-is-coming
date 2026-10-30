@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { event, jsonLd, pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SectionHead } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -20,24 +21,30 @@ import { CountdownChips, EventLogos, MoreCue, PersonCard, useDaysLeft } from "@/
 import { competitions as C, settings } from "@/content/site";
 
 export const Route = createFileRoute("/competitions")({
-  head: () => ({
-    meta: [
-      { title: "Competitions & Hackathons — Build Learning" },
-      {
-        name: "description",
-        content:
+  head: () => {
+    const O = C.open;
+    const listing = event({
+      name: O.title,
+      description: O.body,
+      startDate: O.schema.startDate,
+      endDate: O.schema.endDate,
+      url: "/competitions",
+      image: O.img,
+      online: true,
+      price: O.schema.price,
+      currency: O.schema.currency,
+    });
+    return {
+      ...pageHead({
+        path: "/competitions",
+        title: "Competitions & Hackathons — Build Learning",
+        description:
           "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons. Register for the Global Innovation Challenge 2026.",
-      },
-      { property: "og:title", content: "Competitions & Hackathons — Build Learning" },
-      {
-        property: "og:description",
-        content:
-          "The Global Series — Global Cultures, Global Impact and Global Innovation — plus in-person hackathons.",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+        image: "/img/og/competitions.jpg",
+      }),
+      scripts: listing ? [jsonLd(listing)] : [],
+    };
+  },
   component: Competitions,
 });
 

@@ -102,11 +102,17 @@ export function MHead({
   text?: string | undefined;
   as?: "h1" | "h2";
 }) {
-  const H = as;
+  // The desktop layout carries the page's <h1>; the phone title is a level-1 heading for screen readers.
+  const H = as === "h1" ? "div" : "h2";
+  const level = as === "h1" ? { role: "heading", "aria-level": 1 } : {};
   return (
     <div className="flex flex-col gap-2 px-5">
       {eyebrow?.trim() && <span className={mt.eyebrow}>{eyebrow}</span>}
-      {title && <H className={as === "h1" ? mt.title : mt.h2}>{title}</H>}
+      {title && (
+        <H className={as === "h1" ? mt.title : mt.h2} {...level}>
+          {title}
+        </H>
+      )}
       {text?.trim() && <p className={mt.body}>{text}</p>}
     </div>
   );

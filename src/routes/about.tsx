@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { pageHead } from "@/lib/seo";
 import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
@@ -16,16 +17,13 @@ import { PersonCard } from "@/components/site/Shared";
 import { about as A, people } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About — Build Learning" },
-      { name: "description", content: A.intro },
-      { property: "og:title", content: "About — Build Learning" },
-      { property: "og:description", content: A.intro },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  }),
+  head: () =>
+    pageHead({
+      path: "/about",
+      title: "About — Build Learning",
+      description: A.intro,
+      image: "/img/og/about.jpg",
+    }),
   component: About,
 });
 

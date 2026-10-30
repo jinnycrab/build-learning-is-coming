@@ -699,6 +699,8 @@ export const competitions = {
     button: { label: "Register on Luma →", href: LUMA_URL },
     /** Phone layout: labels for the facts above, in the same order. */
     factLabels: ["Dates", "Format", "Who", "Team size", "Fee"],
+    /** For Google and AI event listings: dates as YYYY-MM-DD, price as a number. */
+    schema: { startDate: "2026-12-11", endDate: "2027-01-16", price: "250", currency: "USD" },
   },
   seriesPastLabel: "Past Editions",
   seriesPast: [
@@ -806,6 +808,8 @@ export const immersion = {
     ["Where", "Singapore"],
   ],
   reserveLabel: "Reserve a place →",
+  /** For Google and AI event listings: dates as YYYY-MM-DD. */
+  schema: { startDate: "2027-01-09", endDate: "2027-01-16" },
   outcomesHead: {
     eyebrow: "You leave with",
     title: "A portfolio, not a certificate.",
