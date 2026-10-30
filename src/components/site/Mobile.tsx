@@ -6,6 +6,7 @@
  * fixed type scale. Desktop pages never render them.
  */
 import { Link, useLocation } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { nav, partners, people, settings, type Partner } from "@/content/site";
 import { SiteLink } from "./Layout";
@@ -193,7 +194,7 @@ export function MPhoto({ src, alt = "" }: { src: string; alt?: string }) {
   if (!src) return null;
   return (
     <div className="px-5">
-      <img src={src} alt={alt} className="block aspect-[4/3] w-full rounded-xl object-cover" />
+      <img src={src} alt={alt || altFor(src)} className="block aspect-[4/3] w-full rounded-xl object-cover" />
     </div>
   );
 }
@@ -223,13 +224,13 @@ function RowInner({ r }: { r: MRow }) {
       {r.photo && (
         <img
           src={r.photo}
-          alt=""
+          alt={`Portrait of ${r.title}`}
           loading="lazy"
           className="h-12 w-12 shrink-0 rounded-full object-cover"
           style={{ objectPosition: "center 22%" }}
         />
       )}
-      {r.thumb && <img src={r.thumb} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
+      {r.thumb && <img src={r.thumb} alt={altFor(r.thumb, r.title)} loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
         <span className={`${mt.card} ${r.active ? "text-bl-accent" : ""}`}>{r.title}</span>
         {r.text && <span className={`${mt.meta} line-clamp-2`}>{r.text}</span>}
@@ -316,13 +317,13 @@ export function MAccordion({
               {it.photo && (
                 <img
                   src={it.photo}
-                  alt=""
+                  alt={`Portrait of ${it.title}`}
                   loading="lazy"
                   className="h-12 w-12 shrink-0 rounded-full object-cover"
                   style={{ objectPosition: "center 22%" }}
                 />
               )}
-              {it.thumb && <img src={it.thumb} alt="" loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
+              {it.thumb && <img src={it.thumb} alt={altFor(it.thumb, it.title)} loading="lazy" className="h-14 w-14 shrink-0 rounded-xl object-cover" />}
               <span className="flex min-w-0 flex-1 flex-col gap-0.5">
                 <span className={mt.card}>{it.title}</span>
                 {it.text && <span className={mt.meta}>{it.text}</span>}
@@ -454,7 +455,7 @@ export function MCard({
       {img && (
         <img
           src={img}
-          alt=""
+          alt={altFor(img, title)}
           loading="lazy"
           className="block aspect-[4/3] w-full object-cover"
           style={grey ? { filter: "grayscale(1) brightness(.85)" } : undefined}

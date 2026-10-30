@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import type { CSSProperties } from "react";
@@ -37,7 +38,7 @@ function Partners() {
       <MobilePartners />
       <div className="hidden md:block">
       <section className="relative overflow-hidden border-b border-bl-line">
-        <img src={H.img} alt="" className="absolute inset-0 h-full w-full object-cover" />
+        <img src={H.img} alt={altFor(H.img)} className="absolute inset-0 h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-r from-bl-bg/95 via-bl-bg/75 to-bl-bg/30" />
         <Container className="relative flex min-h-[460px] flex-col justify-center gap-6 py-14 md:min-h-[560px] md:py-20">
           {H.eyebrow && <Eyebrow>{H.eyebrow}</Eyebrow>}
@@ -60,7 +61,7 @@ function Partners() {
           <div className="m-swipe grid auto-rows-[200px] grid-cols-2 gap-3 lg:grid-cols-4">
             {PP.pca.imgs.map((src, i) => (
               <div key={src} className={`h-[220px] overflow-hidden rounded-2xl md:h-auto ${i === 0 ? "col-span-2 row-span-2" : ""}`}>
-                <img src={src} alt={PP.pca.title} loading="lazy" className="h-full w-full object-cover" />
+                <img src={src} alt={altFor(src, PP.pca.title)} loading="lazy" className="h-full w-full object-cover" />
               </div>
             ))}
           </div>
@@ -95,7 +96,7 @@ function Partners() {
           >
             {PP.schools.map((s) => (
               <div key={s.title} className="flex flex-col overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface">
-                <img src={s.img} alt="" loading="lazy" className="aspect-[4/3] w-full object-cover" />
+                <img src={s.img} alt={altFor(s.img, s.title)} loading="lazy" className="aspect-[4/3] w-full object-cover" />
                 <div className="flex flex-1 flex-col gap-3 p-5">
                   <h3 className="m-0 text-lg font-semibold">{s.title}</h3>
                   <p className="m-0 flex-1 text-sm leading-relaxed text-bl-ink-3">{s.body}</p>
@@ -135,7 +136,7 @@ function MobilePartners() {
 
       <MSection id={pcaId} eyebrow={PP.pca.eyebrow} title={PP.pca.title} text={firstSentence(PP.pca.intro)}>
         <MCarousel items={PP.pca.imgs} label={PP.pca.title}>
-          {(src) => <img src={src} alt={PP.pca.title} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+          {(src) => <img src={src} alt={altFor(src, PP.pca.title)} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
         </MCarousel>
         <MAccordion items={PP.pca.programs.map((p) => ({ title: p.title, text: p.tag, body: <p className={mt.body}>{p.body}</p> }))} />
       </MSection>

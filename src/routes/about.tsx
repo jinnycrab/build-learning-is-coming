@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import { Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
@@ -46,7 +47,7 @@ function About() {
           </div>
           <div className="m-swipe grid gap-3 sm:grid-cols-3">
             {A.photos.map((ph) => (
-              <img key={ph.src} src={ph.src} alt={ph.alt} className="aspect-[3/2] w-full rounded-2xl object-cover" />
+              <img key={ph.src} src={ph.src} alt={ph.alt || altFor(ph.src)} className="aspect-[3/2] w-full rounded-2xl object-cover" />
             ))}
           </div>
         </Container>
@@ -150,7 +151,7 @@ function MobileAbout() {
       <section className="flex flex-col gap-6">
         <MHead as="h1" eyebrow={A.eyebrow} title={A.headline} text={firstSentence(A.intro)} />
         <MCarousel items={A.photos} label={A.eyebrow || A.headline}>
-          {(ph) => <img src={ph.src} alt={ph.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+          {(ph) => <img src={ph.src} alt={ph.alt || altFor(ph.src)} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
         </MCarousel>
       </section>
 

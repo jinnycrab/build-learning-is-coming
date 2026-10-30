@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { event, jsonLd, pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
@@ -129,7 +130,7 @@ function Immersion() {
             ))}
           </div>
           <div className="grid overflow-hidden rounded-[18px] border border-white/15 bg-bl-surface md:grid-cols-2">
-            <img src={I.stay.img} alt={I.stay.alt} loading="lazy" className="h-full min-h-[200px] w-full object-cover md:min-h-[260px]" />
+            <img src={I.stay.img} alt={I.stay.alt || altFor(I.stay.img)} loading="lazy" className="h-full min-h-[200px] w-full object-cover md:min-h-[260px]" />
             <div className="flex flex-col justify-center gap-3 p-6 md:p-8">
               <Eyebrow className="text-[length:calc(11px*var(--bl-scale))]">{I.stay.label}</Eyebrow>
               <span className="disp text-[length:calc(26px*var(--bl-hscale))] leading-tight">{I.stay.title}</span>
@@ -292,7 +293,7 @@ function ThemeCard({
     >
       <img
         src={t.img}
-        alt={t.alt}
+        alt={t.alt || altFor(t.img, t.title)}
         loading="lazy"
         className={`h-[180px] w-full object-cover ${big ? "md:h-[300px]" : "md:h-[220px]"}`}
       />

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { event, jsonLd, pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
@@ -66,15 +67,15 @@ function EventRow({
       {photosFull ? (
         // Main photo shown uncropped on top; two smaller photos below.
         <div className={`grid grid-cols-2 gap-2 ${i % 2 ? "lg:order-2" : ""}`}>
-          {a && <img src={a} alt="" loading="lazy" className="col-span-2 block h-[200px] w-full rounded-2xl object-cover md:h-auto md:object-fill" />}
-          {b && <img src={b} alt="" loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
-          {c && <img src={c} alt="" loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
+          {a && <img src={a} alt={altFor(a, e.title)} loading="lazy" className="col-span-2 block h-[200px] w-full rounded-2xl object-cover md:h-auto md:object-fill" />}
+          {b && <img src={b} alt={altFor(b, e.title)} loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
+          {c && <img src={c} alt={altFor(c, e.title)} loading="lazy" className="h-[110px] w-full rounded-2xl object-cover md:h-[170px]" />}
         </div>
       ) : (
         <div className={`grid grid-cols-[1.5fr_1fr] grid-rows-[120px_120px] gap-2 md:grid-rows-[170px_170px] ${i % 2 ? "lg:order-2" : ""}`}>
-          {a && <img src={a} alt="" loading="lazy" className="row-span-2 h-full w-full min-w-0 rounded-2xl object-cover" />}
-          {b && <img src={b} alt="" loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
-          {c && <img src={c} alt="" loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
+          {a && <img src={a} alt={altFor(a, e.title)} loading="lazy" className="row-span-2 h-full w-full min-w-0 rounded-2xl object-cover" />}
+          {b && <img src={b} alt={altFor(b, e.title)} loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
+          {c && <img src={c} alt={altFor(c, e.title)} loading="lazy" className="h-full w-full min-w-0 rounded-2xl object-cover" />}
         </div>
       )}
       <div className="flex flex-col gap-4">
@@ -110,7 +111,7 @@ function Competitions() {
               <img
                 key={src + i}
                 src={src}
-                alt=""
+                alt={altFor(src)}
                 className={`h-full w-full min-w-0 rounded-2xl object-cover ${i === 0 ? "row-span-2" : ""}`}
               />
             ))}
@@ -130,7 +131,7 @@ function Competitions() {
           </div>
 
           <div className="grid items-center overflow-hidden rounded-3xl border border-bl-accent bg-bl-surface lg:grid-cols-2">
-            <img src={C.open.img} alt="" className="h-[200px] w-full object-cover sm:h-[440px]" style={{ objectPosition: "center 55%" }} />
+            <img src={C.open.img} alt={altFor(C.open.img, C.open.title)} className="h-[200px] w-full object-cover sm:h-[440px]" style={{ objectPosition: "center 55%" }} />
             <div className="flex flex-col gap-4 p-6 sm:gap-5 sm:p-10">
               <Eyebrow>{C.open.label}</Eyebrow>
               <span className="disp text-[length:calc(32px*var(--bl-hscale))] leading-tight">{C.open.title}</span>
@@ -237,7 +238,7 @@ function MobileCompetitions() {
       <MSection id={seriesId} eyebrow={C.series.eyebrow} title={C.series.title} text={firstSentence(C.series.text)}>
         <div className="px-5">
           <SiteLink href={O.button.href} className="m-card flex flex-col overflow-hidden rounded-2xl text-bl-ink no-underline">
-            <img src={O.img} alt="" className="block aspect-[4/3] w-full object-cover" />
+            <img src={O.img} alt={altFor(O.img, O.title)} className="block aspect-[4/3] w-full object-cover" />
             <span className="flex flex-col gap-2 p-4">
               <span className={mt.eyebrow}>{O.label}</span>
               <span className={mt.card}>{O.title}</span>
