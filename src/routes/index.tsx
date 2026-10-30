@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { altFor } from "@/content/alt";
 import { pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
@@ -73,7 +74,7 @@ function PhoneFilmstrip() {
             <img
               key={k}
               src={im.src}
-              alt={k < row.length ? im.alt : ""}
+              alt={k < row.length ? im.alt || altFor(im.src) : ""}
               aria-hidden={k >= row.length || undefined}
               loading="lazy"
               className="h-[132px] shrink-0 rounded-xl object-cover"
@@ -174,7 +175,7 @@ function MobileHome() {
           ))}
         </div>
         <MCarousel items={home.method.photos} label={home.method.title}>
-          {(ph) => <img src={ph.src} alt={ph.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+          {(ph) => <img src={ph.src} alt={ph.alt || altFor(ph.src)} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
         </MCarousel>
       </MSection>
 
@@ -226,7 +227,7 @@ function Hero() {
         <div className="relative w-full min-w-0 lg:col-start-2 lg:row-start-1">
           <img
             src={home.heroImage}
-            alt={home.heroAlt}
+            alt={home.heroAlt || altFor(home.heroImage)}
             className="block h-auto w-full rounded-lg border border-bl-line"
           />
         </div>
@@ -289,7 +290,7 @@ function Filmstrip() {
             <img
               key={k}
               src={im.src}
-              alt={im.alt}
+              alt={im.alt || altFor(im.src)}
               loading="lazy"
               className="h-[200px] shrink-0 rounded-[14px] object-cover sm:h-[260px]"
               style={{ width: im.w }}
@@ -323,10 +324,10 @@ function Pathways() {
                 <img
                   className="pv-a absolute inset-0 h-full w-full object-cover"
                   src={c.img}
-                  alt=""
+                  alt={altFor(c.img, c.title)}
                   loading="lazy"
                 />
-                <img className="pv-b h-full w-full object-cover" src={c.img2} alt="" loading="lazy" />
+                <img className="pv-b h-full w-full object-cover" src={c.img2} alt={altFor(c.img2)} loading="lazy" />
               </div>
               <div className="flex flex-col justify-start gap-3 p-3 md:justify-center md:gap-4 md:p-5 md:pl-1">
                 <span className="eyebrow text-[length:calc(11px*var(--bl-scale))] text-bl-accent">
@@ -367,7 +368,7 @@ function HumanStack() {
           {home.humanStackPhoto.src && (
             <img
               src={home.humanStackPhoto.src}
-              alt={home.humanStackPhoto.alt}
+              alt={home.humanStackPhoto.alt || altFor(home.humanStackPhoto.src)}
               loading="lazy"
               className="mt-2 block h-auto w-full rounded-2xl border border-white/10"
             />
@@ -418,12 +419,12 @@ function Method() {
         <div className="grid grid-cols-3 grid-rows-[repeat(4,110px)] gap-2.5 sm:grid-rows-[repeat(4,150px)]">
           {big && (
             <div className={`${tile} col-span-2 row-span-3`}>
-              <img src={big.src} alt={big.alt} loading="lazy" className={img} style={{ objectPosition: "center 62%" }} />
+              <img src={big.src} alt={big.alt || altFor(big.src)} loading="lazy" className={img} style={{ objectPosition: "center 62%" }} />
             </div>
           )}
           {rest.slice(0, 5).map((p, i) => (
             <div key={p.src + i} className={`${tile} ${spots[i]}`}>
-              <img src={p.src} alt={p.alt} loading="lazy" className={img} style={{ objectPosition: "center 35%" }} />
+              <img src={p.src} alt={p.alt || altFor(p.src)} loading="lazy" className={img} style={{ objectPosition: "center 35%" }} />
             </div>
           ))}
         </div>
@@ -520,11 +521,12 @@ function WorldMap() {
                 <span className="ring" style={{ background: c }} />
                 <img
                   src={p.flag}
-                  alt=""
+                  alt={p.name}
                   className={`absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-1/2 rounded-full object-cover ${p.hub ? "h-9 w-9 sm:h-[58px] sm:w-[58px]" : "h-6 w-6 sm:h-[42px] sm:w-[42px]"}`}
                   style={{ boxShadow: `0 0 0 2px ${c}, 0 0 0 5px var(--bl-bg), 0 6px 18px rgba(0,0,0,.6)` }}
                 />
                 <span
+                  aria-hidden="true"
                   className={`lbl eyebrow absolute left-1/2 hidden -translate-x-1/2 whitespace-nowrap rounded-md border border-white/15 bg-bl-bg/90 px-2 py-1 text-[length:calc(10px*var(--bl-scale))] sm:block ${p.hub ? "top-[37px]" : "top-[27px]"}`}
                 >
                   {p.name}

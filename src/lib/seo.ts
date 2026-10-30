@@ -5,7 +5,7 @@
  * change this one line; the canonical tags, sitemap, robots.txt, share
  * previews and structured data all follow it.
  */
-import { about, people, seo, settings } from "@/content/site";
+import { about, people, programsPage, seo, settings } from "@/content/site";
 
 export const SITE_URL = "https://buildlearning.co";
 
@@ -55,6 +55,8 @@ export function jsonLd(data: Record<string, unknown>) {
 
 /** Who Build Learning is, for search engines and AI assistants. */
 export function organization() {
+  // "+65 9680 1391 (SG)" → "+65 9680 1391"
+  const phone = settings.phones[0]?.replace(/\(.*?\)/g, "").trim();
   return {
     "@context": "https://schema.org",
     "@type": "EducationalOrganization",
@@ -64,7 +66,9 @@ export function organization() {
     logo: abs(settings.logo),
     email: settings.email,
     description: seo.summary,
+    ...(phone ? { telephone: phone } : {}),
     address: { "@type": "PostalAddress", addressLocality: "Singapore", addressCountry: "SG" },
+    areaServed: seo.regions.filter((r) => r.trim()),
     founder: about.founders.flatMap((f) => (people[f.key] ? [{ "@type": "Person", name: people[f.key]!.name }] : [])),
     sameAs: settings.footer.social.map((s) => s.href),
   };
@@ -115,5 +119,26 @@ export function event({
     ...(price?.trim()
       ? { offers: { "@type": "Offer", price: price.trim(), priceCurrency: currency || "USD", url: abs(url), availability: "https://schema.org/InStock" } }
       : {}),
+  };
+}
+
+/** The Passion Project Studio as a course, for the Programs page. */
+export function course() {
+  const S = programsPage.studio;
+  const facts = S.facts.join(" ").toLowerCase();
+  const modes = [/online/.test(facts) && "Online", /singapore|in person|in-person|onsite/.test(facts) && "Onsite"].filter(
+    (m): m is string => !!m,
+  );
+  return {
+    "@context": "https://schema.org",
+    "@type": "Course",
+    "@id": `${SITE_URL}/programs#studio`,
+    name: S.title,
+    description: [S.text.trim(), S.facts.join(" · ")].filter(Boolean).join(" "),
+    url: `${SITE_URL}/programs`,
+    provider: { "@id": `${SITE_URL}/#organization` },
+    teaches: S.outcomes.filter((o) => o.trim()),
+    audience: { "@type": "EducationalAudience", educationalRole: "student" },
+    ...(modes.length ? { hasCourseInstance: { "@type": "CourseInstance", courseMode: modes } } : {}),
   };
 }

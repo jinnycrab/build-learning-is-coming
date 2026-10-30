@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { pageHead } from "@/lib/seo";
+import { altFor } from "@/content/alt";
+import { course, jsonLd, pageHead } from "@/lib/seo";
 import { seo } from "@/content/site";
 import { Button, Container, Eyebrow, Page, SiteLink } from "@/components/site/Layout";
 import {
@@ -19,11 +20,13 @@ import { useScrollProgress } from "@/components/site/hooks";
 import { programs, programsPage as PG, type Program } from "@/content/site";
 
 export const Route = createFileRoute("/programs")({
-  head: () =>
-    pageHead({
+  head: () => ({
+    ...pageHead({
       path: "/programs",
       ...seo.pages.programs,
     }),
+    scripts: [jsonLd(course())],
+  }),
   component: Programs,
 });
 
@@ -37,7 +40,7 @@ function Programs() {
       <section className="relative border-b border-bl-line">
         <img
           src={PG.heroImage}
-          alt={PG.heroAlt}
+          alt={PG.heroAlt || altFor(PG.heroImage)}
           className="block h-[420px] w-full object-cover sm:h-[560px]"
           style={{ objectPosition: "center 45%" }}
         />
@@ -77,12 +80,12 @@ function MobilePrograms() {
     <MPage>
       <section className="flex flex-col gap-6">
         <MHead as="h1" title={PG.title} text={firstSentence(PG.text)} />
-        <MPhoto src={PG.heroImage} alt={PG.heroAlt} />
+        <MPhoto src={PG.heroImage} alt={PG.heroAlt || altFor(PG.heroImage)} />
       </section>
 
       <MSection eyebrow={S.eyebrow} title={S.title} text={S.text}>
         <MCarousel items={S.gallery} label={S.title}>
-          {(g) => <img src={g.src} alt={g.alt} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
+          {(g) => <img src={g.src} alt={g.alt || altFor(g.src)} loading="lazy" className="block aspect-[4/3] w-full rounded-xl object-cover" />}
         </MCarousel>
         <MAccordion
           items={[
@@ -168,7 +171,7 @@ function Studio() {
             <img
               key={g.src}
               src={g.src}
-              alt={g.alt}
+              alt={g.alt || altFor(g.src)}
               loading="lazy"
               className="block h-[260px] w-auto shrink-0 rounded-2xl border border-bl-line sm:h-[380px]"
             />
@@ -192,7 +195,7 @@ function ProgramGroup({ label, list }: { label: string; list: Program[] }) {
           >
             <img
               src={p.img}
-              alt=""
+              alt={altFor(p.img, p.title)}
               loading="lazy"
               className="h-[180px] w-full object-cover md:h-0 md:min-h-full"
               style={{ filter: p.upcoming ? "none" : "grayscale(1) brightness(.8)" }}
