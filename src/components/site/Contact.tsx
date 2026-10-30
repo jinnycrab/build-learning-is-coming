@@ -15,7 +15,9 @@ const social = () =>
     ...s,
     icon: /linkedin/i.test(s.label + s.href) ? "linkedin" : /instagram/i.test(s.label + s.href) ? "instagram" : "external",
   }));
-const waLink = (n: string) => `https://wa.me/${n.replace(/\D/g, "")}`;
+/** Phone numbers from Brand & contact; each opens a WhatsApp chat. */
+const phones = () =>
+  settings.phones.map((p) => p.trim()).filter(Boolean).map((label) => ({ label, href: `https://wa.me/${label.replace(/\D/g, "")}` }));
 
 function ContactForm({ idPrefix, phone = false }: { idPrefix: string; phone?: boolean }) {
   const F = C().form;
@@ -120,8 +122,8 @@ export function ContactSection({ id }: { id?: string | undefined }) {
               <Icon name="mail" size={24} className="text-bl-accent" />
               {settings.email}
             </SiteLink>
-            {c.phones.map((p) => (
-              <SiteLink key={p.label} href={waLink(p.whatsapp)} className={row}>
+            {phones().map((p) => (
+              <SiteLink key={p.label} href={p.href} className={row}>
                 <Icon name="chat" size={24} className="text-bl-accent" />
                 {p.label}
               </SiteLink>
@@ -150,7 +152,7 @@ export function MobileContactSection({ id }: { id?: string | undefined }) {
   const c = C();
   const rows = [
     { title: settings.email, href: `mailto:${settings.email}`, icon: "mail" },
-    ...c.phones.map((p) => ({ title: p.label, href: waLink(p.whatsapp), icon: "chat" })),
+    ...phones().map((p) => ({ title: p.label, href: p.href, icon: "chat" })),
   ];
   return (
     <MSection id={id} eyebrow={c.eyebrow} title={c.title} text={c.text}>

@@ -16,7 +16,7 @@ import {
 } from "@/components/site/Mobile";
 import { ContactSection, MobileContactSection } from "@/components/site/Contact";
 import { PersonCard } from "@/components/site/Shared";
-import { about as A, people, settings } from "@/content/site";
+import { about as A, people } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -31,10 +31,9 @@ export const Route = createFileRoute("/about")({
 
 function About() {
   const enquiryId = useAnchor("enquiry", "desktop");
-  const linkedin = settings.footer.social.find((s) => /linkedin/i.test(s.label + s.href))?.href;
   const logos = A.universities.logos;
   return (
-    <Page>
+    <Page footer={false}>
       <MobileAbout />
       <div className="hidden md:block">
       <section className="border-b border-bl-line">
@@ -126,23 +125,14 @@ function About() {
             {A.mentors.map((k) => (
               <PersonCard key={k} personKey={k} square />
             ))}
-            <div className="flex aspect-square flex-col justify-center gap-2 rounded-2xl border border-dashed border-white/25 p-5 text-bl-ink">
+            <SiteLink
+              href="/about#enquiry"
+              className="flex aspect-square flex-col justify-center gap-2 rounded-2xl border border-dashed border-white/25 p-5 text-bl-ink no-underline hover:border-bl-accent"
+            >
               <span className="text-lg font-semibold">{A.joinCard.title}</span>
               <span className="text-sm text-bl-ink-3">{A.joinCard.text}</span>
-              <span className="flex flex-wrap gap-x-4 gap-y-1">
-                <SiteLink
-                  href={`mailto:${settings.email}?subject=${encodeURIComponent(A.joinCard.emailSubject)}`}
-                  className="text-sm !text-bl-accent hover:!text-bl-yellow"
-                >
-                  {A.joinCard.emailLabel}
-                </SiteLink>
-                {linkedin && (
-                  <SiteLink href={linkedin} className="text-sm !text-bl-accent hover:!text-bl-yellow">
-                    {A.joinCard.linkedinLabel}
-                  </SiteLink>
-                )}
-              </span>
-            </div>
+              <span className="text-sm text-bl-accent">{A.joinCard.contactLabel}</span>
+            </SiteLink>
           </div>
         </Container>
       </section>

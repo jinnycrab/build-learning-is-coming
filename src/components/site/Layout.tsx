@@ -250,7 +250,7 @@ function Footer() {
   );
 }
 
-export function Page({ children }: { children: ReactNode }) {
+export function Page({ children, footer = true }: { children: ReactNode; footer?: boolean }) {
   return (
     <div className="min-h-screen bg-bl-bg text-bl-ink">
       <a
@@ -262,8 +262,8 @@ export function Page({ children }: { children: ReactNode }) {
       <MobileHeader />
       <Header />
       <main id="main">{children}</main>
-      <Footer />
-      <MobileFooter />
+      {footer && <Footer />}
+      {footer && <MobileFooter />}
     </div>
   );
 }
