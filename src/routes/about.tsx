@@ -14,7 +14,7 @@ import {
   peopleRows,
 } from "@/components/site/Mobile";
 import { PersonCard } from "@/components/site/Shared";
-import { about as A, people } from "@/content/site";
+import { about as A, people, settings } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
   head: () =>
@@ -28,6 +28,7 @@ export const Route = createFileRoute("/about")({
 });
 
 function About() {
+  const linkedin = settings.footer.social.find((s) => /linkedin/i.test(s.label + s.href))?.href;
   const logos = A.universities.logos;
   return (
     <Page>
@@ -122,14 +123,23 @@ function About() {
             {A.mentors.map((k) => (
               <PersonCard key={k} personKey={k} square />
             ))}
-            <SiteLink
-              href={A.joinCard.link.href}
-              className="flex aspect-square flex-col justify-center gap-2 rounded-2xl border border-dashed border-white/25 p-5 text-bl-ink no-underline hover:border-bl-accent"
-            >
+            <div className="flex aspect-square flex-col justify-center gap-2 rounded-2xl border border-dashed border-white/25 p-5 text-bl-ink">
               <span className="text-lg font-semibold">{A.joinCard.title}</span>
               <span className="text-sm text-bl-ink-3">{A.joinCard.text}</span>
-              <span className="text-sm text-bl-accent">{A.joinCard.link.label}</span>
-            </SiteLink>
+              <span className="flex flex-wrap gap-x-4 gap-y-1">
+                <SiteLink
+                  href={`mailto:${settings.email}?subject=${encodeURIComponent(A.joinCard.emailSubject)}`}
+                  className="text-sm !text-bl-accent hover:!text-bl-yellow"
+                >
+                  {A.joinCard.emailLabel}
+                </SiteLink>
+                {linkedin && (
+                  <SiteLink href={linkedin} className="text-sm !text-bl-accent hover:!text-bl-yellow">
+                    {A.joinCard.linkedinLabel}
+                  </SiteLink>
+                )}
+              </span>
+            </div>
           </div>
         </Container>
       </section>

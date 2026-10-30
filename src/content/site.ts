@@ -648,7 +648,8 @@ export const programsPage = {
     title: "Passion Project Studio",
     text: "Over 8 sessions, individually or in pairs, students take an idea they care about from first question to finished prototype — guided by industry mentors at every step. It’s work that shows who they are, not just what they scored.",
     facts: ["8 sessions", "Individual or pair", "Online / Singapore", "Rolling intake"],
-    button: { label: "Enquire about the Studio →", href: "/partners#contact" },
+    /** Opens an email to Build Learning with this subject. */
+    button: { label: "Enquire about the Studio →", emailSubject: "Passion Project Studio enquiry" },
     /** Phone layout: headings of the folded rows. */
     factsLabel: "Program details",
     outcomesLabel: "What students do",
@@ -1073,7 +1074,11 @@ export const about = {
   joinCard: {
     title: "+ Join us",
     text: "Mentor or judge a program",
-    link: { label: "Get in touch →", href: "/partners#contact" },
+    /** Opens an email to Build Learning with this subject. */
+    emailLabel: "Email us",
+    emailSubject: "Mentor, judge or speaker",
+    /** Links to the LinkedIn page in the footer settings. */
+    linkedinLabel: "LinkedIn ↗",
   },
   /** Phone layout: link that unfolds the rest of the mentor list. */
   mobileShowAll: "Show all mentors",
