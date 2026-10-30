@@ -119,12 +119,10 @@ export function ContactSection({ id }: { id?: string | undefined }) {
           </div>
           <div className="flex flex-col gap-1">
             <SiteLink href={`mailto:${settings.email}`} className={row}>
-              <Icon name="mail" size={24} className="text-bl-accent" />
               {settings.email}
             </SiteLink>
             {phones().map((p) => (
               <SiteLink key={p.label} href={p.href} className={row}>
-                <Icon name="chat" size={24} className="text-bl-accent" />
                 {p.label}
               </SiteLink>
             ))}
@@ -151,8 +149,8 @@ export function ContactSection({ id }: { id?: string | undefined }) {
 export function MobileContactSection({ id }: { id?: string | undefined }) {
   const c = C();
   const rows = [
-    { title: settings.email, href: `mailto:${settings.email}`, icon: "mail" },
-    ...phones().map((p) => ({ title: p.label, href: p.href, icon: "chat" })),
+    { title: settings.email, href: `mailto:${settings.email}` },
+    ...phones().map((p) => ({ title: p.label, href: p.href })),
   ];
   return (
     // White band to the end of the page (it cancels the page's bottom padding).
@@ -162,11 +160,8 @@ export function MobileContactSection({ id }: { id?: string | undefined }) {
         <div className="m-card overflow-hidden rounded-2xl">
           {rows.map((r, i) => (
             <div key={r.title} className="relative">
-              {i > 0 && <span aria-hidden="true" className="m-sep absolute left-[60px] right-0 top-0" />}
+              {i > 0 && <span aria-hidden="true" className="m-sep absolute left-4 right-0 top-0" />}
               <SiteLink href={r.href} className="flex min-h-[56px] items-center gap-3 px-4 py-3 text-bl-ink no-underline">
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-bl-accent/15 text-bl-accent">
-                  <Icon name={r.icon} size={18} />
-                </span>
                 <span className={`${mt.card} min-w-0 flex-1 break-words`}>{r.title}</span>
               </SiteLink>
             </div>

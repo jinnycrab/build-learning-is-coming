@@ -16,7 +16,6 @@ import {
   MSection,
   MStats,
   mt,
-  peopleRows,
 } from "@/components/site/Mobile";
 
 export const Route = createFileRoute("/")({
@@ -181,10 +180,6 @@ function MobileHome() {
         </MCarousel>
       </MSection>
 
-      <MSection eyebrow={home.teamHead.eyebrow} title={home.teamHead.title}>
-        <MList rows={peopleRows(home.team.slice(0, Math.max(1, M.mentorsLimit)))} divided={false} />
-        {M.mentorsMore.trim() && <p className={`${mt.body} px-5`}>{M.mentorsMore}</p>}
-      </MSection>
     </MPage>
   );
 }
