@@ -284,3 +284,19 @@ html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; }
 .m-film { animation: blMarq 80s linear infinite; }
 .m-film.rev { animation-direction: reverse; }
 @media (prefers-reduced-motion: reduce) { .m-sheet, .m-marquee, .m-film { animation: none; } .m-bar { transition: none; } }
+
+/* A light band (white background) inside the dark site, e.g. the About contact section.
+ * Brand colour tokens are redefined for everything inside it. */
+.bl-light {
+  --bl-bg: #ffffff;
+  --bl-surface: #f4f4f6;
+  --bl-ink: #0b0c10;
+  --bl-ink-2: #3f444c;
+  --bl-ink-3: #6b7079;
+  --bl-line: rgba(11, 12, 16, 0.12);
+  background: var(--bl-bg);
+  color: var(--bl-ink);
+}
+.bl-light .m-card { background: #f2f2f4; }
+.bl-light .m-sep { background: rgba(11, 12, 16, 0.12); }
+.bl .bl-light a:hover { color: var(--bl-accent); }

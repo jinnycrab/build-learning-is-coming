@@ -62,10 +62,10 @@ function ContactForm({ idPrefix, phone = false }: { idPrefix: string; phone?: bo
     : "text-[length:calc(14px*var(--bl-scale))] font-medium text-bl-ink-2";
   const field = phone
     ? `m-card w-full rounded-xl border-0 px-4 py-3 ${mt.body} !text-bl-ink outline-none focus:ring-2 focus:ring-bl-accent`
-    : "w-full rounded-xl border border-white/15 bg-bl-surface px-4 py-3 text-[length:calc(16px*var(--bl-scale))] text-bl-ink outline-none focus:border-bl-accent";
+    : "w-full rounded-xl border border-bl-line bg-bl-surface px-4 py-3 text-[length:calc(16px*var(--bl-scale))] text-bl-ink outline-none focus:border-bl-accent";
   if (state === "sent")
     return (
-      <p role="status" className={phone ? `${mt.body} m-card rounded-2xl p-4 !text-bl-ink` : "m-0 rounded-2xl border border-white/15 p-6 text-lg leading-relaxed"}>
+      <p role="status" className={phone ? `${mt.body} m-card rounded-2xl p-4 !text-bl-ink` : "m-0 rounded-2xl border border-bl-line p-6 text-lg leading-relaxed"}>
         {F.sentText}
       </p>
     );
@@ -94,8 +94,8 @@ function ContactForm({ idPrefix, phone = false }: { idPrefix: string; phone?: bo
         disabled={state === "sending"}
         className={
           phone
-            ? "flex h-[50px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold text-bl-bg disabled:opacity-60"
-            : "inline-flex min-h-11 cursor-pointer items-center justify-center self-start rounded-full border-0 bg-bl-accent px-7 py-3 text-[length:calc(15px*var(--bl-scale))] font-semibold text-bl-bg transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+            ? "flex h-[50px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold text-[#07080b] disabled:opacity-60"
+            : "inline-flex min-h-11 cursor-pointer items-center justify-center self-start rounded-full border-0 bg-bl-accent px-7 py-3 text-[length:calc(15px*var(--bl-scale))] font-semibold text-[#07080b] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
         }
       >
         {state === "sending" ? F.sendingLabel : F.submitLabel}
@@ -109,7 +109,7 @@ export function ContactSection({ id }: { id?: string | undefined }) {
   const c = C();
   const row = "inline-flex min-h-11 items-center gap-4 text-[length:calc(18px*var(--bl-scale))] text-bl-ink no-underline hover:!text-bl-yellow";
   return (
-    <section id={id} className="scroll-mt-24 border-b border-bl-line">
+    <section id={id} className="bl-light scroll-mt-24">
       <Container className="grid gap-12 py-16 md:py-24 lg:grid-cols-2 lg:gap-20 lg:py-28">
         <div className="flex flex-col gap-6">
           <div className="flex flex-col gap-4">
@@ -155,6 +155,8 @@ export function MobileContactSection({ id }: { id?: string | undefined }) {
     ...phones().map((p) => ({ title: p.label, href: p.href, icon: "chat" })),
   ];
   return (
+    // White band to the end of the page (it cancels the page's bottom padding).
+    <div className="bl-light -mb-12 pb-[max(48px,env(safe-area-inset-bottom))] pt-12">
     <MSection id={id} eyebrow={c.eyebrow} title={c.title} text={c.text}>
       <div className="px-5">
         <div className="m-card overflow-hidden rounded-2xl">
@@ -183,5 +185,6 @@ export function MobileContactSection({ id }: { id?: string | undefined }) {
         <ContactForm idPrefix="contact-m" phone />
       </div>
     </MSection>
+    </div>
   );
 }
