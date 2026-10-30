@@ -94,8 +94,8 @@ function ContactForm({ idPrefix, phone = false }: { idPrefix: string; phone?: bo
         disabled={state === "sending"}
         className={
           phone
-            ? "flex h-[50px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold text-[#07080b] disabled:opacity-60"
-            : "inline-flex min-h-11 cursor-pointer items-center justify-center self-start rounded-full border-0 bg-bl-accent px-7 py-3 text-[length:calc(15px*var(--bl-scale))] font-semibold text-[#07080b] transition-transform hover:-translate-y-0.5 disabled:opacity-60"
+            ? "flex h-[50px] w-full cursor-pointer items-center justify-center rounded-full border-0 bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold text-white disabled:opacity-60"
+            : "inline-flex min-h-11 cursor-pointer items-center justify-center self-start rounded-full border-0 bg-bl-accent px-7 py-3 text-[length:calc(15px*var(--bl-scale))] font-semibold text-white transition-transform hover:-translate-y-0.5 disabled:opacity-60"
         }
       >
         {state === "sending" ? F.sendingLabel : F.submitLabel}
