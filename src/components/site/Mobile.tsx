@@ -576,7 +576,6 @@ export function MobileHeader() {
   }, [open]);
   const close = () => setOpen(false);
   const items = nav.filter((n) => n.href !== "/");
-  const btn = settings.mobile.menuButton;
   return (
     <>
       <header className={`m-bar sticky top-0 z-40 md:hidden ${hidden && !open ? "m-bar-away" : ""}`}>
@@ -630,15 +629,6 @@ export function MobileHeader() {
               );
             })}
           </nav>
-          <div className="shrink-0 px-5 pb-[max(20px,env(safe-area-inset-bottom))] pt-4">
-            <SiteLink
-              href={btn.href}
-              onClick={close}
-              className="flex h-[50px] w-full items-center justify-center rounded-full bg-bl-accent text-[length:calc(16px*var(--bl-scale))] font-semibold !text-bl-bg"
-            >
-              {plain(btn.label)}
-            </SiteLink>
-          </div>
         </div>
       )}
     </>
