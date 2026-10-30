@@ -651,7 +651,7 @@ export function MobileFooter() {
   const link = `inline-flex min-h-11 items-center ${mt.body} no-underline`;
   return (
     <footer id={contactId} className="flex scroll-mt-20 flex-col gap-4 px-5 pb-[max(32px,env(safe-area-inset-bottom))] pt-12 md:hidden">
-      <img src={settings.logo} alt="Build Learning" className="h-6 w-fit brightness-0 invert" />
+      <img src={settings.logo} alt="Build Learning" className="h-6 w-auto self-start object-contain brightness-0 invert" />
       <div className="flex flex-col">
         <SiteLink href={`mailto:${settings.email}`} className={link}>
           {settings.email}

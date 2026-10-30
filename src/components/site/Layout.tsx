@@ -215,7 +215,7 @@ function Footer() {
     <footer className="hidden border-t border-bl-line md:block">
       <Container className="grid gap-8 py-12 text-sm text-bl-ink-2 sm:grid-cols-2 lg:grid-cols-4">
         <div className="flex flex-col gap-3">
-          <img src={settings.logo} alt="Build Learning" className="h-7 w-fit brightness-0 invert" />
+          <img src={settings.logo} alt="Build Learning" className="h-7 w-auto self-start object-contain brightness-0 invert" />
           <span>{f.tagline}</span>
         </div>
         <div className="flex flex-col gap-2.5">
