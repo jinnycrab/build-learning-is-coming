@@ -13,7 +13,7 @@ import {
   mt,
   peopleRows,
 } from "@/components/site/Mobile";
-import { PersonCard } from "@/components/site/Shared";
+import { EmailPopup, PersonCard } from "@/components/site/Shared";
 import { about as A, people, settings } from "@/content/site";
 
 export const Route = createFileRoute("/about")({
@@ -127,12 +127,7 @@ function About() {
               <span className="text-lg font-semibold">{A.joinCard.title}</span>
               <span className="text-sm text-bl-ink-3">{A.joinCard.text}</span>
               <span className="flex flex-wrap gap-x-4 gap-y-1">
-                <SiteLink
-                  href={`mailto:${settings.email}?subject=${encodeURIComponent(A.joinCard.emailSubject)}`}
-                  className="text-sm !text-bl-accent hover:!text-bl-yellow"
-                >
-                  {A.joinCard.emailLabel}
-                </SiteLink>
+                <EmailPopup label={A.joinCard.emailLabel} subject={A.joinCard.emailSubject} look="link" />
                 {linkedin && (
                   <SiteLink href={linkedin} className="text-sm !text-bl-accent hover:!text-bl-yellow">
                     {A.joinCard.linkedinLabel}

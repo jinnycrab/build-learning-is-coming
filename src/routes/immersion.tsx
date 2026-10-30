@@ -3,7 +3,6 @@ import { event, jsonLd, pageHead } from "@/lib/seo";
 import { Button, Container, Eyebrow, Page, SectionHead, SiteLink } from "@/components/site/Layout";
 import {
   MAccordion,
-  MButton,
   MCard,
   MCarousel,
   MChecks,
@@ -82,16 +81,13 @@ function Immersion() {
 
       {/* Key facts */}
       <section className="border-b border-bl-line bg-bl-surface">
-        <Container className="grid grid-cols-2 items-center lg:grid-cols-5">
+        <Container className="grid grid-cols-2 items-center lg:grid-cols-4">
           {I.meta.map(([k, v]) => (
             <div key={k} className="flex flex-col gap-1.5 py-6 pr-5">
               <span className="eyebrow text-[length:calc(10px*var(--bl-scale))] text-[#8C929C]">{k}</span>
               <span className="text-[length:calc(17px*var(--bl-scale))] font-medium">{v}</span>
             </div>
           ))}
-          <div className="col-span-2 py-5 lg:col-span-1 lg:justify-self-end">
-            <Button href="#register">{I.reserveLabel}</Button>
-          </div>
         </Container>
       </section>
 
@@ -242,7 +238,6 @@ function MobileImmersion() {
 
       <section className="flex flex-col gap-6">
         <MFacts rows={I.meta.map(([k, v]) => [k ?? "", v ?? ""] as [string, string])} />
-        <MButton href="#register">{I.reserveLabel}</MButton>
       </section>
 
       <MSection eyebrow={I.outcomesHead.eyebrow} title={I.outcomesHead.title}>

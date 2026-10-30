@@ -808,7 +808,6 @@ export const immersion = {
     ["Group", "Capped at 20 students"],
     ["Where", "Singapore"],
   ],
-  reserveLabel: "Reserve a place →",
   /** For Google and AI event listings: dates as YYYY-MM-DD. */
   schema: { startDate: "2027-01-09", endDate: "2027-01-16" },
   outcomesHead: {
