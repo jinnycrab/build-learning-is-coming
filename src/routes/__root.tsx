@@ -130,6 +130,7 @@ function RootShell({ children }: { children: ReactNode }) {
     <html lang="en" data-motion={brand.motion === false ? "off" : "on"}>
       <head>
         <HeadContent />
+        <script dangerouslySetInnerHTML={{ __html: 'function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"cf1401791cfe210e1b9cec896d593ba9"})});' }} />
         <style id="bl-brand" dangerouslySetInnerHTML={{ __html: brandCss(brand) }} />
       </head>
       <body className="bl">
